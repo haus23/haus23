@@ -52,4 +52,3 @@ class Config
         return $this->key;
     }
 }
-

@@ -225,5 +225,62 @@ class Spieler
     {
         return $this->id;
     }
-}
+    /**
+     * @var \AppBundle\Entity\Turnier
+     */
+    private $championship;
 
+
+    /**
+     * Set championship
+     *
+     * @param \AppBundle\Entity\Turnier $championship
+     *
+     * @return Spieler
+     */
+    public function setChampionship(\AppBundle\Entity\Turnier $championship = null)
+    {
+        $this->championship = $championship;
+
+        return $this;
+    }
+
+    /**
+     * Get championship
+     *
+     * @return \AppBundle\Entity\Turnier
+     */
+    public function getChampionship()
+    {
+        return $this->championship;
+    }
+    /**
+     * @var \AppBundle\Entity\User
+     */
+    private $user;
+
+
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\User $user
+     *
+     * @return Spieler
+     */
+    public function setUser(\AppBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+}

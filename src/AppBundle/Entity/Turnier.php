@@ -109,5 +109,50 @@ class Turnier
     {
         return $this->id;
     }
-}
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $players;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->players = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add player
+     *
+     * @param \AppBundle\Entity\Spieler $player
+     *
+     * @return Turnier
+     */
+    public function addPlayer(\AppBundle\Entity\Spieler $player)
+    {
+        $this->players[] = $player;
+
+        return $this;
+    }
+
+    /**
+     * Remove player
+     *
+     * @param \AppBundle\Entity\Spieler $player
+     */
+    public function removePlayer(\AppBundle\Entity\Spieler $player)
+    {
+        $this->players->removeElement($player);
+    }
+
+    /**
+     * Get players
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPlayers()
+    {
+        return $this->players;
+    }
+}
