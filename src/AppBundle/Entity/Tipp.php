@@ -313,4 +313,3 @@ class Tipp
         return $this->id;
     }
 }
-

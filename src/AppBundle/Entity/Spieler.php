@@ -225,5 +225,33 @@ class Spieler
     {
         return $this->id;
     }
-}
+    /**
+     * @var \AppBundle\Entity\Turnier
+     */
+    private $championship;
 
+
+    /**
+     * Set championship
+     *
+     * @param \AppBundle\Entity\Turnier $championship
+     *
+     * @return Spieler
+     */
+    public function setChampionship(\AppBundle\Entity\Turnier $championship = null)
+    {
+        $this->championship = $championship;
+
+        return $this;
+    }
+
+    /**
+     * Get championship
+     *
+     * @return \AppBundle\Entity\Turnier
+     */
+    public function getChampionship()
+    {
+        return $this->championship;
+    }
+}

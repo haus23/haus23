@@ -284,4 +284,3 @@ class Spiel
         return $this->id;
     }
 }
-

@@ -35,5 +35,8 @@
         <option name="unsigned"/>
       </options>
     </field>
+    <many-to-one target-entity="AppBundle\Entity\Turnier" field="championship" inversed-by="players">
+      <join-column name="turnier_id" referenced-column-name="id" />
+    </many-to-one>
   </entity>
 </doctrine-mapping>

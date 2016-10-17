@@ -19,5 +19,6 @@
         <option name="unsigned"/>
       </options>
     </field>
+    <one-to-many target-entity="AppBundle\Entity\Spieler" mapped-by="championship" field="players" />
   </entity>
 </doctrine-mapping>
