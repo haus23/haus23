@@ -1,0 +1,15 @@
+{
+  "name": "haus23",
+  "version": "1.0.0",
+  "description": "Website https://haus23.net",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/haus23/haus23.git"
+  },
+  "author": "Michael Alt <micha@haus23.net>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/haus23/haus23/issues"
+  },
+  "homepage": "https://github.com/haus23/haus23#readme"
+}

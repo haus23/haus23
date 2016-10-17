@@ -1,6 +1,6 @@
 {
-    "name": "micha/haus23",
-    "license": "proprietary",
+    "name": "haus23/haus23",
+    "license": "MIT",
     "type": "project",
     "autoload": {
         "psr-4": {
@@ -58,6 +58,11 @@
         "symfony-assets-install": "relative",
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
+        }
+    },
+    "config": {
+        "platform": {
+            "php": "7.0"
         }
     }
 }
