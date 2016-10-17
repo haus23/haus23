@@ -1,3 +1,7 @@
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+
+dtp_standings:
+    resource: "@AppBundle/Controller/Dtp/Standings/"
+    type:     annotation
