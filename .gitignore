@@ -2,6 +2,9 @@
 /vendor/
 /composer.lock
 
+# IDE settings
+/.idea/
+
 /app/config/parameters.yml
 /build/
 /phpunit.xml
