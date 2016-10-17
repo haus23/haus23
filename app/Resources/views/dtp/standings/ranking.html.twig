@@ -2,6 +2,24 @@
 
 {% block body %}
     <div id="content">
-        <h2>Aktuelle Tabelle</h2>
+        <h2>Aktuelle Tabelle {{ championship.title }}</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Platz</th>
+                <th>Name</th>
+                <th>Punkte</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for p in players %}
+                <tr>
+                    <td>{{ p.platz }}</td>
+                    <td>{{ p.user.name }}</td>
+                    <td>{{ p.gesamt }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
 {% endblock %}
