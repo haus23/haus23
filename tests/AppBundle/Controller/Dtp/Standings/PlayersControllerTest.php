@@ -15,4 +15,15 @@ class PlayersControllerTest extends WebTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertContains('Resultate', $crawler->filter('#content h2')->text());
     }
+
+    public function testPlayerSelection()
+    {
+        $client = static::createClient();
+
+        $crawler = $client->request('GET', '/tipprunde/hr0203/spieler/huebi');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertContains('Resultate', $crawler->filter('#content h2')->text());
+        $this->assertContains('Hübi', $crawler->filter('#content h2')->text());
+    }
 }
