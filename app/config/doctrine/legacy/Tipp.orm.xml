@@ -59,5 +59,8 @@
         <option name="fixed"/>
       </options>
     </field>
+    <many-to-one target-entity="AppBundle\Entity\Legacy\Spieler" field="player" inversed-by="tips">
+      <join-column name="spieler_id" referenced-column-name="id" />
+    </many-to-one>
   </entity>
 </doctrine-mapping>

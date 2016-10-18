@@ -284,4 +284,50 @@ class Spieler
     {
         return $this->user;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $tips;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tips = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add tip
+     *
+     * @param \AppBundle\Entity\Legacy\Tipp $tip
+     *
+     * @return Spieler
+     */
+    public function addTip(\AppBundle\Entity\Legacy\Tipp $tip)
+    {
+        $this->tips[] = $tip;
+
+        return $this;
+    }
+
+    /**
+     * Remove tip
+     *
+     * @param \AppBundle\Entity\Legacy\Tipp $tip
+     */
+    public function removeTip(\AppBundle\Entity\Legacy\Tipp $tip)
+    {
+        $this->tips->removeElement($tip);
+    }
+
+    /**
+     * Get tips
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTips()
+    {
+        return $this->tips;
+    }
 }

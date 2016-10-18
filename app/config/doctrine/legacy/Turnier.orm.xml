@@ -20,5 +20,6 @@
       </options>
     </field>
     <one-to-many target-entity="AppBundle\Entity\Legacy\Spieler" mapped-by="championship" field="players" />
+    <one-to-many target-entity="AppBundle\Entity\Legacy\Runde" mapped-by="championship" field="rounds" />
   </entity>
 </doctrine-mapping>

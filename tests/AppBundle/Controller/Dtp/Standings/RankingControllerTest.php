@@ -27,5 +27,4 @@ class RankingControllerTest extends WebTestCase
         $this->assertContains('Hinrunde 2002/03', $crawler->filter('#content h2')->text());
 
     }
-
 }

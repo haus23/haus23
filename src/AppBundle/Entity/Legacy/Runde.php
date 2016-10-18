@@ -138,4 +138,79 @@ class Runde
     {
         return $this->id;
     }
+    /**
+     * @var \AppBundle\Entity\Legacy\Turnier
+     */
+    private $championship;
+
+
+    /**
+     * Set championship
+     *
+     * @param \AppBundle\Entity\Legacy\Turnier $championship
+     *
+     * @return Runde
+     */
+    public function setChampionship(\AppBundle\Entity\Legacy\Turnier $championship = null)
+    {
+        $this->championship = $championship;
+
+        return $this;
+    }
+
+    /**
+     * Get championship
+     *
+     * @return \AppBundle\Entity\Legacy\Turnier
+     */
+    public function getChampionship()
+    {
+        return $this->championship;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $matches;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->matches = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add match
+     *
+     * @param \AppBundle\Entity\Legacy\Spiel $match
+     *
+     * @return Runde
+     */
+    public function addMatch(\AppBundle\Entity\Legacy\Spiel $match)
+    {
+        $this->matches[] = $match;
+
+        return $this;
+    }
+
+    /**
+     * Remove match
+     *
+     * @param \AppBundle\Entity\Legacy\Spiel $match
+     */
+    public function removeMatch(\AppBundle\Entity\Legacy\Spiel $match)
+    {
+        $this->matches->removeElement($match);
+    }
+
+    /**
+     * Get matches
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMatches()
+    {
+        return $this->matches;
+    }
 }
