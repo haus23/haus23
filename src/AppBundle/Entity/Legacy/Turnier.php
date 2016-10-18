@@ -155,4 +155,19 @@ class Turnier
     {
         return $this->players;
     }
+
+    /**
+     * Get title slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        $nameParts = ['/^H.+ /' => 'hr', '/^R.+ /' => 'rr', '/^E. /' => 'em', '/^W. /' => 'wm'];
+        $patterns = array_keys($nameParts);
+        $replacements = array_values($nameParts);
+        $slug = preg_replace($patterns, $replacements, $this->title);
+
+        return preg_replace('/^(\w\w).*(\d\d)\/(\d\d)?$/', '$1$2$3', $slug);
+    }
 }
