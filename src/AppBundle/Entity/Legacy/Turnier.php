@@ -170,4 +170,43 @@ class Turnier
 
         return preg_replace('/^(\w\w).*(\d\d)\/(\d\d)?$/', '$1$2$3', $slug);
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $rounds;
+
+
+    /**
+     * Add round
+     *
+     * @param \AppBundle\Entity\Legacy\Runde $round
+     *
+     * @return Turnier
+     */
+    public function addRound(\AppBundle\Entity\Legacy\Runde $round)
+    {
+        $this->rounds[] = $round;
+
+        return $this;
+    }
+
+    /**
+     * Remove round
+     *
+     * @param \AppBundle\Entity\Legacy\Runde $round
+     */
+    public function removeRound(\AppBundle\Entity\Legacy\Runde $round)
+    {
+        $this->rounds->removeElement($round);
+    }
+
+    /**
+     * Get rounds
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRounds()
+    {
+        return $this->rounds;
+    }
 }

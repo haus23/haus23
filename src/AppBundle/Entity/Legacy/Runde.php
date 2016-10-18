@@ -138,4 +138,33 @@ class Runde
     {
         return $this->id;
     }
+    /**
+     * @var \AppBundle\Entity\Legacy\Turnier
+     */
+    private $championship;
+
+
+    /**
+     * Set championship
+     *
+     * @param \AppBundle\Entity\Legacy\Turnier $championship
+     *
+     * @return Runde
+     */
+    public function setChampionship(\AppBundle\Entity\Legacy\Turnier $championship = null)
+    {
+        $this->championship = $championship;
+
+        return $this;
+    }
+
+    /**
+     * Get championship
+     *
+     * @return \AppBundle\Entity\Legacy\Turnier
+     */
+    public function getChampionship()
+    {
+        return $this->championship;
+    }
 }
