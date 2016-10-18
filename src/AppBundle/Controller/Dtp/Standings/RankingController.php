@@ -15,8 +15,8 @@ class RankingController extends Controller
      */
     public function indexAction()
     {
-        $configRepository = $this->getDoctrine()->getRepository('AppBundle:Config');
-        $championshipRepository = $this->getDoctrine()->getRepository('AppBundle:Turnier');
+        $configRepository = $this->getDoctrine()->getRepository('Legacy:Config');
+        $championshipRepository = $this->getDoctrine()->getRepository('Legacy:Turnier');
 
         /** @var Config $configEntry */
         $configEntry = $configRepository->findOneBy(['key' => 'turnier']);
@@ -28,7 +28,7 @@ class RankingController extends Controller
         /** @var QueryBuilder $qb */
         $qb = $this->getDoctrine()->getManager()->createQueryBuilder();
         $qb->select('p')
-            ->from('AppBundle:Spieler', 'p')
+            ->from('Legacy:Spieler', 'p')
             ->where('p.turnierId = ?1')
             ->orderBy('p.platz', 'ASC')
             ->setParameter(1, $championshipId);
