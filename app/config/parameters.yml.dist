@@ -4,11 +4,12 @@
 parameters:
     database_host:     127.0.0.1
     database_port:     ~
-    database_name:     symfony
     database_user:     root
     database_password: ~
-    # You should uncomment this if you want use pdo_sqlite
-    # database_path: "%kernel.root_dir%/data.db3"
+
+    foh_db_name:       h23_foh
+    dtp_db_name:       h23_dtp
+    legacy_db_name:    h23_tipprunde
 
     mailer_transport:  smtp
     mailer_host:       127.0.0.1

@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace AppBundle\Entity\Legacy;
 
 /**
  * Turnier
@@ -125,11 +125,11 @@ class Turnier
     /**
      * Add player
      *
-     * @param \AppBundle\Entity\Spieler $player
+     * @param \AppBundle\Entity\Legacy\Spieler $player
      *
      * @return Turnier
      */
-    public function addPlayer(\AppBundle\Entity\Spieler $player)
+    public function addPlayer(\AppBundle\Entity\Legacy\Spieler $player)
     {
         $this->players[] = $player;
 
@@ -139,9 +139,9 @@ class Turnier
     /**
      * Remove player
      *
-     * @param \AppBundle\Entity\Spieler $player
+     * @param \AppBundle\Entity\Legacy\Spieler $player
      */
-    public function removePlayer(\AppBundle\Entity\Spieler $player)
+    public function removePlayer(\AppBundle\Entity\Legacy\Spieler $player)
     {
         $this->players->removeElement($player);
     }

@@ -1,23 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-  <entity name="AppBundle\Entity\Runde" table="runde">
-    <indexes>
-      <index name="runde_FI_1" columns="turnier_id"/>
-    </indexes>
+  <entity name="AppBundle\Entity\Legacy\Turnier" table="turnier">
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="turnierId" type="integer" column="turnier_id" nullable="true">
+    <field name="title" type="string" column="title" length="255" nullable="true">
       <options>
-        <option name="unsigned"/>
+        <option name="fixed"/>
       </options>
     </field>
-    <field name="nr" type="integer" column="nr" nullable="true">
-      <options>
-        <option name="unsigned"/>
-      </options>
-    </field>
-    <field name="anzahlSpiele" type="integer" column="anzahl_spiele" nullable="true">
+    <field name="order" type="integer" column="order" nullable="true">
       <options>
         <option name="unsigned"/>
       </options>
@@ -27,5 +19,6 @@
         <option name="unsigned"/>
       </options>
     </field>
+    <one-to-many target-entity="AppBundle\Entity\Legacy\Spieler" mapped-by="championship" field="players" />
   </entity>
 </doctrine-mapping>
