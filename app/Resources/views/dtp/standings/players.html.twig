@@ -30,8 +30,9 @@
                     <tr>
                         <td>{{ m.datum | date("d.m.Y")}}</td>
                         <td>{{ m.paarung }}</td>
-                        <td></td>
+                        <td>{{ tips[m.id] ? tips[m.id].tipp }}</td>
                         <td>{{ m.ergebnis }}</td>
+                        <td>{{ tips[m.id] ? tips[m.id].punkte }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

@@ -3,6 +3,8 @@
 namespace AppBundle\Controller\Dtp\Standings;
 
 use AppBundle\Entity\Legacy\Config;
+use AppBundle\Entity\Legacy\Spieler;
+use AppBundle\Entity\Legacy\Tipp;
 use AppBundle\Entity\Legacy\Turnier;
 use Doctrine\ORM\QueryBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -49,7 +51,14 @@ class PlayersController extends Controller
             ->setParameter(1, $championship->getId());
         $players = $playersQueryBuilder->getQuery()->execute();
 
+        /** @var Spieler $player */
         $player = current($players);
+
+        $tips = [];
+        /** @var Tipp $t */
+        foreach ($player->getTips() as $t) {
+            $tips[$t->getSpielId()] = $t;
+        }
 
         /** @var QueryBuilder $roundsQueryBuilder */
         $roundsQueryBuilder = $this->getDoctrine()->getManager()->createQueryBuilder();
@@ -65,7 +74,8 @@ class PlayersController extends Controller
             'championship' => $championship,
             'players' => $players,
             'player' => $player,
-            'rounds' => $rounds
+            'rounds' => $rounds,
+            'tips' => $tips
         ]);
     }
 }
