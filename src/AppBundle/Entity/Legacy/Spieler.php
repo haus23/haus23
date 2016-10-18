@@ -1,6 +1,7 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace AppBundle\Entity\Legacy;
+use AppBundle\Entity\Legacy;
 
 /**
  * Spieler
@@ -226,7 +227,7 @@ class Spieler
         return $this->id;
     }
     /**
-     * @var \AppBundle\Entity\Turnier
+     * @var \AppBundle\Entity\Legacy\Turnier
      */
     private $championship;
 
@@ -234,11 +235,11 @@ class Spieler
     /**
      * Set championship
      *
-     * @param \AppBundle\Entity\Turnier $championship
+     * @param \AppBundle\Entity\Legacy\Turnier $championship
      *
      * @return Spieler
      */
-    public function setChampionship(\AppBundle\Entity\Turnier $championship = null)
+    public function setChampionship(Legacy\Turnier $championship = null)
     {
         $this->championship = $championship;
 
@@ -248,14 +249,14 @@ class Spieler
     /**
      * Get championship
      *
-     * @return \AppBundle\Entity\Turnier
+     * @return \AppBundle\Entity\Legacy\Turnier
      */
     public function getChampionship()
     {
         return $this->championship;
     }
     /**
-     * @var \AppBundle\Entity\User
+     * @var \AppBundle\Entity\Legacy\User
      */
     private $user;
 
@@ -263,11 +264,11 @@ class Spieler
     /**
      * Set user
      *
-     * @param \AppBundle\Entity\User $user
+     * @param \AppBundle\Entity\Legacy\User $user
      *
      * @return Spieler
      */
-    public function setUser(\AppBundle\Entity\User $user = null)
+    public function setUser(Legacy\User $user = null)
     {
         $this->user = $user;
 
@@ -277,7 +278,7 @@ class Spieler
     /**
      * Get user
      *
-     * @return \AppBundle\Entity\User
+     * @return \AppBundle\Entity\Legacy\User
      */
     public function getUser()
     {

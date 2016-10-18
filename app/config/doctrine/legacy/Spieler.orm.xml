@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-  <entity name="AppBundle\Entity\Spieler" table="spieler">
+  <entity name="AppBundle\Entity\Legacy\Spieler" table="spieler">
     <indexes>
       <index name="spieler_FI_1" columns="turnier_id"/>
       <index name="spieler_FI_2" columns="user_id"/>
@@ -35,10 +35,10 @@
         <option name="unsigned"/>
       </options>
     </field>
-    <many-to-one target-entity="AppBundle\Entity\Turnier" field="championship" inversed-by="players">
+    <many-to-one target-entity="AppBundle\Entity\Legacy\Turnier" field="championship" inversed-by="players">
       <join-column name="turnier_id" referenced-column-name="id" />
     </many-to-one>
-    <many-to-one target-entity="AppBundle\Entity\User" field="user" inversed-by="players" fetch="EAGER">
+    <many-to-one target-entity="AppBundle\Entity\Legacy\User" field="user" inversed-by="players" fetch="EAGER">
       <join-column name="user_id" referenced-column-name="id" />
     </many-to-one>
   </entity>

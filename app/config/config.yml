@@ -65,7 +65,7 @@ doctrine:
                     Legacy:
                         type: xml
                         dir:  "%kernel.root_dir%/config/doctrine/legacy"
-                        prefix: AppBundle\Entity
+                        prefix: AppBundle\Entity\Legacy
 
 # Swiftmailer Configuration
 swiftmailer:

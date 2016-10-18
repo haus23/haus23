@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-  <entity name="AppBundle\Entity\Turnier" table="turnier">
+  <entity name="AppBundle\Entity\Legacy\Turnier" table="turnier">
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
@@ -19,6 +19,6 @@
         <option name="unsigned"/>
       </options>
     </field>
-    <one-to-many target-entity="AppBundle\Entity\Spieler" mapped-by="championship" field="players" />
+    <one-to-many target-entity="AppBundle\Entity\Legacy\Spieler" mapped-by="championship" field="players" />
   </entity>
 </doctrine-mapping>

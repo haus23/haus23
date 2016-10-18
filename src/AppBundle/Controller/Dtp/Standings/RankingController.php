@@ -2,8 +2,8 @@
 
 namespace AppBundle\Controller\Dtp\Standings;
 
-use AppBundle\Entity\Config;
-use AppBundle\Entity\Turnier;
+use AppBundle\Entity\Legacy\Config;
+use AppBundle\Entity\Legacy\Turnier;
 use Doctrine\ORM\QueryBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
