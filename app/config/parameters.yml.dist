@@ -7,6 +7,8 @@ parameters:
     database_user:     root
     database_password: ~
 
+    foh_db_name:       h23_foh
+    dtp_db_name:       h23_dtp
     legacy_db_name:    h23_tipprunde
 
     mailer_transport:  smtp
