@@ -10,7 +10,15 @@
             </li>
         {% endfor %}
     </ul>
-
+    <ul>
+        {% for p in players %}
+            <li>
+                <a href="{{ path('players', {'championshipSlug': championship.slug,'userSlug': p.user.slug}) }}">
+                    {{ p.user.name }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
     <div id="content">
         <h2>Resultate für {{ player.user.name }}</h2>
         {% for r in rounds %}

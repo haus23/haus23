@@ -13,9 +13,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class PlayersController extends Controller
 {
     /**
-     * @Route("/tipprunde/{championshipSlug}/spieler", name="players", requirements={"championshipSlug": "\w{2}\d{4}"})
+     * @Route("/tipprunde/{championshipSlug}/spieler/{userSlug}", name="players",
+     *     requirements={"championshipSlug": "\w{2}\d{4}", "userSlug": "[\w-]+"})
      */
-    public function indexAction($championshipSlug = null)
+    public function indexAction($championshipSlug, $userSlug = null)
     {
         $configRepository = $this->getDoctrine()->getRepository('Legacy:Config');
         $championshipRepository = $this->getDoctrine()->getRepository('Legacy:Turnier');
@@ -52,7 +53,18 @@ class PlayersController extends Controller
         $players = $playersQueryBuilder->getQuery()->execute();
 
         /** @var Spieler $player */
-        $player = current($players);
+        if( $userSlug == null ) {
+            $player = current($players);
+        } else {
+            $player = current(array_filter($players,
+                    function (Spieler $p) use($userSlug) {
+                        return $p->getUser()->getSlug() === $userSlug;
+                    })
+            );
+            if( $player == false ) {
+                throw $this->createNotFoundException('Einen Spieler ' . $userSlug . ' gibt es nicht.');
+            }
+        }
 
         $tips = [];
         /** @var Tipp $t */

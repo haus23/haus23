@@ -20,7 +20,7 @@ class PlayersControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/tipprunde/hr0203/spieler/huebi');
+        $crawler = $client->request('GET', '/tipprunde/hr1617/spieler/huebi');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertContains('Resultate', $crawler->filter('#content h2')->text());
