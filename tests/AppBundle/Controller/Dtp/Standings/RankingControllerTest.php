@@ -10,9 +10,22 @@ class RankingControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/tipprunde/');
+        $crawler = $client->request('GET', '/tipprunde');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertContains('Tabelle', $crawler->filter('#content h2')->text());
     }
+
+    public function testChampionshipSelection()
+    {
+        $client = static::createClient();
+
+        $crawler = $client->request('GET', '/tipprunde/hr0203');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertContains('Tabelle', $crawler->filter('#content h2')->text());
+        $this->assertContains('Hinrunde 2002/03', $crawler->filter('#content h2')->text());
+
+    }
+
 }

@@ -11,19 +11,34 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class RankingController extends Controller
 {
     /**
-     * @Route("/tipprunde/", name="ranking")
+     * @Route("/tipprunde/{championshipSlug}", name="ranking", requirements={"championshipSlug": "\w{2}\d{4}"})
      */
-    public function indexAction()
+    public function indexAction($championshipSlug = null)
     {
         $configRepository = $this->getDoctrine()->getRepository('Legacy:Config');
         $championshipRepository = $this->getDoctrine()->getRepository('Legacy:Turnier');
 
-        /** @var Config $configEntry */
-        $configEntry = $configRepository->findOneBy(['key' => 'turnier']);
-        $championshipId = $configEntry->getValue();
+        $championships = $championshipRepository->findBy([],['order' => 'ASC']);
 
         /** @var Turnier $championship */
-        $championship = $championshipRepository->find($championshipId);
+
+        if( $championshipSlug == null ) {
+            /** @var Config $configEntry */
+            $configEntry = $configRepository->findOneBy(['key' => 'turnier']);
+            $championshipId = $configEntry->getValue();
+            $championship = $championshipRepository->find($championshipId);
+
+        } else {
+            $championship = current(array_filter($championships,
+                function (Turnier $c) use($championshipSlug) {
+                    return $c->getSlug() === $championshipSlug;
+                })
+            );
+            if( $championship == false ) {
+                throw $this->createNotFoundException('Ein solches Turnier ' . $championshipSlug . ' gibt es nicht.');
+            }
+        }
+
 
         /** @var QueryBuilder $qb */
         $qb = $this->getDoctrine()->getManager()->createQueryBuilder();
@@ -31,10 +46,11 @@ class RankingController extends Controller
             ->from('Legacy:Spieler', 'p')
             ->where('p.turnierId = ?1')
             ->orderBy('p.platz', 'ASC')
-            ->setParameter(1, $championshipId);
+            ->setParameter(1, $championship->getId());
         $players = $qb->getQuery()->execute();
 
         return $this->render('dtp/standings/ranking.html.twig', [
+            'championships' => $championships,
             'championship' => $championship,
             'players' => $players
         ]);

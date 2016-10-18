@@ -1,6 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <ul>
+        {% for c in championships %}
+        <li>
+            <a href="{{ path('ranking', {'championshipSlug': c.slug}) }}">
+                {{ c.title }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+
     <div id="content">
         <h2>Aktuelle Tabelle {{ championship.title }}</h2>
         <table>
