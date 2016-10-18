@@ -49,5 +49,8 @@
         <option name="unsigned"/>
       </options>
     </field>
+    <many-to-one target-entity="AppBundle\Entity\Legacy\Runde" field="round" inversed-by="matches">
+      <join-column name="runde_id" referenced-column-name="id" />
+    </many-to-one>
   </entity>
 </doctrine-mapping>

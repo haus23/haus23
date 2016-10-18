@@ -283,4 +283,33 @@ class Spiel
     {
         return $this->id;
     }
+    /**
+     * @var \AppBundle\Entity\Legacy\Runde
+     */
+    private $round;
+
+
+    /**
+     * Set round
+     *
+     * @param \AppBundle\Entity\Legacy\Runde $round
+     *
+     * @return Spiel
+     */
+    public function setRound(\AppBundle\Entity\Legacy\Runde $round = null)
+    {
+        $this->round = $round;
+
+        return $this;
+    }
+
+    /**
+     * Get round
+     *
+     * @return \AppBundle\Entity\Legacy\Runde
+     */
+    public function getRound()
+    {
+        return $this->round;
+    }
 }

@@ -167,4 +167,50 @@ class Runde
     {
         return $this->championship;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $matches;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->matches = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add match
+     *
+     * @param \AppBundle\Entity\Legacy\Spiel $match
+     *
+     * @return Runde
+     */
+    public function addMatch(\AppBundle\Entity\Legacy\Spiel $match)
+    {
+        $this->matches[] = $match;
+
+        return $this;
+    }
+
+    /**
+     * Remove match
+     *
+     * @param \AppBundle\Entity\Legacy\Spiel $match
+     */
+    public function removeMatch(\AppBundle\Entity\Legacy\Spiel $match)
+    {
+        $this->matches->removeElement($match);
+    }
+
+    /**
+     * Get matches
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMatches()
+    {
+        return $this->matches;
+    }
 }
