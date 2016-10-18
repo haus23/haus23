@@ -26,6 +26,14 @@
                 </tr>
                 </thead>
                 <tbody>
+                {% for m in r.matches %}
+                    <tr>
+                        <td>{{ m.datum | date("d.m.Y")}}</td>
+                        <td>{{ m.paarung }}</td>
+                        <td></td>
+                        <td>{{ m.ergebnis }}</td>
+                    </tr>
+                {% endfor %}
                 </tbody>
             </table>
         {% endfor %}

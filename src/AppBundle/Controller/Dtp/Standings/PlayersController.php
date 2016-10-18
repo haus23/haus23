@@ -17,7 +17,6 @@ class PlayersController extends Controller
     {
         $configRepository = $this->getDoctrine()->getRepository('Legacy:Config');
         $championshipRepository = $this->getDoctrine()->getRepository('Legacy:Turnier');
-        $roundsRepository = $this->getDoctrine()->getRepository('Legacy:Runde');
 
         $championships = $championshipRepository->findBy([],['order' => 'ASC']);
 
@@ -40,19 +39,26 @@ class PlayersController extends Controller
             }
         }
 
-        /** @var QueryBuilder $qb */
-        $qb = $this->getDoctrine()->getManager()->createQueryBuilder();
-        $qb->select('p')
+        /** @var QueryBuilder $playersQueryBuilder */
+        $playersQueryBuilder = $this->getDoctrine()->getManager()->createQueryBuilder();
+        $playersQueryBuilder->select('p')
             ->from('Legacy:Spieler', 'p')
             ->join('p.user', 'u')
             ->where('p.turnierId = ?1')
             ->orderBy('u.name', 'ASC')
             ->setParameter(1, $championship->getId());
-        $players = $qb->getQuery()->execute();
+        $players = $playersQueryBuilder->getQuery()->execute();
 
         $player = current($players);
 
-        $rounds = $championship->getRounds();
+        /** @var QueryBuilder $roundsQueryBuilder */
+        $roundsQueryBuilder = $this->getDoctrine()->getManager()->createQueryBuilder();
+        $roundsQueryBuilder->select(['r', 'm'])
+            ->from('Legacy:Runde', 'r')
+            ->join('r.matches', 'm')
+            ->where('r.turnierId = ?1')
+            ->setParameter(1, $championship->getId());
+        $rounds = $roundsQueryBuilder->getQuery()->execute();
 
         return $this->render('dtp/standings/players.html.twig', [
             'championships' => $championships,
