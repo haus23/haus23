@@ -312,4 +312,33 @@ class Tipp
     {
         return $this->id;
     }
+    /**
+     * @var \AppBundle\Entity\Legacy\Spieler
+     */
+    private $player;
+
+
+    /**
+     * Set player
+     *
+     * @param \AppBundle\Entity\Legacy\Spieler $player
+     *
+     * @return Tipp
+     */
+    public function setPlayer(\AppBundle\Entity\Legacy\Spieler $player = null)
+    {
+        $this->player = $player;
+
+        return $this;
+    }
+
+    /**
+     * Get player
+     *
+     * @return \AppBundle\Entity\Legacy\Spieler
+     */
+    public function getPlayer()
+    {
+        return $this->player;
+    }
 }
