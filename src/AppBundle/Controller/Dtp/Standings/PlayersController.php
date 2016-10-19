@@ -18,28 +18,18 @@ class PlayersController extends Controller
      */
     public function indexAction($championshipSlug, $userSlug = null)
     {
-        $configRepository = $this->getDoctrine()->getRepository('Legacy:Config');
         $championshipRepository = $this->getDoctrine()->getRepository('Legacy:Turnier');
 
         $championships = $championshipRepository->findBy([],['order' => 'ASC']);
 
         /** @var Turnier $championship */
-
-        if( $championshipSlug == null ) {
-            /** @var Config $configEntry */
-            $configEntry = $configRepository->findOneBy(['key' => 'turnier']);
-            $championshipId = $configEntry->getValue();
-            $championship = $championshipRepository->find($championshipId);
-
-        } else {
-            $championship = current(array_filter($championships,
-                    function (Turnier $c) use($championshipSlug) {
-                        return $c->getSlug() === $championshipSlug;
-                    })
-            );
-            if( $championship == false ) {
-                throw $this->createNotFoundException('Ein solches Turnier ' . $championshipSlug . ' gibt es nicht.');
-            }
+        $championship = current(array_filter($championships,
+                function (Turnier $c) use($championshipSlug) {
+                    return $c->getSlug() === $championshipSlug;
+                })
+        );
+        if( $championship == false ) {
+            throw $this->createNotFoundException('Ein solches Turnier ' . $championshipSlug . ' gibt es nicht.');
         }
 
         /** @var QueryBuilder $playersQueryBuilder */
