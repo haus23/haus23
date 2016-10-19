@@ -6,5 +6,9 @@
     "Michael Alt <micha@haus23.net>"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/haus23/haus23"
+  "homepage": "https://github.com/haus23/haus23",
+  "devDependencies": {
+    "jquery": "^3.1.1",
+    "bootstrap": "^3.3.7"
+  }
 }

@@ -2,6 +2,9 @@
 /vendor/
 /composer.lock
 
+# Bower dependencies
+/bower_components/
+
 # Backup files
 *~
 
