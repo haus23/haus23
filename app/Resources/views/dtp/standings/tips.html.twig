@@ -1,6 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <ul id="matchSelect">
+        {% for m in matches %}
+            <li>
+                <a href="{{ path('tips', {'championshipSlug': championship.slug, 'roundNr': round.nr, 'matchId': m.id}) }}">
+                    {{ m.paarung }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
     <div id="content">
         <h2>Tippübersicht {{ match.paarung }}</h2>
         <table>
