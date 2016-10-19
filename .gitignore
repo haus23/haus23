@@ -2,6 +2,9 @@
 /vendor/
 /composer.lock
 
+# NPM dependencies
+/node_modules/
+
 # Bower dependencies
 /bower_components/
 
