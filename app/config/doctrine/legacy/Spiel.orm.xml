@@ -52,5 +52,6 @@
     <many-to-one target-entity="AppBundle\Entity\Legacy\Runde" field="round" inversed-by="matches">
       <join-column name="runde_id" referenced-column-name="id" />
     </many-to-one>
+    <one-to-many target-entity="AppBundle\Entity\Legacy\Tipp" mapped-by="match" field="tips" />
   </entity>
 </doctrine-mapping>

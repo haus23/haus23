@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <ul id="roundSelect">
+        {% for r in rounds %}
+            <li>
+                <a href="{{ path('tips', {'championshipSlug': championship.slug, 'round': 'runde-' ~ r.nr}) }}">
+                    Runde {{ r.nr }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+    <ul id="matchSelect">
+        {% for m in matches %}
+            <li>
+                <a href="{{ path('tips', {'championshipSlug': championship.slug, 'round': 'runde-' ~ round.nr, 'matchId': m.id, 'fixture': m.slug}) }}">
+                    {{ m.paarung }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+    <div id="content">
+        <h2>Tippübersicht {{ match.paarung }}</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Spieler</th>
+                <th>Tipp</th>
+                <th>Punkte</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for t in match.tips %}
+                <tr>
+                    <td>{{ players[t.spielerId].user.name }}</td>
+                    <td>{{ t.tipp }}</td>
+                    <td>{{ t.punkte }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

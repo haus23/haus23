@@ -341,4 +341,33 @@ class Tipp
     {
         return $this->player;
     }
+    /**
+     * @var \AppBundle\Entity\Legacy\Spiel
+     */
+    private $match;
+
+
+    /**
+     * Set match
+     *
+     * @param \AppBundle\Entity\Legacy\Spiel $match
+     *
+     * @return Tipp
+     */
+    public function setMatch(\AppBundle\Entity\Legacy\Spiel $match = null)
+    {
+        $this->match = $match;
+
+        return $this;
+    }
+
+    /**
+     * Get match
+     *
+     * @return \AppBundle\Entity\Legacy\Spiel
+     */
+    public function getMatch()
+    {
+        return $this->match;
+    }
 }
