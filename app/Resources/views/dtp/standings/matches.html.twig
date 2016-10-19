@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="content">
+        <h2>Spielübersicht</h2>
+        {% for r in rounds %}
+            <h3>Runde {{ r.nr }}</h3>
+            <table>
+                <thead>
+                <tr>
+                    <th>Datum</th>
+                    <th>Liga</th>
+                    <th>Paarung</th>
+                    <th>Ergebnis</th>
+                    <th>Punkte</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for m in r.matches %}
+                    <tr>
+                        <td>{{ m.datum | date("d.m.Y")}}</td>
+                        <td>{{ m.liga }}</td>
+                        <td>{{ m.paarung }}</td>
+                        <td>{{ m.ergebnis }}</td>
+                        <td>{{ m.punkte }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endfor %}
+    </div>
+{% endblock %}
