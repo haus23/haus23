@@ -1,0 +1,10 @@
+{
+  "name": "haus23",
+  "description": "Website https://haus23.net",
+  "main": "",
+  "authors": [
+    "Michael Alt <micha@haus23.net>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/haus23/haus23"
+}
