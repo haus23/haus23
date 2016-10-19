@@ -358,4 +358,29 @@ class Spiel
     {
         return $this->tips;
     }
+
+    /**
+     * Get fixture slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        $germanTr = [
+            'Ä' => 'AE',
+            'Ö' => 'OE',
+            'Ü' => 'UE',
+            'ß' => 'ss',
+            'ä' => 'ae',
+            'ö' => 'oe',
+            'ü' => 'ue',
+        ];
+
+        $regexp = '/([^A-Za-z0-9]|-)+/';
+
+        $slug = mb_strtolower($this->paarung);
+        $slug = strtr($slug, $germanTr);
+        $slug = preg_replace($regexp, '-', $slug);
+        return trim($slug, '-');
+    }
 }

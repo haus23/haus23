@@ -37,4 +37,24 @@ class TipsControllerTest extends WebTestCase
         $this->assertContains('Tippübersicht', $crawler->filter('#content h2')->text());
         $this->assertContains('Bayern', $crawler->filter('#content h2')->text());
     }
+
+    public function testMatchIdRouteParameterIsOptional()
+    {
+        $client = static::createClient();
+
+        $crawler = $client->request('GET', '/tipprunde/hr1617/tipps/runde-3');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertContains('Tippübersicht', $crawler->filter('#content h2')->text());
+    }
+
+    public function testRoundNrdRouteParameterIsOptional()
+    {
+        $client = static::createClient();
+
+        $crawler = $client->request('GET', '/tipprunde/hr1617/tipps');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertContains('Tippübersicht', $crawler->filter('#content h2')->text());
+    }
 }

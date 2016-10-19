@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Dtp\Standings;
 
 use AppBundle\Entity\Legacy\Runde;
+use AppBundle\Entity\Legacy\Spiel;
 use AppBundle\Entity\Legacy\Turnier;
 use Doctrine\ORM\QueryBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -11,11 +12,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class TipsController extends Controller
 {
     /**
-     * @Route("/tipprunde/{championshipSlug}/tipps/runde-{roundNr}/{matchId}/{fixture}", name="tips",
-     *     requirements={"championshipSlug": "\w{2}\d{4}", "roundNr": "\d", "matchId": "\d+"},
+     * @Route("/tipprunde/{championshipSlug}/tipps/{round}/{matchId}/{fixture}", name="tips",
+     *     requirements={"championshipSlug": "\w{2}\d{4}", "round": "runde-\d", "matchId": "\d+"},
      *     defaults={"fixture": ""})
      */
-    public function indexAction($championshipSlug, $roundNr, $matchId)
+    public function indexAction($championshipSlug, $round = null, $matchId = null)
     {
         $championshipRepository = $this->getDoctrine()->getRepository('Legacy:Turnier');
         $roundRepository = $this->getDoctrine()->getRepository('Legacy:Runde');
@@ -33,13 +34,32 @@ class TipsController extends Controller
             throw $this->createNotFoundException('Ein solches Turnier ' . $championshipSlug . ' gibt es nicht.');
         }
 
-        /** @var Runde $round */
-        $round = $roundRepository->findOneBy(['turnierId' => $championship->getId(), 'nr' => $roundNr]);
+        $rounds = $championship->getRounds();
+
+        /** @var Runde $selectedRound */
         if( $round == null ) {
-            throw $this->createNotFoundException('Eine solche Runde ' . $roundNr . ' gibt es nicht.');
+            $selectedRound = $championship->getCompleted() ? $rounds->first() : $rounds->last();
+        } else {
+            $roundNr = substr($round, 6);
+            $selectedRound = $rounds->filter( function (Runde $r) use($roundNr) {
+                return $r->getNr() == $roundNr;
+            })->first();
+
+            if( $selectedRound == false ) {
+                throw $this->createNotFoundException('Eine solche Runde ' . $roundNr . ' gibt es nicht.');
+            }
         }
 
-        $matches = $round->getMatches();
+
+        $matches = $selectedRound->getMatches();
+
+        if( $matchId == null) {
+            if( $championship->getCompleted() ) {
+                $matchId = $matches->first()->getId();
+            } else {
+                $matchId = $matches->filter(function(Spiel $m ) {return !empty($m->getErgebnis());})->last();
+            }
+        }
 
         /** @var QueryBuilder $matchQueryBuilder */
         $matchQueryBuilder = $this->getDoctrine()->getManager()->createQueryBuilder();
@@ -50,10 +70,20 @@ class TipsController extends Controller
             ->setParameter(1, $matchId);
         $match = $matchQueryBuilder->getQuery()->execute();
 
+        /** @var QueryBuilder $playersQueryBuilder */
+        $playersQueryBuilder = $this->getDoctrine()->getManager()->createQueryBuilder();
+        $playersQueryBuilder->select('p')
+            ->from('Legacy:Spieler', 'p', 'p.id')
+            ->where('p.turnierId = ?1')
+            ->setParameter(1, $championship->getId());
+        $players = $playersQueryBuilder->getQuery()->getResult();
+
         return $this->render('dtp/standings/tips.html.twig', [
             'championships' => $championships,
             'championship' => $championship,
-            'round' => $round,
+            'players' => $players,
+            'rounds' => $rounds,
+            'round' => $selectedRound,
             'matches' => $matches,
             'match' => $match[0]
         ]);
