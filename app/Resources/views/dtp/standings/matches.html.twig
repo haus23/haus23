@@ -2,41 +2,43 @@
 
 {% block content %}
     <h3>Spielübersicht</h3>
-    <ul class="nav nav-tabs" role="tablist">
+    <div class="panel-group" id="matchAccordion" role="tablist" aria-multiselectable="true">
         {% for r in rounds %}
-            <li role="presentation" class="{{ (loop.first and championship.completed) or (loop.last and not championship.completed) ? 'active' }}">
-                <a href="#runde{{ r.nr }}" aria-controls="runde{{ r.nr }}" role="tab" data-toggle="tab">
-                    Runde {{ r.nr }}
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
-    <div class="tab-content">
-        {% for r in rounds %}
-        <div role="tabpanel" class="tab-pane{{ (loop.first and championship.completed) or (loop.last and not championship.completed) ? ' active' }}" id="runde{{ r.nr }}">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Datum</th>
-                    <th>Liga</th>
-                    <th>Paarung</th>
-                    <th>Ergebnis</th>
-                    <th>Punkte</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for m in r.matches %}
-                    <tr>
-                        <td>{{ m.datum | date("d.m.Y")}}</td>
-                        <td>{{ m.liga }}</td>
-                        <td>{{ m.paarung }}</td>
-                        <td>{{ m.ergebnis }}</td>
-                        <td>{{ m.punkte }}</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="heading{{ r.nr }}">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#matchAccordion" href="#runde{{ r.nr }}" aria-expanded="true" aria-controls="runde{{ r.nr }}">
+                            Runde {{ r.nr }}
+                        </a>
+                    </h4>
+                </div>
+                <div id="runde{{ r.nr }}" class="panel-collapse collapse{{ (loop.first and championship.completed) or (loop.last and not championship.completed) ? ' in' }}" role="tabpanel" aria-labelledby="heading{{ r.nr }}">
+                    <div class="panel-body">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Datum</th>
+                                <th>Liga</th>
+                                <th>Paarung</th>
+                                <th>Ergebnis</th>
+                                <th>Punkte</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for m in r.matches %}
+                                <tr>
+                                    <td>{{ m.datum | date("d.m.Y")}}</td>
+                                    <td>{{ m.liga }}</td>
+                                    <td>{{ m.paarung }}</td>
+                                    <td>{{ m.ergebnis }}</td>
+                                    <td>{{ m.punkte }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         {% endfor %}
     </div>
 {% endblock %}

@@ -9,7 +9,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="playerSelectLabel">Spielerwahl</h4>
+                    <h4 class="modal-title" id="playerSelectLabel">Spieler</h4>
                 </div>
                 <div class="modal-body">
                     <div class="list-group">
@@ -24,41 +24,43 @@
             </div>
         </div>
     </div>
-    <ul class="nav nav-tabs" role="tablist">
+    <div class="panel-group" id="playerAccordion" role="tablist" aria-multiselectable="true">
     {% for r in rounds %}
-        <li role="presentation" class="{{ (loop.first and championship.completed) or (loop.last and not championship.completed) ? 'active' }}">
-            <a href="#runde{{ r.nr }}" aria-controls="runde{{ r.nr }}" role="tab" data-toggle="tab">
-                Runde {{ r.nr }}
-            </a>
-        </li>
-    {% endfor %}
-    </ul>
-    <div class="tab-content">
-    {% for r in rounds %}
-        <div role="tabpanel" class="tab-pane{{ (loop.first and championship.completed) or (loop.last and not championship.completed) ? ' active' }}" id="runde{{ r.nr }}">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Datum</th>
-                    <th>Spiel</th>
-                    <th>Tipp</th>
-                    <th>Ergebnis</th>
-                    <th>Punkte</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for m in r.matches %}
-                    <tr>
-                        <td>{{ m.datum | date("d.m.Y")}}</td>
-                        <td>{{ m.paarung }}</td>
-                        <td>{{ tips[m.id] ? tips[m.id].tipp }}</td>
-                        <td>{{ m.ergebnis }}</td>
-                        <td>{{ tips[m.id] ? tips[m.id].punkte }}</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="heading{{ r.nr }}">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#playerAccordion" href="#runde{{ r.nr }}" aria-expanded="true" aria-controls="runde{{ r.nr }}">
+                        Runde {{ r.nr }}
+                    </a>
+                </h4>
+            </div>
+            <div id="runde{{ r.nr }}" class="panel-collapse collapse{{ (loop.first and championship.completed) or (loop.last and not championship.completed) ? ' in' }}" role="tabpanel" aria-labelledby="heading{{ r.nr }}">
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Datum</th>
+                            <th>Spiel</th>
+                            <th>Tipp</th>
+                            <th>Ergebnis</th>
+                            <th>Punkte</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for m in r.matches %}
+                            <tr>
+                                <td>{{ m.datum | date("d.m.Y")}}</td>
+                                <td>{{ m.paarung }}</td>
+                                <td>{{ tips[m.id] ? tips[m.id].tipp }}</td>
+                                <td>{{ m.ergebnis }}</td>
+                                <td>{{ tips[m.id] ? tips[m.id].punkte }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     {% endfor %}
-    </div>
+   </div>
 {% endblock %}
