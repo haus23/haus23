@@ -33,5 +33,5 @@ gulp.task('styles', function () {
 });
 
 gulp.task('styles:watch', function () {
-    gulp.watch('./app/Resources/styles/**/*.scss', ['sass']);
+    gulp.watch('./app/Resources/styles/**/*.scss', ['styles']);
 });

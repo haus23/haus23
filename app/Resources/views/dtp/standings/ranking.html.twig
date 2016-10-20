@@ -1,19 +1,8 @@
 {% extends 'dtp/standings/_layout.html.twig' %}
 
 {% block content %}
-    <ul>
-        {% for c in championships %}
-        <li>
-            <a href="{{ path('ranking', {'championshipSlug': c.slug}) }}">
-                {{ c.title }}
-            </a>
-        </li>
-        {% endfor %}
-    </ul>
-
-    <div id="content">
-        <h2>Aktuelle Tabelle {{ championship.title }}</h2>
-        <table>
+        <h3>{{ championship.completed ? 'Abschlusstabelle' : 'Aktuelle Tabelle' }}</h3>
+        <table class="table table-striped">
             <thead>
             <tr>
                 <th>Platz</th>
@@ -31,5 +20,4 @@
             {% endfor %}
             </tbody>
         </table>
-    </div>
 {% endblock %}

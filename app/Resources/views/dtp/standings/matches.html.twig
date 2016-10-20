@@ -1,11 +1,20 @@
 {% extends 'dtp/standings/_layout.html.twig' %}
 
 {% block content %}
-    <div id="content">
-        <h2>Spielübersicht</h2>
+    <h3>Spielübersicht</h3>
+    <ul class="nav nav-tabs" role="tablist">
         {% for r in rounds %}
-            <h3>Runde {{ r.nr }}</h3>
-            <table>
+            <li role="presentation" class="{{ (loop.first and championship.completed) or (loop.last and not championship.completed) ? 'active' }}">
+                <a href="#runde{{ r.nr }}" aria-controls="runde{{ r.nr }}" role="tab" data-toggle="tab">
+                    Runde {{ r.nr }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+    <div class="tab-content">
+        {% for r in rounds %}
+        <div role="tabpanel" class="tab-pane{{ (loop.first and championship.completed) or (loop.last and not championship.completed) ? ' active' }}" id="runde{{ r.nr }}">
+            <table class="table">
                 <thead>
                 <tr>
                     <th>Datum</th>
@@ -27,6 +36,7 @@
                 {% endfor %}
                 </tbody>
             </table>
+        </div>
         {% endfor %}
     </div>
 {% endblock %}

@@ -3,6 +3,29 @@
 {% block body %}
     <div class="row">
         <div id="dtp-nav" class="col-sm-3">
+            <h3>
+                <a href="#" data-toggle="modal" data-target="#championshipSelect">{{ championship.title }}</a>
+            </h3>
+            <div class="modal fade" id="championshipSelect" tabindex="-1" role="dialog" aria-labelledby="championshipSelectLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="championshipSelectLabel">Turnierwahl</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="list-group">
+                            {% for c in championships %}
+                                <a href="{{ path('ranking', {'championshipSlug': c.slug}) }}"
+                                    class="list-group-item{{ championship.slug == c.slug ? ' active' }}">
+                                    {{ c.title }}
+                                </a>
+                            {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <ul class="nav nav-pills nav-stacked">
                 <li role="presentation" class="{{ app.request.get('_route') == 'ranking' ? 'active' }}">
                 <a href="{{ path('ranking', { 'championshipSlug': championship.slug}) }}">Tabelle</a>
@@ -18,9 +41,8 @@
                 </li>
             </ul>
         </div>
-        <div class="col-sm-9">
+        <div id="content" class="col-sm-9">
+            {% block content %}{% endblock %}
         </div>
     </div>
-    <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-    {% block content %}{% endblock %}
 {% endblock %}
