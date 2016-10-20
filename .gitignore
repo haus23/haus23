@@ -6,7 +6,7 @@
 /node_modules/
 
 # Bower dependencies
-/bower_components/
+/web/assets/bower_components/
 
 # Backup files
 *~

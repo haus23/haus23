@@ -4,6 +4,7 @@
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
         <!-- bower:css -->
+        <link rel="stylesheet" href="/assets/bower_components/bootstrap/dist/css/bootstrap.css" />
         <!-- endbower -->
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -11,6 +12,8 @@
     <body>
         {% block body %}{% endblock %}
         <!-- bower:js -->
+        <script src="/assets/bower_components/jquery/dist/jquery.js"></script>
+        <script src="/assets/bower_components/bootstrap/dist/js/bootstrap.js"></script>
         <!-- endbower -->
         {% block javascripts %}{% endblock %}
     </body>
