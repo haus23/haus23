@@ -1,50 +1,66 @@
-{% extends 'base.html.twig' %}
+{% extends 'dtp/standings/_layout.html.twig' %}
 
-{% block body %}
-    <ul>
-        {% for c in championships %}
-            <li>
-                <a href="{{ path('ranking', {'championshipSlug': c.slug}) }}">
-                    {{ c.title }}
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
-    <ul>
-        {% for p in players %}
-            <li>
-                <a href="{{ path('players', {'championshipSlug': championship.slug,'userSlug': p.user.slug}) }}">
-                    {{ p.user.name }}
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
-    <div id="content">
-        <h2>Resultate für {{ player.user.name }}</h2>
-        {% for r in rounds %}
-            <h3>Runde {{ r.nr }}</h3>
-            <table>
-                <thead>
-                <tr>
-                    <th>Datum</th>
-                    <th>Spiel</th>
-                    <th>Tipp</th>
-                    <th>Ergebnis</th>
-                    <th>Punkte</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for m in r.matches %}
-                    <tr>
-                        <td>{{ m.datum | date("d.m.Y")}}</td>
-                        <td>{{ m.paarung }}</td>
-                        <td>{{ tips[m.id] ? tips[m.id].tipp }}</td>
-                        <td>{{ m.ergebnis }}</td>
-                        <td>{{ tips[m.id] ? tips[m.id].punkte }}</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        {% endfor %}
+{% block content %}
+    <h3>Resultate für
+        <a href="#" data-toggle="modal" data-target="#playerSelect">{{ player.user.name }}</a>
+    </h3>
+    <div class="modal fade" id="playerSelect" tabindex="-1" role="dialog" aria-labelledby="playerSelectLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="playerSelectLabel">Spieler</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="list-group">
+                        {% for p in players %}
+                        <a href="{{ path('players', {'championshipSlug': championship.slug,'userSlug': p.user.slug}) }}"
+                           class="list-group-item{{ player.user.slug == p.user.slug ? ' active' }}">
+                            {{ p.user.name }}
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    <div class="panel-group" id="playerAccordion" role="tablist" aria-multiselectable="true">
+    {% for r in rounds %}
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="heading{{ r.nr }}">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#playerAccordion" href="#runde{{ r.nr }}" aria-expanded="true" aria-controls="runde{{ r.nr }}">
+                        Runde {{ r.nr }}
+                    </a>
+                </h4>
+            </div>
+            <div id="runde{{ r.nr }}" class="panel-collapse collapse{{ (loop.first and championship.completed) or (loop.last and not championship.completed) ? ' in' }}" role="tabpanel" aria-labelledby="heading{{ r.nr }}">
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Datum</th>
+                            <th>Spiel</th>
+                            <th>Tipp</th>
+                            <th>Ergebnis</th>
+                            <th>Punkte</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for m in r.matches %}
+                            <tr>
+                                <td>{{ m.datum | date("d.m.Y")}}</td>
+                                <td>{{ m.paarung }}</td>
+                                <td>{{ tips[m.id] ? tips[m.id].tipp }}</td>
+                                <td>{{ m.ergebnis }}</td>
+                                <td>{{ tips[m.id] ? tips[m.id].punkte }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+   </div>
 {% endblock %}

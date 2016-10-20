@@ -1,43 +1,66 @@
-{% extends 'base.html.twig' %}
+{% extends 'dtp/standings/_layout.html.twig' %}
 
-{% block body %}
-    <ul id="roundSelect">
-        {% for r in rounds %}
-            <li>
-                <a href="{{ path('tips', {'championshipSlug': championship.slug, 'round': 'runde-' ~ r.nr}) }}">
-                    Runde {{ r.nr }}
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
-    <ul id="matchSelect">
-        {% for m in matches %}
-            <li>
-                <a href="{{ path('tips', {'championshipSlug': championship.slug, 'round': 'runde-' ~ round.nr, 'matchId': m.id, 'fixture': m.slug}) }}">
-                    {{ m.paarung }}
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
-    <div id="content">
-        <h2>Tippübersicht {{ match.paarung }}</h2>
-        <table>
-            <thead>
-            <tr>
-                <th>Spieler</th>
-                <th>Tipp</th>
-                <th>Punkte</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for t in match.tips %}
-                <tr>
-                    <td>{{ players[t.spielerId].user.name }}</td>
-                    <td>{{ t.tipp }}</td>
-                    <td>{{ t.punkte }}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+{% block content %}
+    <h3>
+        <a href="#" data-toggle="modal" data-target="#matchSelect">{{ match.paarung }}</a>
+        <a href="#" data-toggle="modal" data-target="#roundSelect" class="pull-right">Runde {{ round.nr }}</a>
+    </h3>
+    <div class="modal fade" id="matchSelect" tabindex="-1" role="dialog" aria-labelledby="matchSelectLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="matchSelectLabel">Spiel</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="list-group">
+                        {% for m in matches %}
+                        <a href="{{ path('tips', {'championshipSlug': championship.slug, 'round': 'runde-' ~ round.nr, 'matchId': m.id, 'fixture': m.slug}) }}"
+                           class="list-group-item{{ match.id == m.id ? ' active' }}">
+                            {{ m.paarung }}
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    <div class="modal fade" id="roundSelect" tabindex="-1" role="dialog" aria-labelledby="roundSelectLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="roundSelectLabel">Runde</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="list-group">
+                        {% for r in rounds %}
+                        <a href="{{ path('tips', {'championshipSlug': championship.slug, 'round': 'runde-' ~ r.nr}) }}"
+                           class="list-group-item{{ round.nr == r.nr ? ' active' }}">
+                            Runde {{ r.nr }}
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Spieler</th>
+            <th>Tipp</th>
+            <th>Punkte</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for t in match.tips %}
+            <tr>
+                <td>{{ players[t.spielerId].user.name }}</td>
+                <td>{{ t.tipp }}</td>
+                <td>{{ t.punkte }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

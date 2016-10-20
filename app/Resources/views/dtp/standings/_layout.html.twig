@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+{% block title %}Tipprunde - haus23.net{% endblock %}
+{% block body %}
+    <div id="mobile-dtp-nav">
+        <a href="#" data-toggle="modal" data-target="#championshipSelect">{{ championship.title }}</a>
+        <ul class="nav nav-pills">
+            <li role="presentation" class="{{ app.request.get('_route') == 'ranking' ? 'active' }}">
+                <a href="{{ path('ranking', { 'championshipSlug': championship.slug}) }}">Tabelle</a>
+            </li>
+            <li role="presentation" class="{{ app.request.get('_route') == 'players' ? 'active' }}">
+                <a href="{{ path('players', { 'championshipSlug': championship.slug}) }}">Spieler</a>
+            </li>
+            <li role="presentation" class="{{ app.request.get('_route') == 'matches' ? 'active' }}">
+                <a href="{{ path('matches', { 'championshipSlug': championship.slug}) }}">Spiele</a>
+            </li>
+            <li role="presentation" class="{{ app.request.get('_route') == 'tips' ? 'active' }}">
+                <a href="{{ path('tips', { 'championshipSlug': championship.slug}) }}">Tipps</a>
+            </li>
+        </ul>
+    </div>
+    <div class="row">
+        <div id="dtp-nav" class="col-sm-3">
+            <h3 class="hidden-xs">
+                <a href="#" data-toggle="modal" data-target="#championshipSelect">{{ championship.title }}</a>
+            </h3>
+            <ul class="nav nav-pills nav-stacked">
+                <li role="presentation" class="{{ app.request.get('_route') == 'ranking' ? 'active' }}">
+                <a href="{{ path('ranking', { 'championshipSlug': championship.slug}) }}">Tabelle</a>
+                </li>
+                <li role="presentation" class="{{ app.request.get('_route') == 'players' ? 'active' }}">
+                <a href="{{ path('players', { 'championshipSlug': championship.slug}) }}">Spieler</a>
+                </li>
+                <li role="presentation" class="{{ app.request.get('_route') == 'matches' ? 'active' }}">
+                <a href="{{ path('matches', { 'championshipSlug': championship.slug}) }}">Spiele</a>
+                </li>
+                <li role="presentation" class="{{ app.request.get('_route') == 'tips' ? 'active' }}">
+                <a href="{{ path('tips', { 'championshipSlug': championship.slug}) }}">Tipps</a>
+                </li>
+            </ul>
+        </div>
+        <div class="modal fade" id="championshipSelect" tabindex="-1" role="dialog" aria-labelledby="championshipSelectLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="championshipSelectLabel">Turnier</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="list-group">
+                            {% for c in championships %}
+                                <a href="{{ path('ranking', {'championshipSlug': c.slug}) }}"
+                                   class="list-group-item{{ championship.slug == c.slug ? ' active' }}">
+                                    {{ c.title }}
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="content" class="col-sm-9">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}
