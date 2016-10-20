@@ -1,5 +1,7 @@
 var gulp = require('gulp');
 
+var sass = require('gulp-sass');
+
 var wiredep = require('wiredep').stream;
 
 gulp.task('bower', function () {
@@ -22,4 +24,14 @@ gulp.task('bower', function () {
             }
         }))
         .pipe(gulp.dest('./app/Resources/views'));
+});
+
+gulp.task('styles', function () {
+    return gulp.src('./app/Resources/styles/app.scss')
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest('./web/css'));
+});
+
+gulp.task('styles:watch', function () {
+    gulp.watch('./app/Resources/styles/**/*.scss', ['sass']);
 });
