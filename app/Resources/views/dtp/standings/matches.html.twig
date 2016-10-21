@@ -1,7 +1,7 @@
 {% extends 'dtp/standings/_layout.html.twig' %}
 
 {% block content %}
-    <h3>Spielübersicht</h3>
+    <h3 class="hidden-xs">Spielübersicht</h3>
     <div class="panel-group" id="matchAccordion" role="tablist" aria-multiselectable="true">
         {% for r in rounds %}
             <div class="panel panel-default">
@@ -15,23 +15,32 @@
                 <div id="runde{{ r.nr }}" class="panel-collapse collapse{{ (loop.first and championship.completed) or (loop.last and not championship.completed) ? ' in' }}" role="tabpanel" aria-labelledby="heading{{ r.nr }}">
                     <div class="panel-body">
                         <table class="table">
-                            <thead>
+                            <thead class="hidden-xs">
                             <tr>
                                 <th>Datum</th>
                                 <th>Liga</th>
                                 <th>Paarung</th>
-                                <th>Ergebnis</th>
-                                <th>Punkte</th>
+                                <th class="text-center">Ergebnis</th>
+                                <th class="text-center">Punkte</th>
                             </tr>
                             </thead>
                             <tbody>
                             {% for m in r.matches %}
-                                <tr>
+                                <tr class="hidden-xs">
                                     <td>{{ m.datum | date("d.m.Y")}}</td>
                                     <td>{{ m.liga }}</td>
                                     <td>{{ m.paarung }}</td>
-                                    <td>{{ m.ergebnis }}</td>
-                                    <td>{{ m.punkte }}</td>
+                                    <td class="text-center">{{ m.ergebnis }}</td>
+                                    <td class="text-center">{{ m.punkte }}</td>
+                                </tr>
+                                <tr class="visible-xs">
+                                    <td colspan="2">{{ m.paarung }}</td>
+                                    <td class="text-right">{{ m.ergebnis }}</td>
+                                </tr>
+                                <tr class="visible-xs details">
+                                    <td>{{ m.datum | date("d.m.Y")}}</td>
+                                    <td>{{ m.liga }}</td>
+                                    <td class="text-right" width="60px">{{ m.ergebnis ? 'Pkt: ' ~ m.punkte }}</td>
                                 </tr>
                             {% endfor %}
                             </tbody>

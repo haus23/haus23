@@ -2,16 +2,22 @@
   background: url("/img/logo-inverted.png") no-repeat 8px 50%;
   padding: 16px 0 16px 56px; }
 
+tr.double {
+  font-weight: bold; }
+
 #mobile-dtp-nav {
   display: none; }
 
 @media (max-width: 767px) {
+  .xs-block {
+    display: block; }
   .navbar-brand.tipprunde {
     display: none; }
   #dtp-nav {
     display: none; }
   #mobile-dtp-nav {
-    display: block; }
+    display: block;
+    margin-bottom: 8px; }
     #mobile-dtp-nav > a {
       position: absolute;
       left: 8px;
@@ -19,4 +25,6 @@
       height: 50px;
       padding: 15px 15px;
       font-size: 18px;
-      line-height: 20px; } }
+      line-height: 20px; }
+  #content .table .details td {
+    border-top: 0; } }
