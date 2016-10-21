@@ -4,11 +4,19 @@
   padding: 16px 0 16px 56px;
 }
 
+tr.double {
+  font-weight: bold;
+}
+
 #mobile-dtp-nav {
   display: none;
 }
 
 @media (max-width: 767px) {
+  .xs-block {
+    display: block;
+  }
+
   .navbar-brand.tipprunde {
     display: none;
   }
@@ -19,6 +27,7 @@
 
   #mobile-dtp-nav {
     display: block;
+    margin-bottom: 8px;
 
     > a {
       position: absolute;
@@ -29,5 +38,13 @@
       font-size: 18px;
       line-height: 20px;
     }
+  }
+
+  #content .table {
+
+    .details td {
+      border-top: 0;
+    }
+
   }
 }

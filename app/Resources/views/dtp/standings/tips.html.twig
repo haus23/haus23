@@ -2,8 +2,8 @@
 
 {% block content %}
     <h3>
-        <a href="#" data-toggle="modal" data-target="#matchSelect">{{ match.paarung }}</a>
-        <a href="#" data-toggle="modal" data-target="#roundSelect" class="pull-right">Runde {{ round.nr }}</a>
+        <a href="#" data-toggle="modal" data-target="#roundSelect">Runde {{ round.nr }}:</a>
+        <a class="xs-block" href="#" data-toggle="modal" data-target="#matchSelect">{{ match.paarung }}</a>
     </h3>
     <div class="modal fade" id="matchSelect" tabindex="-1" role="dialog" aria-labelledby="matchSelectLabel">
         <div class="modal-dialog" role="document">
@@ -49,16 +49,16 @@
         <thead>
         <tr>
             <th>Spieler</th>
-            <th>Tipp</th>
-            <th>Punkte</th>
+            <th class="text-center">Tipp</th>
+            <th class="text-center">Punkte</th>
         </tr>
         </thead>
         <tbody>
         {% for t in match.tips %}
             <tr>
                 <td>{{ players[t.spielerId].user.name }}</td>
-                <td>{{ t.tipp }}</td>
-                <td>{{ t.punkte }}</td>
+                <td width="40px" class="text-center">{{ t.tipp }}</td>
+                <td width="40px" class="text-center">{{ t.punkte }}</td>
             </tr>
         {% endfor %}
         </tbody>

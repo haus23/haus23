@@ -7,11 +7,11 @@
             <li role="presentation" class="{{ app.request.get('_route') == 'ranking' ? 'active' }}">
                 <a href="{{ path('ranking', { 'championshipSlug': championship.slug}) }}">Tabelle</a>
             </li>
-            <li role="presentation" class="{{ app.request.get('_route') == 'players' ? 'active' }}">
-                <a href="{{ path('players', { 'championshipSlug': championship.slug}) }}">Spieler</a>
-            </li>
             <li role="presentation" class="{{ app.request.get('_route') == 'matches' ? 'active' }}">
                 <a href="{{ path('matches', { 'championshipSlug': championship.slug}) }}">Spiele</a>
+            </li>
+            <li role="presentation" class="{{ app.request.get('_route') == 'players' ? 'active' }}">
+                <a href="{{ path('players', { 'championshipSlug': championship.slug}) }}">Spieler</a>
             </li>
             <li role="presentation" class="{{ app.request.get('_route') == 'tips' ? 'active' }}">
                 <a href="{{ path('tips', { 'championshipSlug': championship.slug}) }}">Tipps</a>
@@ -27,11 +27,11 @@
                 <li role="presentation" class="{{ app.request.get('_route') == 'ranking' ? 'active' }}">
                 <a href="{{ path('ranking', { 'championshipSlug': championship.slug}) }}">Tabelle</a>
                 </li>
+                <li role="presentation" class="{{ app.request.get('_route') == 'matches' ? 'active' }}">
+                    <a href="{{ path('matches', { 'championshipSlug': championship.slug}) }}">Spiele</a>
+                </li>
                 <li role="presentation" class="{{ app.request.get('_route') == 'players' ? 'active' }}">
                 <a href="{{ path('players', { 'championshipSlug': championship.slug}) }}">Spieler</a>
-                </li>
-                <li role="presentation" class="{{ app.request.get('_route') == 'matches' ? 'active' }}">
-                <a href="{{ path('matches', { 'championshipSlug': championship.slug}) }}">Spiele</a>
                 </li>
                 <li role="presentation" class="{{ app.request.get('_route') == 'tips' ? 'active' }}">
                 <a href="{{ path('tips', { 'championshipSlug': championship.slug}) }}">Tipps</a>
