@@ -3,7 +3,7 @@
 {% block content %}
     <h3>
         <a href="#" data-toggle="modal" data-target="#roundSelect">Runde {{ round.nr }}:</a>
-        <a class="xs-block" href="#" data-toggle="modal" data-target="#matchSelect">{{ match.paarung }}</a>
+        <a class="xs-block" style="margin-top: 8px" href="#" data-toggle="modal" data-target="#matchSelect">{{ match.paarung }}</a>
     </h3>
     <div class="modal fade" id="matchSelect" tabindex="-1" role="dialog" aria-labelledby="matchSelectLabel">
         <div class="modal-dialog" role="document">
@@ -58,7 +58,11 @@
             {% set double = t.joker or t.zusatzjoker or t.sonder %}
             {% set doubleClass = double ? ' double' : '' %}
             <tr class="{{ double ? 'success' }}">
-                <td>{{ players[t.spielerId].user.name }}</td>
+                <td>
+                    <a href="{{ path('players', {'championshipSlug': championship.slug,'userSlug': players[t.spielerId].user.slug}) }}">
+                        {{ players[t.spielerId].user.name }}
+                    </a>
+                </td>
                 <td width="40px" class="text-center">{{ t.tipp }}</td>
                 <td width="40px" class="text-center">{{ t.punkte }}</td>
             </tr>
