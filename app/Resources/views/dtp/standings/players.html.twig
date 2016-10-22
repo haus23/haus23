@@ -52,13 +52,20 @@
                             {% set doubleClass = double ? ' success' : '' %}
                             <tr class="hidden-xs{{ doubleClass }}">
                                 <td>{{ m.datum | date("d.m.Y")}}</td>
-                                <td>{{ m.paarung }}</td>
+                                <td>
+                                    <a href="{{ path('tips', { 'championshipSlug': championship.slug, 'round': 'runde-' ~ r.nr, 'matchId': m.id, 'fixture': m.slug}) }}">
+                                        {{ m.paarung }}
+                                    </a>
+                                </td>
                                 <td class="text-center{{ doubleClass }}">{{ tips[m.id] ? tips[m.id].tipp }}</td>
                                 <td width="32px" class="text-center">{{ m.ergebnis }}</td>
                                 <td class="text-center">{{ tips[m.id] ? tips[m.id].punkte }}</td>
                             </tr>
                             <tr class="visible-xs{{ doubleClass }}">
-                                <td colspan="2">{{ m.paarung }}</td>
+                                <td colspan="2">
+                                    <a href="{{ path('tips', { 'championshipSlug': championship.slug, 'round': 'runde-' ~ r.nr, 'matchId': m.id, 'fixture': m.slug}) }}">
+                                        {{ m.paarung }}
+                                    </a>                                </td>
                                 <td class="text-right">{{ m.ergebnis }}</td>
                             </tr>
                             <tr class="visible-xs details{{ doubleClass }}">

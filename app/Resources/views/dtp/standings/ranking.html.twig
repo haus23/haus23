@@ -17,7 +17,11 @@
             {% for p in players %}
                 <tr>
                     <td width="36px" class="text-right">{{ loop.index == p.platz ? p.platz ~ '.' }}</td>
-                    <td>{{ p.user.name }}</td>
+                    <td>
+                        <a href="{{ path('players', { 'championshipSlug': championship.slug, 'userSlug': p.user.slug}) }}">
+                            {{ p.user.name }}
+                        </a>
+                    </td>
                     {% if championship.completed %}
                         <td width="60px" class="text-center">{{ p.zusatz }}</td>
                     {% endif %}
