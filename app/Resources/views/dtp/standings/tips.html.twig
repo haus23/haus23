@@ -54,8 +54,10 @@
         </tr>
         </thead>
         <tbody>
-        {% for t in match.tips %}
-            <tr>
+        {% for t in tips %}
+            {% set double = t.joker or t.zusatzjoker or t.sonder %}
+            {% set doubleClass = double ? ' double' : '' %}
+            <tr class="{{ double ? 'success' }}">
                 <td>{{ players[t.spielerId].user.name }}</td>
                 <td width="40px" class="text-center">{{ t.tipp }}</td>
                 <td width="40px" class="text-center">{{ t.punkte }}</td>

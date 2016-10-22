@@ -49,7 +49,7 @@
                         <tbody>
                         {% for m in r.matches %}
                             {% set double = tips[m.id] ? tips[m.id].joker or tips[m.id].zusatzjoker or tips[m.id].sonder : false %}
-                            {% set doubleClass = double ? ' double' : '' %}
+                            {% set doubleClass = double ? ' success' : '' %}
                             <tr class="hidden-xs{{ doubleClass }}">
                                 <td>{{ m.datum | date("d.m.Y")}}</td>
                                 <td>{{ m.paarung }}</td>
