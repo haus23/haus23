@@ -4,6 +4,7 @@ namespace AppBundle\Controller\Dtp\Standings;
 
 use AppBundle\Entity\Legacy\Runde;
 use AppBundle\Entity\Legacy\Spiel;
+use AppBundle\Entity\Legacy\Tipp;
 use AppBundle\Entity\Legacy\Turnier;
 use Doctrine\ORM\QueryBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -53,22 +54,27 @@ class TipsController extends Controller
 
         $matches = $selectedRound->getMatches();
 
+        /** @var Spiel $match */
         if( $matchId == null) {
             if( $championship->getCompleted() ) {
-                $matchId = $matches->first()->getId();
+                $match = $matches->first();
             } else {
-                $matchId = $matches->filter(function(Spiel $m ) {return !empty($m->getErgebnis());})->last();
+                $match = $matches->filter(function(Spiel $m ) {return !empty($m->getErgebnis());})->last();
             }
+            $matchId = $match->getId();
+        } else {
+            $match = $matches->filter(function(Spiel $m ) use ($matchId) {return $m->getId() == $matchId; })->first();
         }
 
-        /** @var QueryBuilder $matchQueryBuilder */
-        $matchQueryBuilder = $this->getDoctrine()->getManager()->createQueryBuilder();
-        $matchQueryBuilder->select(['m', 't'])
-            ->from('Legacy:Spiel', 'm')
-            ->join('m.tips', 't')
-            ->where('m.id = ?1')
+        /** @var QueryBuilder $tipQueryBuilder */
+        $tipQueryBuilder = $this->getDoctrine()->getManager()->createQueryBuilder();
+        $tipQueryBuilder->select('t')
+            ->from('Legacy:Tipp', 't')
+            ->where('t.spielId = ?1')
             ->setParameter(1, $matchId);
-        $match = $matchQueryBuilder->getQuery()->execute();
+
+        $tips = $tipQueryBuilder->getQuery()->execute();
+        $this->sort($match, $tips);
 
         /** @var QueryBuilder $playersQueryBuilder */
         $playersQueryBuilder = $this->getDoctrine()->getManager()->createQueryBuilder();
@@ -85,7 +91,37 @@ class TipsController extends Controller
             'rounds' => $rounds,
             'round' => $selectedRound,
             'matches' => $matches,
-            'match' => $match[0]
+            'match' => $match,
+            'tips' => $tips
         ]);
+    }
+
+    /**
+     * @param Spiel $match
+     * @param Tipp[] $tips
+     */
+    private function sort(Spiel $match, array &$tips)
+    {
+        usort($tips, function(Tipp $a, Tipp $b) {
+            if( $a->getPunkte() != $b->getPunkte() ) {
+                return $b->getPunkte() <=> $a->getPunkte();
+            } else {
+                // Tipp leer?
+                if( empty($a->getTipp())) { return 1; }
+                if( empty($b->getTipp())) { return -1; }
+
+                $toreA = explode(':', $a->getTipp());
+                $toreB = explode(':', $b->getTipp());
+
+                $diffA = $toreA[0] - $toreA[1];
+                $diffB = $toreB[0] - $toreB[1];
+
+                if( $diffA != $diffB ) {
+                    return $diffB <=> $diffA;
+                } else {
+                    return $toreB[0] <=> $toreA[0];
+                }
+            }
+        });
     }
 }
