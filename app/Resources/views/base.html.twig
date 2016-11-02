@@ -12,7 +12,7 @@
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
-    <body>
+    <body ng-app="app">
     <nav class="navbar navbar-default">
         <div class="container">
             <div class="navbar-header">
@@ -40,6 +40,7 @@
     <script src="/assets/bower_components/jquery/dist/jquery.js"></script>
     <script src="/assets/bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <!-- endbower -->
+    <script src="{{ asset('js/app.bundle.js') }}"></script>
     {% block javascripts %}{% endblock %}
     </body>
 </html>
