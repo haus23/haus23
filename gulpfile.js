@@ -51,6 +51,7 @@ var tasks = {
             debug: !production,
             cache: {}
         });
+        bundler.transform("babelify", {presets: ["es2015"]});
         if( watch ) {
             bundler = watchify(bundler);
         }
