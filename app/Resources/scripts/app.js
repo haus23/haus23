@@ -1,7 +1,9 @@
 
-var angular = require('angular');
+import angular from 'angular';
 
-angular.module('app',[])
-    .run(function () {
+import dtpStandings from './dtp/standings/standings.module';
+
+angular.module('app',[dtpStandings])
+    .run(() => {
         console.log('App running ...')
     });
