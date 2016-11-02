@@ -8,6 +8,13 @@ var browserSync = require('browser-sync').create();;
 var wiredep     = require('wiredep').stream;
 
 //
+// Project paths
+var paths = {
+    webRoot: './web/',
+    appStyles: './app/Resources/styles/app.scss'
+};
+
+//
 // Main Tasks
 //
 
@@ -19,6 +26,16 @@ gulp.task('default', ['serve'] );
 //   nuilds the production version
 gulp.task('build');
 
+// The assets pipeline
+var pipes = {};
+
+pipes.stylesDev = function () {
+    return gulp.src(paths.appStyles)
+        .pipe(plugins.sass())
+        .pipe(gulp.dest(paths.webRoot + 'css'))
+        .pipe(browserSync.stream());
+};
+
 //
 // Helper Tasks
 //
@@ -28,7 +45,11 @@ gulp.task('serve', function() {
     browserSync.init({
         proxy: 'http://localhost:8000'
     });
+    gulp.watch(paths.appStyles, ['styles:dev']);
 });
+
+gulp.task('styles:dev', pipes.stylesDev);
+
 
 gulp.task('bower', function () {
     gulp.src('./app/Resources/views/base.html.twig')
@@ -50,14 +71,4 @@ gulp.task('bower', function () {
             }
         }))
         .pipe(gulp.dest('./app/Resources/views'));
-});
-
-gulp.task('styles', function () {
-    return gulp.src('./app/Resources/styles/app.scss')
-        .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest('./web/css'));
-});
-
-gulp.task('styles:watch', function () {
-    gulp.watch('./app/Resources/styles/**/*.scss', ['styles']);
 });
