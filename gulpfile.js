@@ -1,8 +1,34 @@
-var gulp = require('gulp');
 
-var sass = require('gulp-sass');
+// Gulp - the streaming task runner and the plugins
+var gulp    = require('gulp');
+var plugins = require('gulp-load-plugins')();
 
-var wiredep = require('wiredep').stream;
+// NPM dependencies
+var browserSync = require('browser-sync').create();;
+var wiredep     = require('wiredep').stream;
+
+//
+// Main Tasks
+//
+
+// Default - npm start
+//   starts the development
+gulp.task('default', ['serve'] );
+
+// Build - npm run build
+//   nuilds the production version
+gulp.task('build');
+
+//
+// Helper Tasks
+//
+
+// Dev Server via browsersync
+gulp.task('serve', function() {
+    browserSync.init({
+        proxy: 'http://localhost:8000'
+    });
+});
 
 gulp.task('bower', function () {
     gulp.src('./app/Resources/views/base.html.twig')
