@@ -8,7 +8,7 @@
         <!-- bower:css -->
         <link rel="stylesheet" href="/assets/bower_components/bootstrap/dist/css/bootstrap.css" />
         <!-- endbower -->
-        <link rel="stylesheet" href="/css/app.css" />
+        <link rel="stylesheet" href="{{ asset('assets/build/css/app.css') }}" />
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
@@ -40,7 +40,7 @@
     <script src="/assets/bower_components/jquery/dist/jquery.js"></script>
     <script src="/assets/bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <!-- endbower -->
-    <script src="{{ asset('js/app.bundle.js') }}"></script>
+    <script src="{{ asset('assets/build/js/app.bundle.js') }}"></script>
     {% block javascripts %}{% endblock %}
     </body>
 </html>
