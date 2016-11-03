@@ -5,3 +5,8 @@ app:
 dtp_standings:
     resource: "@AppBundle/Controller/Dtp/Standings/"
     type:     annotation
+
+dtp_backend:
+    resource: "@AppBundle/Controller/Dtp/Backend/"
+    type:     annotation
+    prefix:   'tipprunde/admin'
