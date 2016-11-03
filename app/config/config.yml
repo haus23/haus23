@@ -53,6 +53,17 @@ doctrine:
                 default_table_options:
                     charset: utf8mb4
                     collate: utf8mb4_unicode_ci
+            foh:
+                driver:   pdo_mysql
+                host:     "%database_host%"
+                port:     "%database_port%"
+                dbname:   "%foh_db_name%"
+                user:     "%database_user%"
+                password: "%database_password%"
+                charset: utf8mb4
+                default_table_options:
+                    charset: utf8mb4
+                    collate: utf8mb4_unicode_ci
 
     orm:
         default_entity_manager: legacy
@@ -66,6 +77,14 @@ doctrine:
                         type: xml
                         dir:  "%kernel.root_dir%/config/doctrine/legacy"
                         prefix: AppBundle\Entity\Legacy
+            foh:
+                connection: foh
+                naming_strategy: doctrine.orm.naming_strategy.underscore
+                mappings:
+                    FOH:
+                        type: xml
+                        dir:  "%kernel.root_dir%/config/doctrine/foh"
+                        prefix: AppBundle\Entity\FOH
 
 # Swiftmailer Configuration
 swiftmailer:
