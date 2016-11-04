@@ -83,9 +83,10 @@ doctrine:
                 naming_strategy: doctrine.orm.naming_strategy.underscore
                 mappings:
                     FOH:
-                        type: xml
-                        dir:  "%kernel.root_dir%/config/doctrine/foh"
+                        type:   xml
+                        dir:    "%kernel.root_dir%/config/doctrine/foh"
                         prefix: AppBundle\Entity\FOH
+                        alias:  FOH
 
 # Swiftmailer Configuration
 swiftmailer:

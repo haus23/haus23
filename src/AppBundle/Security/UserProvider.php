@@ -2,6 +2,8 @@
 
 namespace AppBundle\Security;
 
+use AppBundle\Entity\FOH\User as FOHUser;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -9,6 +11,20 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class UserProvider implements UserProviderInterface
 {
+    /**
+     * @var EntityManager
+     */
+    private $em;
+
+    /**
+     * UserProvider constructor.
+     * @param $em
+     */
+    public function __construct($em)
+    {
+        $this->em = $em;
+    }
+
     /**
      * Loads the user for the given username.
      *
@@ -23,7 +39,14 @@ class UserProvider implements UserProviderInterface
      */
     public function loadUserByUsername($username)
     {
+        /** @var FOHUser $user */
+        $user = $this->em->getRepository('FOH:User')->findOneBy(['username' => $username]);
 
+        if( $user === null ) {
+            throw new UsernameNotFoundException();
+        }
+
+        return new User($user->getEmail(), $user->getUsername(), $user->getPassword(), $user->getGroups());
     }
 
     /**
@@ -42,7 +65,13 @@ class UserProvider implements UserProviderInterface
      */
     public function refreshUser(UserInterface $user)
     {
+        if (!$user instanceof User) {
+            throw new UnsupportedUserException(
+                sprintf('Instances of "%s" are not supported.', get_class($user))
+            );
+        }
 
+        return $this->loadUserByUsername($user->getUsername());
     }
 
     /**
@@ -54,6 +83,6 @@ class UserProvider implements UserProviderInterface
      */
     public function supportsClass($class)
     {
-
+        return $class === User::class;
     }
 }
