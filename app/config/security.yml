@@ -3,7 +3,7 @@
 security:
 
     encoders:
-        AppBundle\Security\User: bcrypt
+        AppBundle\Security\User:
             algorithm: bcrypt
             cost: 12
 
