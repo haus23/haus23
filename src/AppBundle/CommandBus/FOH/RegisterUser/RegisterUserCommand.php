@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Commanding\FOH\RegisterUser;
+namespace AppBundle\CommandBus\FOH\RegisterUser;
 
 class RegisterUserCommand
 {

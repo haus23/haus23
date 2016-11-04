@@ -1,0 +1,9 @@
+
+services:
+    foh.command.register_user_handler:
+        class: AppBundle\CommandBus\FOH\RegisterUser\RegisterUserHandler
+        arguments:
+            - '@doctrine.orm.foh_entity_manager'
+            - '@security.password_encoder'
+        tags:
+            - { name: tactician.handler, command: AppBundle\CommandBus\FOH\RegisterUser\RegisterUserCommand }

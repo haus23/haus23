@@ -147,4 +147,11 @@ class User implements UserInterface, \Serializable
             $this->username
             ) = unserialize($serialized);
     }
+
+    /**
+     * Helper to create an empty user
+     *
+     * @return User
+     */
+    public static function create() { return new self(null,null,null,[]); }
 }
