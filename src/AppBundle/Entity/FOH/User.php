@@ -23,7 +23,7 @@ class User
     private $username;
 
     /**
-     * @var string
+     * @var array
      */
     private $groups;
 
@@ -113,7 +113,7 @@ class User
     /**
      * Set groups
      *
-     * @param string $groups
+     * @param array $groups
      *
      * @return User
      */
@@ -127,7 +127,7 @@ class User
     /**
      * Get groups
      *
-     * @return string
+     * @return array
      */
     public function getGroups()
     {
