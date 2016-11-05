@@ -9,7 +9,15 @@
             "email": "micha@haus23.net"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "Haus23\\FOH\\": "src"
+        }
+    },
     "require": {
         "php": "^7.0"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "^3.1"
     }
 }

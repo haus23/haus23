@@ -1,0 +1,4 @@
+suites:
+    foh_suite:
+        namespace: Haus23\FOH
+        psr4_prefix: Haus23\FOH
