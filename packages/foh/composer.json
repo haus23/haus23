@@ -1,0 +1,15 @@
+{
+    "name": "haus23/foh",
+    "description": "haus23.net - Front Of House",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Micha Alt",
+            "email": "micha@haus23.net"
+        }
+    ],
+    "require": {
+        "php": "^7.0"
+    }
+}
