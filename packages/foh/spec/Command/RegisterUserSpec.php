@@ -45,6 +45,18 @@ class RegisterUserSpec extends ObjectBehavior
         $this->getNickname()->shouldBe(self::NICKNAME);
     }
 
+    function it_should_allow_null_for_nickname()
+    {
+        $this->beConstructedWith(
+            self::USERNAME,
+            self::PASSWORD,
+            self::EMAIL,
+            null,
+            self::ROLES
+        );
+
+        $this->getNickname()->shouldBe(null);
+    }
     function it_has_roles()
     {
         $this->getRoles()->shouldBe(self::ROLES);

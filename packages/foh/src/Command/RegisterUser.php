@@ -2,7 +2,7 @@
 
 namespace Haus23\FOH\Command;
 
-use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
+// TODO: adopt PHP 7.1 nullable types
 
 class RegisterUser
 {
@@ -22,7 +22,7 @@ class RegisterUser
     private $email;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $nickname;
 
@@ -33,13 +33,14 @@ class RegisterUser
 
     /**
      * RegisterUser constructor.
+     * 
      * @param string $username
      * @param string $password
      * @param string $email
-     * @param string $nickname
+     * @param string|null $nickname
      * @param \string[] $roles
      */
-    public function __construct(string $username, string $password, string $email, string $nickname, array $roles)
+    public function __construct(string $username, string $password, string $email, string $nickname = null, array $roles)
     {
         $this->username = $username;
         $this->password = $password;
@@ -73,9 +74,9 @@ class RegisterUser
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getNickname(): string
+    public function getNickname()
     {
         return $this->nickname;
     }
