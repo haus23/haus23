@@ -1,0 +1,24 @@
+{
+    "name": "haus23/foh",
+    "description": "haus23.net - Front Of House",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Micha Alt",
+            "email": "micha@haus23.net"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Haus23\\FOH\\": "src"
+        }
+    },
+    "require": {
+        "php": "^7.0",
+        "doctrine/orm": "^2.5"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "^3.1"
+    }
+}

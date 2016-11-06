@@ -16,6 +16,12 @@
             "Tests\\": "tests/"
         }
     },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "./packages/*"
+        }
+    ],
     "require": {
         "php": ">=5.5.9",
         "symfony/symfony": "3.1.*",
@@ -28,7 +34,8 @@
         "sensio/distribution-bundle": "^5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "^2.0",
-        "league/tactician-bundle": "^0.4.1"
+        "league/tactician-bundle": "^0.4.1",
+        "haus23/foh": "@dev"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
