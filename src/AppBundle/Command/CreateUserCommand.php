@@ -2,6 +2,7 @@
 
 namespace AppBundle\Command;
 
+use Doctrine\ORM\EntityManager;
 use Haus23\FOH\Command\RegisterUser;
 use Haus23\FOH\Entity\User;
 use League\Tactician\CommandBus;
@@ -48,17 +49,25 @@ class CreateUserCommand extends ContainerAwareCommand
             $nickname = $input->getOption('nickname');
         }
 
+        $user = new \AppBundle\Entity\FOH\User();
+
         $question = new Question('Password? ');
         $question->setHidden(true);
         $password = $helper->ask($input, $output, $question);
 
         /** @var UserPasswordEncoder $encoder */
         $encoder = $this->getContainer()->get('security.password_encoder');
-        $passwordHash = $encoder->encodePassword(new \AppBundle\Security\User($email, $username, $password, $roles),$password);
+        $passwordHash = $encoder->encodePassword($user,$password);
 
-        /** @var CommandBus $commandBus */
-        $commandBus = $this->getContainer()->get('tactician.commandbus');
-        $cmd = new RegisterUser($username, $passwordHash, $email, $nickname, $roles);
-        $commandBus->handle($cmd);
+        $user->setUsername($username);
+        $user->setPassword($passwordHash);
+        $user->setEmail($email);
+        $user->setNickname($nickname);
+        $user->setRoles($roles);
+
+        /** @var EntityManager $em */
+        $em = $this->getContainer()->get('doctrine.orm.foh_entity_manager');
+        $em->persist($user);
+        $em->flush();
     }
 }

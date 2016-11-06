@@ -44,6 +44,13 @@ class User implements UserInterface, \Serializable
      */
     private $id;
 
+    /**
+     * User constructor.
+     */
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
 
     /**
      * Set username
