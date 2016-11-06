@@ -33,7 +33,7 @@ class RegisterUser
 
     /**
      * RegisterUser constructor.
-     * 
+     *
      * @param string $username
      * @param string $password
      * @param string $email

@@ -1,3 +1,5 @@
+formatter.name: pretty
+
 suites:
     foh_suite:
         namespace: Haus23\FOH
