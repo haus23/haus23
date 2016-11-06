@@ -85,7 +85,7 @@ doctrine:
                     FOH:
                         type:   xml
                         dir:    "%kernel.root_dir%/config/doctrine/foh"
-                        prefix: Haus23\FOH\Entity
+                        prefix: AppBundle\Entity\FOH
                         alias:  FOH
 
 # Swiftmailer Configuration
