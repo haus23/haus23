@@ -1,9 +1,5 @@
 
-import angular from 'angular';
-
-import dtpStandings from './dtp/standings/standings.module';
-
-angular.module('app',[dtpStandings])
-    .run(() => {
+angular.module('app',['dtp.standings'])
+    .run(function () {
         console.log('App running ...')
     });

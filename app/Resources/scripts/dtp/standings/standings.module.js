@@ -1,11 +1,5 @@
 
-import angular from 'angular';
-
-const moduleName = 'dtp.standings';
-
-angular.module(moduleName, [])
-    .run(() => {
+angular.module('dtp.standings', [])
+    .run(function () {
         console.log('Dtp standings loaded ...')
     });
-
-export default moduleName;
