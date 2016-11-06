@@ -6,7 +6,6 @@ var plugins = require('gulp-load-plugins')();
 // NPM dependencies
 var argv        = require('yargs').argv;
 var del         = require('del');
-var browserify  = require('browserify');
 var browserSync = require('browser-sync').create();
 var source      = require('vinyl-source-stream');
 var watchify    = require('watchify');
@@ -24,10 +23,10 @@ var production = !!argv['production'];
 // Project paths
 var paths = {
     output:     './web/assets/build',
+    baseHtmlPath:   './app/Resources/views/',
     styles:     './app/Resources/styles/**/*.scss',
     appStyles:  './app/Resources/styles/app.scss',
-    scripts:    './app/Resources/scripts/**/*.js',
-    appScripts: './app/Resources/scripts/app.js'
+    scripts:    './app/Resources/scripts/**/*.js'
 };
 
 // Task methods
@@ -45,28 +44,15 @@ var tasks = {
             .pipe(gulp.dest(paths.output + '/css'))
             .pipe(browserSync.stream());
     },
-    // Browserif app scripts
+    // Copy and inject app scripts
     scripts: function () {
-        var bundler = browserify(paths.appScripts, {
-            debug: !production,
-            cache: {}
-        });
-        bundler.transform("babelify", {presets: ["es2015"]});
-        if( watch ) {
-            bundler = watchify(bundler);
-        }
-        var rebundle = function() {
-            var pipe =  bundler.bundle()
-                .pipe(source('app.bundle.js'))
-                .pipe(gulp.dest(paths.output + '/js'));
-
-            if( watch ) {
-                pipe.pipe(browserSync.stream({once: true}));
-            }
-            return pipe;
-        };
-        bundler.on('update', rebundle);
-        return rebundle();
+        return gulp.src(paths.baseHtmlPath + '/base.html.twig')
+            .pipe(plugins.inject(
+                gulp.src(paths.scripts)
+                    .pipe(gulp.dest(paths.output + '/js'))
+                    .pipe(plugins.angularFilesort()), { ignorePath: '/web/'})
+            )
+            .pipe(gulp.dest(paths.baseHtmlPath));
     },
     // Initialize browser-sync
     serve: function () {
@@ -79,7 +65,7 @@ var tasks = {
         // styles
         gulp.watch(paths.styles, ['styles']);
         // scripts
-        //gulp.watch(paths.scripts, ['lint'])
+        gulp.watch(paths.scripts, ['scripts-watcher']);
     }
 };
 
@@ -98,11 +84,16 @@ var deps = build ? ['clean'] : [];
 gulp.task('clean', tasks.clean);
 gulp.task('styles', deps, tasks.styles);
 gulp.task('scripts', deps, tasks.scripts);
+gulp.task('scripts-watcher',['scripts'],
+    function (done) {
+        browserSync.reload();
+        done();
+    });
 gulp.task('serve', tasks.serve);
 
 // TODO: integrate bootstrap in the toolchain above
 gulp.task('bower', function () {
-    gulp.src('./app/Resources/views/base.html.twig')
+    gulp.src(paths.baseHtml)
         .pipe(wiredep({
             devDependencies: true,
             ignorePath: /.*web/,
