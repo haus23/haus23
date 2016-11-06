@@ -9,11 +9,15 @@
   "homepage": "https://github.com/haus23/haus23",
   "devDependencies": {
     "jquery": "^3.1.1",
-    "bootstrap": "^3.3.7"
+    "bootstrap": "^3.3.7",
+    "angular": "angularjs#^1.5.8"
   },
   "overrides": {
     "bootstrap": {
-      "main": ["dist/css/bootstrap.css", "dist/js/bootstrap.js"]
+      "main": [
+        "dist/css/bootstrap.css",
+        "dist/js/bootstrap.js"
+      ]
     }
   }
 }
