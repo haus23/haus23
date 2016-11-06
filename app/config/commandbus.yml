@@ -1,8 +1,0 @@
-
-services:
-    foh.command.register_user_handler:
-        class: Haus23\FOH\Command\RegisterUserHandler
-        arguments:
-            - '@doctrine.orm.foh_entity_manager'
-        tags:
-            - { name: tactician.handler, command: Haus23\FOH\Command\RegisterUser }

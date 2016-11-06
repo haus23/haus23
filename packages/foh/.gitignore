@@ -1,6 +1,0 @@
-# Configuration
-/phpspec.yml
-
-# Composer dependencies
-/vendor/
-composer.lock
