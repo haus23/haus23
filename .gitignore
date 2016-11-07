@@ -1,3 +1,8 @@
+# Configurations
+/app/config/parameters.yml
+/phpunit.xml
+/phpspec.yml
+
 # Composer dependencies
 /vendor/
 /composer.lock
@@ -14,9 +19,7 @@
 # IDE settings
 /.idea/
 
-/app/config/parameters.yml
 /build/
-/phpunit.xml
 /var/*
 !/var/cache
 /var/cache/*
