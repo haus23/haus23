@@ -4,6 +4,7 @@ namespace AppBundle\Controller\Dtp\Standings;
 
 use AppBundle\Entity\Legacy\Config;
 use AppBundle\Entity\Legacy\Turnier;
+use AppBundle\MessageBus\Query\GetCurrentChampionship;
 use Doctrine\ORM\QueryBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -15,6 +16,9 @@ class RankingController extends Controller
      */
     public function indexAction($championshipSlug = null)
     {
+        $queryBus = $this->get('lean.querybus');
+        dump($queryBus->handle( new GetCurrentChampionship()));
+
         $configRepository = $this->getDoctrine()->getRepository('Legacy:Config');
         $championshipRepository = $this->getDoctrine()->getRepository('Legacy:Turnier');
 
