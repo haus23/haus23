@@ -1,0 +1,6 @@
+
+services:
+    lean.query.current_championship.handler:
+        class: AppBundle\MessageBus\QueryHandler\GetCurrentChampionshipHandler
+        tags:
+            - { name: lean.querybus_handler, query: AppBundle\MessageBus\Query\GetCurrentChampionship }
