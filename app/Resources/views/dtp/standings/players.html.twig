@@ -50,7 +50,7 @@
                         </thead>
                         <tbody>
                         {% for m in r.matches %}
-                            {% set double = tips[m.id] ? tips[m.id].joker or tips[m.id].zusatzjoker or tips[m.id].sonder : false %}
+                            {% set double = (tips[m.id] is defined) and tips[m.id] ? tips[m.id].joker or tips[m.id].zusatzjoker or tips[m.id].sonder : false %}
                             {% set doubleClass = double ? ' success' : '' %}
                             <tr class="hidden-xs{{ doubleClass }}">
                                 <td>{{ m.datum | date("d.m.Y")}}</td>
@@ -59,9 +59,9 @@
                                         {{ m.paarung }}
                                     </a>
                                 </td>
-                                <td class="text-center{{ doubleClass }}">{{ tips[m.id] ? tips[m.id].tipp }}</td>
+                                <td class="text-center{{ doubleClass }}">{{ (tips[m.id] is defined) and tips[m.id] ? tips[m.id].tipp }}</td>
                                 <td width="32px" class="text-center">{{ m.ergebnis }}</td>
-                                <td class="text-center">{{ tips[m.id] ? tips[m.id].punkte }}</td>
+                                <td class="text-center">{{ (tips[m.id] is defined) and tips[m.id] ? tips[m.id].punkte }}</td>
                             </tr>
                             <tr class="visible-xs{{ doubleClass }}">
                                 <td colspan="2">
@@ -72,8 +72,8 @@
                             </tr>
                             <tr class="visible-xs details{{ doubleClass }}">
                                 <td>{{ m.datum | date("d.m.Y")}}</td>
-                                <td>Tipp: {{ tips[m.id] ? tips[m.id].tipp }}</td>
-                                <td width="60px" class="text-right">{{ m.ergebnis ? 'Pkt: ' ~ (tips[m.id] ? tips[m.id].punkte) }}</td>
+                                <td>Tipp: {{ (tips[m.id] is defined) and tips[m.id] ? tips[m.id].tipp }}</td>
+                                <td width="60px" class="text-right">{{ m.ergebnis ? 'Pkt: ' ~ ((tips[m.id] is defined) and tips[m.id] ? tips[m.id].punkte) }}</td>
                             </tr>
                         {% endfor %}
                         </tbody>
