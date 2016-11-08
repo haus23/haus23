@@ -1,5 +1,7 @@
 {% extends 'dtp/standings/_layout.html.twig' %}
 
+{% block title %}{{ player.user.name }} - {{ parent() }}{% endblock %}
+
 {% block content %}
     <h3>Resultate für
         <a href="#" data-toggle="modal" data-target="#playerSelect">{{ player.user.name }}</a>

@@ -1,5 +1,7 @@
 {% extends 'dtp/standings/_layout.html.twig' %}
 
+{% block title %}{{ match.paarung }} - {{ parent() }}{% endblock %}
+
 {% block content %}
     <h3>
         <a href="#" data-toggle="modal" data-target="#roundSelect">Runde {{ round.nr }}:</a>

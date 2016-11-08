@@ -1,5 +1,7 @@
 {% extends 'dtp/standings/_layout.html.twig' %}
 
+{% block title %}{{ championship.completed ? 'Abschlusstabelle' : 'Aktuelle Tabelle' }} - {{ parent() }}{% endblock %}
+
 {% block content %}
         <h3 class="hidden-xs">{{ championship.completed ? 'Abschlusstabelle' : 'Aktuelle Tabelle' }}</h3>
         <table class="table clickable-rows">
