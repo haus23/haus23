@@ -9,7 +9,7 @@
 }
 
 // Clickable accordion headings
-.clickable-heading .panel-heading {
+.clickable-heading .panel-heading, .clickable-rows tr {
   cursor: pointer;
 }
 

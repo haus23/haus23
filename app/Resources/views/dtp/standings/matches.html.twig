@@ -14,7 +14,7 @@
                 </div>
                 <div id="runde{{ r.nr }}" class="panel-collapse collapse{{ (loop.first and championship.completed) or (loop.last and not championship.completed) ? ' in' }}" role="tabpanel" aria-labelledby="heading{{ r.nr }}">
                     <div class="panel-body">
-                        <table class="table">
+                        <table class="table clickable-rows">
                             <thead class="hidden-xs">
                             <tr>
                                 <th>Datum</th>
