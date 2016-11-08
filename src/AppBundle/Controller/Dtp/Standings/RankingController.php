@@ -16,9 +16,6 @@ class RankingController extends Controller
      */
     public function indexAction($championshipSlug = null)
     {
-        $queryBus = $this->get('lean.querybus');
-        dump($queryBus->handle( new GetCurrentChampionship()));
-
         $configRepository = $this->getDoctrine()->getRepository('Legacy:Config');
         $championshipRepository = $this->getDoctrine()->getRepository('Legacy:Turnier');
 

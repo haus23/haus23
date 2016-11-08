@@ -2,7 +2,7 @@
 
 {% block content %}
     <h3 class="hidden-xs">Spielübersicht</h3>
-    <div class="panel-group" id="matchAccordion" role="tablist" aria-multiselectable="true">
+    <div class="panel-group clickable-heading" id="matchAccordion" role="tablist" aria-multiselectable="true">
         {% for r in rounds %}
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="heading{{ r.nr }}">
@@ -14,7 +14,7 @@
                 </div>
                 <div id="runde{{ r.nr }}" class="panel-collapse collapse{{ (loop.first and championship.completed) or (loop.last and not championship.completed) ? ' in' }}" role="tabpanel" aria-labelledby="heading{{ r.nr }}">
                     <div class="panel-body">
-                        <table class="table">
+                        <table class="table clickable-rows">
                             <thead class="hidden-xs">
                             <tr>
                                 <th>Datum</th>
