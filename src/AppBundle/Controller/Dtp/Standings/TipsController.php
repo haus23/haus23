@@ -56,10 +56,10 @@ class TipsController extends Controller
 
         /** @var Spiel $match */
         if( $matchId == null) {
-            if( $championship->getCompleted() ) {
-                $match = $matches->first();
-            } else {
+            $match = $matches->first();
+            if( !$championship->getCompleted() ) {
                 $match = $matches->filter(function(Spiel $m ) {return !empty($m->getErgebnis());})->last();
+                if(!$match) { $match = $matches->first(); }
             }
             $matchId = $match->getId();
         } else {
