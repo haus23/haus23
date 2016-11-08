@@ -2,7 +2,7 @@
 
 {% block content %}
     <h3 class="hidden-xs">Spielübersicht</h3>
-    <div class="panel-group" id="matchAccordion" role="tablist" aria-multiselectable="true">
+    <div class="panel-group clickable-heading" id="matchAccordion" role="tablist" aria-multiselectable="true">
         {% for r in rounds %}
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="heading{{ r.nr }}">

@@ -8,6 +8,11 @@
   display: none;
 }
 
+// Clickable accordion headings
+.clickable-heading .panel-heading {
+  cursor: pointer;
+}
+
 @media (max-width: 767px) {
   .xs-block {
     display: block;
