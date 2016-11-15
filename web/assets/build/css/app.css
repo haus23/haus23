@@ -8,6 +8,9 @@
 .clickable-heading .panel-heading, .clickable-rows tr {
   cursor: pointer; }
 
+#ranking .glyphicon {
+  margin-left: 0.5em; }
+
 @media (max-width: 767px) {
   .xs-block {
     display: block; }

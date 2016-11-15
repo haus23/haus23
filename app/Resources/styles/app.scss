@@ -8,9 +8,14 @@
   display: none;
 }
 
-// Clickable accordion headings
+// Clickable accordion headings and table rows
 .clickable-heading .panel-heading, .clickable-rows tr {
   cursor: pointer;
+}
+
+// Info paperclip in ranking view
+#ranking .glyphicon {
+  margin-left: 0.5em;
 }
 
 @media (max-width: 767px) {

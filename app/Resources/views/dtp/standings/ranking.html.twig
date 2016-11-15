@@ -4,7 +4,7 @@
 
 {% block content %}
         <h3 class="hidden-xs">{{ championship.completed ? 'Abschlusstabelle' : 'Aktuelle Tabelle' }}</h3>
-        <table class="table clickable-rows">
+        <table id="ranking" class="table clickable-rows">
             <thead>
             <tr>
                 <th class="text-right">Platz</th>
@@ -22,6 +22,14 @@
                     <td>
                         <a href="{{ path('players', { 'championshipSlug': championship.slug, 'userSlug': p.user.slug}) }}">
                             {{ p.user.name }}
+                        </a>
+                        <a class="" role="button"
+                           data-toggle="popover"
+                           data-viewport='{ "selector": "body", "padding": 0 }'
+                           data-trigger="click focus hover"
+                           title="Aktuelle Tipps"
+                        >
+                            <span class="glyphicon glyphicon-paperclip"></span>
                         </a>
                     </td>
                     {% if championship.completed %}
