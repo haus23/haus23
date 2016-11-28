@@ -8,8 +8,15 @@
 .clickable-heading .panel-heading, .clickable-rows tr {
   cursor: pointer; }
 
-#ranking .glyphicon {
-  margin-left: 0.5em; }
+#ranking a.toggle-popover {
+  padding: 4px 12px 2px 12px;
+  border: 1px solid #77acd9;
+  border-radius: 6px;
+  margin-left: 8px;
+  font-size: 12px;
+  max-width: none; }
+  #ranking a.toggle-popover:active {
+    background-color: #c7ddef; }
 
 #ranking .popover {
   font-size: 12px;

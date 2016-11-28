@@ -15,8 +15,17 @@
 
 #ranking {
   // Info paperclip in ranking view
-  .glyphicon {
-    margin-left: 0.5em;
+  a.toggle-popover {
+    padding: 4px 12px 2px 12px;
+    border: 1px solid lighten(#337ab7,20%);
+    border-radius: 6px;
+    margin-left: 8px;
+    font-size: 12px;
+    max-width: none;
+
+    &:active {
+      background-color: lighten(#337ab7,40%);
+    }
   }
   .popover {
     font-size: 12px;

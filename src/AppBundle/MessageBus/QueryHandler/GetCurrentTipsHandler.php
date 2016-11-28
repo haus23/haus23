@@ -4,9 +4,7 @@ namespace AppBundle\MessageBus\QueryHandler;
 
 use AppBundle\Entity\Legacy\Tipp;
 use AppBundle\MessageBus\Query\GetCurrentTips;
-use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManager;
-use Dtp\ReadModel\Tournament;
 use Lean\ServiceBus\HandlerInterface;
 
 class GetCurrentTipsHandler implements HandlerInterface
@@ -17,7 +15,7 @@ class GetCurrentTipsHandler implements HandlerInterface
     private $entityManager;
 
     /**
-     * GetTournamentBySlugHandler constructor.
+     * GetCurrentTipsHandler constructor.
      * @param EntityManager $entityManager
      */
     public function __construct(EntityManager $entityManager)
