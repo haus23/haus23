@@ -1,6 +1,8 @@
 
 services:
-    lean.query.current_championship.handler:
-        class: AppBundle\MessageBus\QueryHandler\GetCurrentChampionshipHandler
+    lean.query.current_tips:
+        class: AppBundle\MessageBus\QueryHandler\GetCurrentTipsHandler
+        arguments:
+            - '@doctrine.orm.legacy_entity_manager'
         tags:
-            - { name: lean.querybus_handler, query: AppBundle\MessageBus\Query\GetCurrentChampionship }
+            - { name: lean.querybus_handler, query: AppBundle\MessageBus\Query\GetCurrentTips }

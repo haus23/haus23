@@ -11,6 +11,10 @@
 #ranking .glyphicon {
   margin-left: 0.5em; }
 
+#ranking .popover {
+  font-size: 12px;
+  max-width: none; }
+
 @media (max-width: 767px) {
   .xs-block {
     display: block; }

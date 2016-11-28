@@ -3,6 +3,9 @@
 {% block title %}{{ championship.completed ? 'Abschlusstabelle' : 'Aktuelle Tabelle' }} - {{ parent() }}{% endblock %}
 
 {% block content %}
+        <script>
+            var currentTips = {{ tips | json_encode | raw }};
+        </script>
         <h3 class="hidden-xs">{{ championship.completed ? 'Abschlusstabelle' : 'Aktuelle Tabelle' }}</h3>
         <table id="ranking" class="table clickable-rows">
             <thead>
@@ -23,14 +26,17 @@
                         <a href="{{ path('players', { 'championshipSlug': championship.slug, 'userSlug': p.user.slug}) }}">
                             {{ p.user.name }}
                         </a>
+                        {% if tips %}
                         <a class="" role="button"
                            data-toggle="popover"
                            data-viewport='{ "selector": "body", "padding": 0 }'
                            data-trigger="click focus hover"
-                           title="Aktuelle Tipps"
+                           data-player-id="{{ p.id }}"
+                           title="Aktuelle Tipps von {{ p.user.name }}"
                         >
                             <span class="glyphicon glyphicon-paperclip"></span>
                         </a>
+                        {% endif %}
                     </td>
                     {% if championship.completed %}
                         <td width="60px" class="text-center">{{ p.zusatz }}</td>

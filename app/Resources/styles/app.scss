@@ -13,9 +13,15 @@
   cursor: pointer;
 }
 
-// Info paperclip in ranking view
-#ranking .glyphicon {
-  margin-left: 0.5em;
+#ranking {
+  // Info paperclip in ranking view
+  .glyphicon {
+    margin-left: 0.5em;
+  }
+  .popover {
+    font-size: 12px;
+    max-width: none;
+  }
 }
 
 @media (max-width: 767px) {
