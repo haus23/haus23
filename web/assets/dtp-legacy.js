@@ -9,7 +9,7 @@
 
     // Clickable table rows
     $('.clickable-rows tr').click(function () {
-        window.location = $('a',this).attr('href');
+        window.location = $('a',this).attr('href') || $('a', this.previousElementSibling).attr('href');
     });
 
     // Initialize popovers if there are some current tips (actually only with a current ranking request)
