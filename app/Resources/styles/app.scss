@@ -33,6 +33,12 @@
   }
 }
 
+#players-view {
+  .panel-heading {
+    border-bottom: none;
+  }
+}
+
 @media (max-width: 767px) {
   .xs-block {
     display: block;
