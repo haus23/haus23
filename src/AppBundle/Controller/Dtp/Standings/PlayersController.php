@@ -3,6 +3,8 @@
 namespace AppBundle\Controller\Dtp\Standings;
 
 use AppBundle\Entity\Legacy\Config;
+use AppBundle\Entity\Legacy\Runde;
+use AppBundle\Entity\Legacy\Spiel;
 use AppBundle\Entity\Legacy\Spieler;
 use AppBundle\Entity\Legacy\Tipp;
 use AppBundle\Entity\Legacy\Turnier;
@@ -71,13 +73,51 @@ class PlayersController extends Controller
             ->setParameter(1, $championship->getId());
         $rounds = $roundsQueryBuilder->getQuery()->execute();
 
+        $stats = [];
+        $stats['total'] = [];
+        $stats['total']['totalMatches'] = 0;
+        $stats['total']['playedMatches'] = 0;
+        $stats['total']['points'] = 0;
+
+        /** @var Runde $round */
+        foreach ($rounds as $round) {
+            $stats[$round->getId()] = [];
+            // Anzahl Spiele gesamt
+            $stats[$round->getId()]['totalMatches'] = $round->getAnzahlSpiele();
+            $stats['total']['totalMatches'] += $round->getAnzahlSpiele();
+            // Anzahl Spiele gespielt
+            $playedMatches = array_reduce($round->getMatches()->toArray(),function($count, Spiel $match) {
+                if ( strlen($match->getErgebnis()) > 0 ) {
+                    $count += 1;
+                }
+                return $count;
+            }, 0);
+            $stats[$round->getId()]['playedMatches'] = $playedMatches;
+            $stats['total']['playedMatches'] += $playedMatches;
+            // Gesammelte Punkte
+            $points = array_reduce($round->getMatches()->toArray(),function($count, Spiel $match) use ($tips) {
+                /** @var Tipp $tipp */
+                $tipp = $tips[$match->getId()];
+                $count += $tipp->getPunkte();
+                return $count;
+            }, 0);
+            $stats[$round->getId()]['points'] = $points;
+            $stats['total']['points'] += $points;
+            // Durchscnittspunkte
+            $stats[$round->getId()]['average'] = $playedMatches > 0 ? $points / $playedMatches : '';
+        }
+        $stats['total']['average'] = $stats['total']['playedMatches'] > 0 ?
+            $stats['total']['points'] / $stats['total']['playedMatches'] : '';
+
+dump($stats);
         return $this->render('dtp/standings/players.html.twig', [
             'championships' => $championships,
             'championship' => $championship,
             'players' => $players,
             'player' => $player,
             'rounds' => $rounds,
-            'tips' => $tips
+            'tips' => $tips,
+            'stats' => $stats
         ]);
     }
 }
