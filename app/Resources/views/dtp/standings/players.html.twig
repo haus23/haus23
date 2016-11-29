@@ -121,7 +121,11 @@
     {{ parent() }}
     {% if not championship.completed %}
         <script>
-            $('html, body').animate({ scrollTop: $('#m{{ lastMatchId }}').offset().top }, 'slow')
+            $lastMatch = $('#m{{ lastMatchId }}');
+            if ($lastMatch.css('display') == 'none') {
+                $lastMatch = $lastMatch.next();
+            }
+            $('html, body').animate({ scrollTop: $lastMatch.offset().top }, 'slow');
         </script>
     {% endif %}
 {% endblock  %}
