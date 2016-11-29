@@ -21,6 +21,8 @@
 #ranking .popover {
   font-size: 12px;
   max-width: none; }
+  #ranking .popover .table {
+    margin-bottom: 0; }
 
 #players-view .panel-heading {
   border-bottom: none; }
