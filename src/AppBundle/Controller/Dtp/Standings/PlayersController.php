@@ -109,7 +109,6 @@ class PlayersController extends Controller
         $stats['total']['average'] = $stats['total']['playedMatches'] > 0 ?
             $stats['total']['points'] / $stats['total']['playedMatches'] : '';
 
-dump($stats);
         return $this->render('dtp/standings/players.html.twig', [
             'championships' => $championships,
             'championship' => $championship,
