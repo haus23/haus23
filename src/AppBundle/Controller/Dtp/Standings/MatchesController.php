@@ -38,10 +38,23 @@ class MatchesController extends Controller
             ->setParameter(1, $championship->getId());
         $rounds = $roundsQueryBuilder->getQuery()->execute();
 
+        // letztes Spiel ermitteln
+        $lastMatchId = 0;
+        if (!$championship->getCompleted()) {
+            foreach ($rounds as $round) {
+                foreach ($round->getMatches() as $match) {
+                    if (strlen($match->getErgebnis()) > 0) {
+                        $lastMatchId = $match->getId();
+                    }
+                }
+            }
+        }
+
         return $this->render('dtp/standings/matches.html.twig', [
             'championships' => $championships,
             'championship' => $championship,
-            'rounds' => $rounds
+            'rounds' => $rounds,
+            'lastMatchId' => $lastMatchId
         ]);
     }
 }

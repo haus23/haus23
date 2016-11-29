@@ -85,9 +85,11 @@ class PlayersController extends Controller
             // Anzahl Spiele gesamt
             $stats[$round->getId()]['totalMatches'] = $round->getAnzahlSpiele();
             $stats['total']['totalMatches'] += $round->getAnzahlSpiele();
-            // Anzahl Spiele gespielt
-            $playedMatches = array_reduce($round->getMatches()->toArray(),function($count, Spiel $match) {
+            // Anzahl Spiele gespielt, nebenbei letztes Spiel ermitteln
+            $lastMatchId = 0;
+            $playedMatches = array_reduce($round->getMatches()->toArray(),function($count, Spiel $match) use (&$lastMatchId) {
                 if ( strlen($match->getErgebnis()) > 0 ) {
+                    $lastMatchId = $match->getId();
                     $count += 1;
                 }
                 return $count;
@@ -116,7 +118,8 @@ class PlayersController extends Controller
             'player' => $player,
             'rounds' => $rounds,
             'tips' => $tips,
-            'stats' => $stats
+            'stats' => $stats,
+            'lastMatchId' => $lastMatchId
         ]);
     }
 }

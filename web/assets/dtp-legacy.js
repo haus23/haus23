@@ -13,7 +13,7 @@
     });
 
     // Initialize popovers if there are some current tips (actually only with a current ranking request)
-    if (currentTips !== null) {
+    if (typeof currentTips !== 'undefined' && currentTips !== null) {
         $('#ranking [data-toggle="popover"]')
             .click(function ($ev) {
                 $ev.stopPropagation();

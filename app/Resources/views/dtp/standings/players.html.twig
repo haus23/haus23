@@ -82,7 +82,7 @@
                                 {% for m in r.matches %}
                                     {% set double = (tips[m.id] is defined) and tips[m.id] ? tips[m.id].joker or tips[m.id].zusatzjoker or tips[m.id].sonder : false %}
                                     {% set doubleClass = double ? ' success' : '' %}
-                                    <tr class="hidden-xs{{ doubleClass }}">
+                                    <tr id="m{{ m.id }}" class="hidden-xs{{ doubleClass }}">
                                         <td>{{ m.datum | date("d.m.Y") }}</td>
                                         <td>
                                             <a href="{{ path('tips', { 'championshipSlug': championship.slug, 'round': 'runde-' ~ r.nr, 'matchId': m.id, 'fixture': m.slug}) }}">
@@ -116,3 +116,12 @@
         </div>
     </div>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% if not championship.completed %}
+        <script>
+            $('html, body').animate({ scrollTop: $('#m{{ lastMatchId }}').offset().top }, 'slow')
+        </script>
+    {% endif %}
+{% endblock  %}
