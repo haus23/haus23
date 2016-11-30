@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="{{ asset('assets/build/css/app.css?v1') }}" />
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        {{ app.environment == 'prod' ? include('_piwik.html.twig') }}
     </head>
     <body ng-app="app">
     <nav class="navbar navbar-default">
