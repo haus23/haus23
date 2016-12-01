@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-sm-offset-3 col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Login</h3>
+                </div>
+                <div class="panel-body">
+                    {% if error %}
+                    <div class="alert alert-danger" role="alert">{% dump error %}
+                        {{ error.messageKey|trans(error.messageData, 'security') }}
+                        {{ last_username != 'micha' ? 'Geht auch noch nicht. Nur Micha kommt hier rein.' }}
+                    </div>
+                    {% endif %}
+                    <form action="{{ path('login') }}" method="post">
+                        <div class="form-group">
+                            <label for="account">Name</label>
+                            <input type="text" class="form-control" id="account" placeholder="Anmeldename"
+                                   name="_username" value="{{ last_username }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Passwort</label>
+                            <input type="password" class="form-control" id="password" placeholder="Passwort"
+                                   name="_password">
+                        </div>
+                        <button type="submit" class="btn btn-default">Anmelden</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

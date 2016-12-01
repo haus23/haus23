@@ -22,9 +22,15 @@ security:
             security: false
 
         main:
-            anonymous: ~
-            http_basic: ~
             provider: app_db_provider
+            anonymous: ~
+            form_login:
+                login_path: login
+                check_path: login
+                default_target_path: dtp.dashboard
+            logout:
+                path:   /logout
+                target: /
             # activate different ways to authenticate
 
             # http_basic: ~
