@@ -29,7 +29,19 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li class="{{ app.request.get('_route') == 'homepage' ? 'active' }}"><a href="{{ path('homepage') }}">Home</a></li>
                     <li><a href="http://haus23.de/">Forum</a></li>
-                    <li class="{{ app.request.get('_route') != 'homepage' ? 'active' }}"><a href="{{ path('ranking') }}">Tipprunde</a></li>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li class="dropdown {{ app.request.pathinfo starts with '/tipprunde' ? 'active' }}">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tipprunde <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ path('ranking') }}">Auswertung</a></li>
+                            <li><a href="{{ path('dtp.dashboard') }}#">Verwaltung</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{{ path('logout') }}">Logout</a></li>
+                    {% else %}
+                    <li class="{{ app.request.pathinfo starts with '/tipprunde' ? 'active' }}"><a href="{{ path('ranking') }}">Tipprunde</a></li>
+                    <li class="{{ app.request.get('_route') == 'login' ? 'active' }}"><a href="{{ path('login') }}">Login</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
