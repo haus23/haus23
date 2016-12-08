@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ dialogtitle }} - Tipprunde - haus23.net{% endblock %}
+{% block body %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{ dialogtitle }}</h3>
+        </div>
+        <div class="panel-body">
+            {% block dialogbody %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}
