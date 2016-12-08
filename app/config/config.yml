@@ -53,7 +53,7 @@ doctrine:
                 charset: utf8mb4
                 default_table_options:
                     charset: utf8mb4
-                    collate: utf8mb4_unicode_ci
+                    collate: utf8mb4_general_ci
             foh:
                 driver:   pdo_mysql
                 host:     "%database_host%"
@@ -64,7 +64,18 @@ doctrine:
                 charset: utf8mb4
                 default_table_options:
                     charset: utf8mb4
-                    collate: utf8mb4_unicode_ci
+                    collate: utf8mb4_general_ci
+            dtp:
+                driver:   pdo_mysql
+                host:     "%database_host%"
+                port:     "%database_port%"
+                dbname:   "%dtp_db_name%"
+                user:     "%database_user%"
+                password: "%database_password%"
+                charset: utf8mb4
+                default_table_options:
+                    charset: utf8mb4
+                    collate: utf8mb4_general_ci
 
     orm:
         default_entity_manager: legacy
@@ -87,6 +98,15 @@ doctrine:
                         dir:    "%kernel.root_dir%/config/doctrine/foh"
                         prefix: AppBundle\Entity\FOH
                         alias:  FOH
+            dtp:
+                connection: dtp
+                naming_strategy: doctrine.orm.naming_strategy.underscore
+                mappings:
+                    FOH:
+                        type:   xml
+                        dir:    "%kernel.root_dir%/config/doctrine/dtp"
+                        prefix: AppBundle\Entity\DTP
+                        alias:  DTP
 
 # Swiftmailer Configuration
 swiftmailer:
