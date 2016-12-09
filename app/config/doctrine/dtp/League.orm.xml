@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping">
+    <entity name="AppBundle\Entity\DTP\League" table="leagues">
+        <id name="id" type="integer" column="league_id">
+            <generator strategy="IDENTITY" />
+        </id>
+        <field name="name" type="string" length="64" nullable="false" />
+        <field name="shortname" type="string" length="32" nullable="false" />
+        <field name="slug" type="string" length="32" nullable="false" unique="true" />
+    </entity>
+</doctrine-mapping>
