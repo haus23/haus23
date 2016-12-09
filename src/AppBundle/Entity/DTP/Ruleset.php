@@ -3,9 +3,9 @@
 namespace AppBundle\Entity\DTP;
 
 /**
- * League
+ * Ruleset
  */
-class League
+class Ruleset
 {
     /**
      * @var string
@@ -15,12 +15,7 @@ class League
     /**
      * @var string
      */
-    private $shortname;
-
-    /**
-     * @var string
-     */
-    private $slug;
+    private $description;
 
     /**
      * @var integer
@@ -33,7 +28,7 @@ class League
      *
      * @param string $name
      *
-     * @return League
+     * @return Ruleset
      */
     public function setName($name)
     {
@@ -53,51 +48,27 @@ class League
     }
 
     /**
-     * Set shortname
+     * Set description
      *
-     * @param string $shortname
+     * @param string $description
      *
-     * @return League
+     * @return Ruleset
      */
-    public function setShortname($shortname)
+    public function setDescription($description)
     {
-        $this->shortname = $shortname;
+        $this->description = $description;
 
         return $this;
     }
 
     /**
-     * Get shortname
+     * Get description
      *
      * @return string
      */
-    public function getShortname()
+    public function getDescription()
     {
-        return $this->shortname;
-    }
-
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     *
-     * @return League
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string
-     */
-    public function getSlug()
-    {
-        return $this->slug;
+        return $this->description;
     }
 
     /**
@@ -110,3 +81,4 @@ class League
         return $this->id;
     }
 }
+
