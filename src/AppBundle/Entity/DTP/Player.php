@@ -3,9 +3,9 @@
 namespace AppBundle\Entity\DTP;
 
 /**
- * Ruleset
+ * Player
  */
-class Ruleset
+class Player
 {
     /**
      * @var string
@@ -15,7 +15,12 @@ class Ruleset
     /**
      * @var string
      */
-    private $description;
+    private $slug;
+
+    /**
+     * @var string
+     */
+    private $email;
 
     /**
      * @var integer
@@ -28,7 +33,7 @@ class Ruleset
      *
      * @param string $name
      *
-     * @return Ruleset
+     * @return Player
      */
     public function setName($name)
     {
@@ -48,27 +53,51 @@ class Ruleset
     }
 
     /**
-     * Set description
+     * Set slug
      *
-     * @param string $description
+     * @param string $slug
      *
-     * @return Ruleset
+     * @return Player
      */
-    public function setDescription($description)
+    public function setSlug($slug)
     {
-        $this->description = $description;
+        $this->slug = $slug;
 
         return $this;
     }
 
     /**
-     * Get description
+     * Get slug
      *
      * @return string
      */
-    public function getDescription()
+    public function getSlug()
     {
-        return $this->description;
+        return $this->slug;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     *
+     * @return Player
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
     }
 
     /**
