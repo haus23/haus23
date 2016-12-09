@@ -2,50 +2,42 @@
 
 namespace AppBundle\Controller\Dtp\Backend;
 
-use AppBundle\Entity\DTP\Team;
-use AppBundle\Form\DTP\TeamType;
+use AppBundle\Entity\DTP\Ruleset;
+use AppBundle\Form\DTP\RulesetType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class TeamController extends Controller
+class RulesetController extends Controller
 {
     /**
-     * @Route("/team/create", name="dtp.team.create")
+     * @Route("/ruleset/create", name="dtp.ruleset.create")
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function newAction(Request $request)
     {
-        $team = new Team();
-        $form = $this->createForm(TeamType::class, $team);
-
-        if ($request->isXmlHttpRequest()) {
-            $form->remove('saveAndAdd');
-        }
+        $ruleset = new Ruleset();
+        $form = $this->createForm(RulesetType::class, $ruleset);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager('dtp');
-            $em->persist($team);
+            $em->persist($ruleset);
             $em->flush();
 
-            $msg = 'Mannschaft <b>' . $form->get('name')->getData() . '</b> wurde hinzugefügt.';
+            $msg = 'Regelwerk <b>' . $form->get('name')->getData() . '</b> wurde hinzugefügt.';
             if ($request->isXmlHttpRequest()) {
                 return $this->json(["msg"=>$msg]);
             } else {
                 $this->addFlash('success', $msg);
-                $nextAction = $form->get('saveAndAdd')->isClicked()
-                    ? 'dtp.team.create'
-                    : 'dtp.dashboard';
-
-                return $this->redirectToRoute($nextAction);
+                return $this->redirectToRoute('dtp.dashboard');
             }
         }
 
-        return $this->render('dtp/backend/team/form.html.twig', array(
+        return $this->render('dtp/backend/ruleset/form.html.twig', array(
             'form' => $form->createView(),
         ));
     }

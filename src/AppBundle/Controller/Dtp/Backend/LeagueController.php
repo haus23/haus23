@@ -32,7 +32,7 @@ class LeagueController extends Controller
             $em->persist($league);
             $em->flush();
 
-            $msg = $form->get('name')->getData() . ' wurde hinzugefügt.';
+            $msg = 'Liga <b>' . $form->get('name')->getData() . '</b> wurde hinzugefügt.';
             if ($request->isXmlHttpRequest()) {
                 return $this->json(["msg"=>$msg]);
             } else {
