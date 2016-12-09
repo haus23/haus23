@@ -20,6 +20,10 @@ class TeamController extends Controller
         $team = new Team();
         $form = $this->createForm(TeamType::class, $team);
 
+        if ($request->isXmlHttpRequest()) {
+            $form->remove('saveAndAdd');
+        }
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -28,11 +32,17 @@ class TeamController extends Controller
             $em->persist($team);
             $em->flush();
 
-            $nextAction = $form->get('saveAndAdd')->isClicked()
-                ? 'dtp.team.create'
-                : 'dtp.dashboard';
+            $msg = $form->get('name')->getData() . ' wurde hinzugefügt.';
+            if ($request->isXmlHttpRequest()) {
+                return $this->json(["msg"=>$msg]);
+            } else {
+                $this->addFlash('success', $msg);
+                $nextAction = $form->get('saveAndAdd')->isClicked()
+                    ? 'dtp.team.create'
+                    : 'dtp.dashboard';
 
-            return $this->redirectToRoute($nextAction);
+                return $this->redirectToRoute($nextAction);
+            }
         }
 
         return $this->render('dtp/backend/team/form.html.twig', array(

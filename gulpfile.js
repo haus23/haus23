@@ -93,7 +93,7 @@ gulp.task('serve', tasks.serve);
 
 // TODO: integrate bootstrap in the toolchain above
 gulp.task('bower', function () {
-    gulp.src(paths.baseHtml)
+    gulp.src(paths.baseHtmlPath + '/base.html.twig')
         .pipe(wiredep({
             devDependencies: true,
             ignorePath: /.*web/,

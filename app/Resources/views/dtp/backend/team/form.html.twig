@@ -1,4 +1,7 @@
-{% extends 'dtp/backend/_shared/dialog.html.twig' %}
+{% extends app.request.xmlHttpRequest
+    ? 'dtp/backend/_shared/dialog.modal.html.twig'
+    : 'dtp/backend/_shared/dialog.html.twig' %}
+
 {% set dialogtitle = 'Neue Mannschaft' %}
 {% block dialogbody %}
     {{ form_start(form) }}
@@ -7,7 +10,9 @@
         {{ form_row(form.slug) }}
         <div class="form-group">
             {{ form_widget(form.save) }}
-            {{ form_widget(form.saveAndAdd) }}
+            {% if not app.request.xmlHttpRequest %}
+                {{ form_widget(form.saveAndAdd) }}
+            {% endif %}
         </div>
     {{ form_end(form) }}
 {% endblock %}
