@@ -13,7 +13,7 @@ class PlayersControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/tipprunde/hr1617/spieler');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertContains('Resultate', $crawler->filter('#content h2')->text());
+        $this->assertContains('Resultate', $crawler->filter('#content h3')->text());
     }
 
     public function testPlayerSelection()
@@ -23,7 +23,7 @@ class PlayersControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/tipprunde/hr1617/spieler/huebi');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertContains('Resultate', $crawler->filter('#content h2')->text());
-        $this->assertContains('Hübi', $crawler->filter('#content h2')->text());
+        $this->assertContains('Resultate', $crawler->filter('#content h3')->text());
+        $this->assertContains('Hübi', $crawler->filter('#content h3')->text());
     }
 }

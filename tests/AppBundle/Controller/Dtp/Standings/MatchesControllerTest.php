@@ -13,6 +13,6 @@ class MatchesControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/tipprunde/hr1617/spiele');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertContains('Spielübersicht', $crawler->filter('#content h2')->text());
+        $this->assertContains('Spielübersicht', $crawler->filter('#content h3')->text());
     }
 }

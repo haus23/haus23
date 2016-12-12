@@ -13,8 +13,8 @@ class TipsControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/tipprunde/hr1617/tipps/runde-3/2243/bayern-koeln');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertContains('Tippübersicht', $crawler->filter('#content h2')->text());
-        $this->assertContains('Bayern', $crawler->filter('#content h2')->text());
+        $this->assertContains('Runde 3', $crawler->filter('#content h3')->text());
+        $this->assertContains('Bayern', $crawler->filter('#content h3')->text());
     }
 
 
@@ -34,27 +34,27 @@ class TipsControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/tipprunde/hr1617/tipps/runde-3/2243');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertContains('Tippübersicht', $crawler->filter('#content h2')->text());
-        $this->assertContains('Bayern', $crawler->filter('#content h2')->text());
+        $this->assertContains('Runde 3', $crawler->filter('#content h3')->text());
+        $this->assertContains('Bayern', $crawler->filter('#content h3')->text());
     }
 
     public function testMatchIdRouteParameterIsOptional()
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/tipprunde/hr1617/tipps/runde-3');
+        $crawler = $client->request('GET', '/tipprunde/hr0203/tipps/runde-3');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertContains('Tippübersicht', $crawler->filter('#content h2')->text());
+        $this->assertContains('Deutschland', $crawler->filter('#content h3')->text());
     }
 
-    public function testRoundNrdRouteParameterIsOptional()
+    public function testRoundNrRouteParameterIsOptional()
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/tipprunde/hr1617/tipps');
+        $crawler = $client->request('GET', '/tipprunde/hr0203/tipps');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertContains('Tippübersicht', $crawler->filter('#content h2')->text());
+        $this->assertContains('Energie', $crawler->filter('#content h3')->text());
     }
 }
