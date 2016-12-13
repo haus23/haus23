@@ -25,7 +25,7 @@ var paths = {
     output:     './web/assets/build',
     baseHtmlPath:   './app/Resources/views/',
     styles:     './app/Resources/styles/**/*.scss',
-    appStyles:  './app/Resources/styles/app.scss',
+    appStyles:  './app/Resources/styles/*.scss',
     scripts:    './app/Resources/scripts/**/*.js'
 };
 

@@ -6,3 +6,11 @@ services:
             - '@doctrine.orm.legacy_entity_manager'
         tags:
             - { name: lean.querybus_handler, query: AppBundle\MessageBus\Query\GetCurrentTips }
+
+    lean.query.current_tournament:
+        class: AppBundle\MessageBus\QueryHandler\GetCurrentTournamentHandler
+        arguments:
+            - '@doctrine.orm.dtp_entity_manager'
+            - '@session'
+        tags:
+            - { name: lean.querybus_handler, query: AppBundle\MessageBus\Query\GetCurrentTournament }

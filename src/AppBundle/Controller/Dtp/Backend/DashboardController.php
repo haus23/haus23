@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Dtp\Backend;
 
+use AppBundle\Service\DtpService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -14,7 +15,12 @@ class DashboardController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('dtp/backend/dashboard.html.twig');
+        /** @var DtpService $dtp */
+        $dtp = $this->get('dtp');
+
+        return $this->render('dtp/backend/dashboard.html.twig', [
+            'tournament' => $dtp->getTournament()
+        ]);
     }
 
     /**
