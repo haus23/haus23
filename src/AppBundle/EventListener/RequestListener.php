@@ -17,7 +17,7 @@ class RequestListener
         // Redirect any backend request without current tournament in session to the dashboard
         $controller = $event->getRequest()->get('_controller');
         $route = $event->getRequest()->get('_route');
-        if (strpos($controller,'Dtp\\Backend')>0 && $route !== 'dtp.dashboard') {
+        if (strpos($controller,'Dtp\\Backend')>0 && ($route !== 'dtp.dashboard' && $route !== 'dtp.tournament.create')) {
             $session = $event->getRequest()->getSession();
             if (!$session->has('dtp.backend.tournament')) {
                 $event->setResponse(new RedirectResponse('/tipprunde/admin'));
