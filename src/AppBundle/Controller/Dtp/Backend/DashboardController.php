@@ -15,11 +15,7 @@ class DashboardController extends Controller
      */
     public function indexAction()
     {
-        /** @var DtpService $dtp */
-        $dtp = $this->get('dtp');
-
         return $this->render('dtp/backend/dashboard.html.twig', [
-            'tournament' => $dtp->getTournament()
         ]);
     }
 

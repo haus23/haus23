@@ -68,6 +68,9 @@
                         </button>
                         <a class="navbar-brand" href="{{ path('dtp.dashboard') }}">DTP</a></li>
                     </div>
+                    <ul class="nav navbar-nav">
+                        <a class="navbar-brand" href="{{ path('dtp.dashboard') }}">{{ dtp.tournament.name ?? 'DTP' }}</a></li>
+                    </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="{{ path('ranking') }}">Frontend</a></li>
                     </ul>

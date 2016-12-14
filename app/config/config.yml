@@ -40,6 +40,8 @@ twig:
     form_themes:
         # Bootstrap:
         - bootstrap_3_layout.html.twig
+    globals:
+        dtp: '@dtp'
 
 # Doctrine Configuration
 doctrine:
