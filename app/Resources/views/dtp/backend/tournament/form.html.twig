@@ -1,10 +1,42 @@
-{% extends app.request.xmlHttpRequest
-    ? 'dtp/backend/_shared/dialog.modal.html.twig'
-    : 'dtp/backend/_shared/dialog.html.twig' %}
+{% extends 'dtp/backend/_shared/dialog.html.twig' %}
 
 {% set dialogtitle = 'Neues Turnier' %}
 {% block dialogbody %}
     {{ form_start(form) }}
-        {{ form_widget(form) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.slug) }}
+        {{ form_row(form.startDate) }}
+        <div class="form-group">
+            {{ form_label(form.ruleset) }}
+            <div class="form-inline">
+                {{ form_widget(form.ruleset) }}
+                {{ form_widget(form.addRuleset, { 'attr': { 'data-url': path('dtp.ruleset.create')}}) }}
+            </div>
+        </div>
+        {{ form_widget(form.save) }}
     {{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    $rulesetSelect = $('#tournament_ruleset');
+    if ($rulesetSelect[0].length == 0) {$rulesetSelect.prop('disabled', true);}
+    $('#tournament_addRuleset').click(function () {
+        var dialogUrl = $(this).data('url');
+        $.get(dialogUrl).then(function (dialog) {
+            var $dialog = $(dialog);
+            $('form', $dialog).submit(function () {
+                $.post(dialogUrl, $(this).serialize()).then(function (response) {
+                    toastr.success(response.msg);
+                    var $option = $('<option></option>').val(response.ruleset.id).html(response.ruleset.name);
+                    $rulesetSelect.append($option).val(response.ruleset.id).prop('disabled',false);
+                    $dialog.modal('hide');
+                });
+                return false;
+            });
+            $dialog.appendTo(document.body).modal('show');
+        });
+        return false;
+    });
+</script>
 {% endblock %}

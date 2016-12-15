@@ -25,6 +25,7 @@ class TournamentType extends AbstractType
                 'choice_label' => 'name'
             ])
             ->add('save', SubmitType::class)
+            ->add('addRuleset', SubmitType::class, ['attr'=>['formnovalidate'=>'']])
         ;
     }
 

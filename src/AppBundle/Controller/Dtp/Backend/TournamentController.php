@@ -7,6 +7,7 @@ use AppBundle\Entity\DTP\Tournament;
 use AppBundle\Form\DTP\RulesetType;
 use AppBundle\Form\DTP\TournamentType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 

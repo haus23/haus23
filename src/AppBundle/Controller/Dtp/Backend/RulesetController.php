@@ -30,7 +30,7 @@ class RulesetController extends Controller
 
             $msg = 'Regelwerk <b>' . $form->get('name')->getData() . '</b> wurde hinzugefügt.';
             if ($request->isXmlHttpRequest()) {
-                return $this->json(["msg"=>$msg]);
+                return $this->json(["msg"=>$msg, "ruleset" => $ruleset]);
             } else {
                 $this->addFlash('success', $msg);
                 return $this->redirectToRoute('dtp.dashboard');

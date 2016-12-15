@@ -3,14 +3,14 @@
 namespace spec\AppBundle\MessageBus\QueryHandler;
 
 use AppBundle\MessageBus\QueryHandler\GetCurrentTipsHandler;
-use Doctrine\DBAL\Connection;
+use Doctrine\ORM\EntityManager;
 use Lean\ServiceBus\HandlerInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 class GetCurrentTipsHandlerSpec extends ObjectBehavior
 {
-    function let(Connection $conn)
+    function let(EntityManager $conn)
     {
         $this->beConstructedWith($conn);
     }

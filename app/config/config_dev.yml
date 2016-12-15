@@ -7,6 +7,44 @@ framework:
         strict_requirements: true
     profiler: { only_exceptions: false }
 
+doctrine:
+    dbal:
+        default_connection: legacy
+        connections:
+            legacy:
+                driver:   pdo_mysql
+                host:     "%database_host%"
+                port:     "%database_port%"
+                dbname:   "%legacy_db_name%"
+                user:     "%database_user%"
+                password: "%database_password%"
+                charset: utf8mb4
+                default_table_options:
+                    charset: utf8mb4
+                    collate: utf8mb4_general_ci
+            foh:
+                driver:   pdo_mysql
+                host:     "%database_host%"
+                port:     "%database_port%"
+                dbname:   "%foh_db_name%"
+                user:     "%database_user%"
+                password: "%database_password%"
+                charset: utf8mb4
+                default_table_options:
+                    charset: utf8mb4
+                    collate: utf8mb4_general_ci
+            dtp:
+                driver:   pdo_mysql
+                host:     "%database_host%"
+                port:     "%database_port%"
+                dbname:   "%dtp_db_name%_dev"
+                user:     "%database_user%"
+                password: "%database_password%"
+                charset: utf8mb4
+                default_table_options:
+                    charset: utf8mb4
+                    collate: utf8mb4_general_ci
+
 web_profiler:
     toolbar: true
     intercept_redirects: false
