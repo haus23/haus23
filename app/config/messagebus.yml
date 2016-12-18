@@ -14,3 +14,11 @@ services:
             - '@session'
         tags:
             - { name: lean.querybus_handler, query: AppBundle\MessageBus\Query\GetCurrentTournament }
+
+    lean.query.current_round:
+        class: AppBundle\MessageBus\QueryHandler\GetCurrentRoundHandler
+        arguments:
+            - '@doctrine.orm.dtp_entity_manager'
+            - '@session'
+        tags:
+            - { name: lean.querybus_handler, query: AppBundle\MessageBus\Query\GetCurrentRound }

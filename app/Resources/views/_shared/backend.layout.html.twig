@@ -42,6 +42,7 @@
                             <p class="nav-text">Runde</p>
                             <ul class="nav nav-stacked">
                                 <li><a href="{{ path('dtp.tournament.create') }}">Neu</a></li>
+                        {% if dtp.round %}
                                 <li><a href="{{ path('dtp.tournament.create') }}">Bearbeiten</a></li>
                             </ul>
                         </li>
@@ -50,6 +51,7 @@
                             <ul class="nav nav-stacked">
                                 <li><a href="{{ path('dtp.tournament.create') }}">Erfassen</a></li>
                                 <li><a href="{{ path('dtp.tournament.create') }}">Bearbeiten</a></li>
+                        {% endif %}
                     {% endif %}
                             </ul>
                         </li>

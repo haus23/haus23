@@ -225,5 +225,14 @@ class Tournament
     {
         return $this->ruleset;
     }
-}
 
+    /**
+     * Set id
+     *
+     * @param int $id
+     */
+    public function setId(int $id)
+    {
+        $this->id = $id;
+    }
+}

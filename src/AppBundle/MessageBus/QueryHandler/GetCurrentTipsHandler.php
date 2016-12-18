@@ -35,7 +35,7 @@ class GetCurrentTipsHandler implements HandlerInterface
             SELECT s.id, s.paarung, s.ergebnis FROM Legacy:Spiel s INDEX BY s.id WHERE s.turnierId = :id
             AND s.ergebnis <> '' ORDER BY s.datum DESC";
         $query = $this->entityManager->createQuery($lastMatchesQuery);
-        $query->setParameter('id', $message->getTournamentId());
+        $query->setParameter('id', $message->getTournament()->getId());
         $query->setMaxResults(2);
         $lastMatches = $query->getResult();
 
@@ -43,7 +43,7 @@ class GetCurrentTipsHandler implements HandlerInterface
             SELECT s.id, s.paarung, s.ergebnis FROM Legacy:Spiel s INDEX BY s.id WHERE s.turnierId = :id
             AND s.ergebnis = '' ORDER BY s.datum ASC";
         $query = $this->entityManager->createQuery($nextMatchesQuery);
-        $query->setParameter('id', $message->getTournamentId());
+        $query->setParameter('id', $message->getTournament()->getId());
         $query->setMaxResults(2);
         $nextMatches = $query->getResult();
 
