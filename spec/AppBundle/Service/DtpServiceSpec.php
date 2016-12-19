@@ -29,4 +29,19 @@ class DtpServiceSpec extends ObjectBehavior
 
         $this->getTournament()->shouldBe($tournament);
     }
+
+    function it_has_current_round(QueryBus $queryBus, Round $round)
+    {
+        $this->beConstructedWith($queryBus);
+
+        $tournament = new Tournament();
+        $queryTournament = new GetCurrentTournament();
+        $queryRound = new GetCurrentRound($tournament);
+
+        $queryBus->handle($queryTournament)->willReturn($tournament);
+        $queryBus->handle($queryRound)->willReturn($round);
+
+        $this->getRound()->shouldBe($round);
+    }
+
 }

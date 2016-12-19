@@ -46,6 +46,6 @@ class DtpService
      */
     public function getRound()
     {
-        $this->tournament = $this->queryBus->handle(new GetCurrentRound($this->getTournament()));
+        return $this->tournament = $this->queryBus->handle(new GetCurrentRound($this->getTournament()));
     }
 }
