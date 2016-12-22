@@ -235,4 +235,50 @@ class Tournament
     {
         $this->id = $id;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $rounds;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->rounds = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add round
+     *
+     * @param \AppBundle\Entity\DTP\Round $round
+     *
+     * @return Tournament
+     */
+    public function addRound(\AppBundle\Entity\DTP\Round $round)
+    {
+        $this->rounds[] = $round;
+
+        return $this;
+    }
+
+    /**
+     * Remove round
+     *
+     * @param \AppBundle\Entity\DTP\Round $round
+     */
+    public function removeRound(\AppBundle\Entity\DTP\Round $round)
+    {
+        $this->rounds->removeElement($round);
+    }
+
+    /**
+     * Get rounds
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRounds()
+    {
+        return $this->rounds;
+    }
 }

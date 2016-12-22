@@ -10,6 +10,7 @@
         <field name="published" type="boolean" nullable="true" />
         <field name="completed" type="boolean" nullable="true" />
         <field name="rulesetId" type="integer" column="ruleset_id" nullable="false" />
+        <one-to-many target-entity="Round" mapped-by="tournament" field="rounds" />
         <many-to-one target-entity="Ruleset" field="ruleset" />
     </entity>
 </doctrine-mapping>

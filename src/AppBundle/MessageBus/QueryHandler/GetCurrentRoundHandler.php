@@ -36,18 +36,11 @@ class GetCurrentRoundHandler implements HandlerInterface
      */
     public function handle($message)
     {
-        $round = null;
-        if ($this->session->has('dtp.backend.round')) {
-            $round = $this->session->get('dtp.backend.round');
-        } else {
-            $round = $this->entityManager->getRepository('DTP:Round')->findOneBy(
-                ['tournament' => $message->getTournament()],
-                ['nr' => 'DESC'])
-            ;
-            if( $round !== null) {
-                $this->session->set('dtp.backend.tournament', $round);
-            }
-        }
+        $round = $this->entityManager->getRepository('DTP:Round')->findOneBy(
+            ['tournament' => $message->getTournament()],
+            ['nr' => 'DESC'])
+        ;
+
         return $round;
     }
 }
