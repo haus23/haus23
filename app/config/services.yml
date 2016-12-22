@@ -8,7 +8,17 @@ services:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
 
+    app.request_listener:
+        class: AppBundle\EventListener\RequestListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.request }
+
     app.user_provider:
         class: AppBundle\Security\UserProvider
         arguments:
             - '@doctrine.orm.foh_entity_manager'
+
+    dtp:
+        class: AppBundle\Service\DtpService
+        arguments:
+            - '@lean.querybus'

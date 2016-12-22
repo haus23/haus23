@@ -1,0 +1,10 @@
+{% extends app.request.xmlHttpRequest
+    ? 'dtp/backend/_shared/dialog.modal.html.twig'
+    : 'dtp/backend/_shared/dialog.html.twig' %}
+
+{% set dialogtitle = 'Neues Regelwerk' %}
+{% block dialogbody %}
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+    {{ form_end(form) }}
+{% endblock %}

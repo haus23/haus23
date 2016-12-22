@@ -2,26 +2,28 @@
 
 namespace AppBundle\MessageBus\Query;
 
+use AppBundle\Entity\DTP\Tournament;
+
 class GetCurrentTips
 {
-    /** @var int */
-    private $tournamentId;
+    /** @var Tournament */
+    private $tournament;
 
     /**
      * GetCurrentMatches constructor.
      *
-     * @param string $tournamentId
+     * @param Tournament $tournament
      */
-    public function __construct(int $tournamentId)
+    public function __construct(Tournament $tournament)
     {
-        $this->tournamentId = $tournamentId;
+        $this->tournament = $tournament;
     }
 
     /**
-     * @return int
+     * @return Tournament
      */
-    public function getTournamentId()
+    public function getTournament()
     {
-        return $this->tournamentId;
+        return $this->tournament;
     }
 }

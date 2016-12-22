@@ -1,0 +1,12 @@
+{% extends 'dtp/backend/_shared/dialog.modal.html.twig' %}
+
+{% set dialogtitle = 'Neue Runde' %}
+{% block dialogbody %}
+    <p>
+        Neue Runde {{ nr }} für {{ dtp.tournament.name }} anlegen?
+    </p>
+    <form>
+        <button type="submit" class="btn btn-primary">Ok</button>
+        <button class="btn btn-default" data-dismiss="modal" >Abbrechen</button>
+    </form>
+{% endblock %}

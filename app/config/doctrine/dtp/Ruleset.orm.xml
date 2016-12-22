@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping">
+    <entity name="AppBundle\Entity\DTP\Ruleset" table="rulesets">
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY" />
+        </id>
+        <field name="name" type="string" length="64" nullable="false" />
+        <field name="description" type="string" length="4096" nullable="false" />
+    </entity>
+</doctrine-mapping>

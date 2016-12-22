@@ -8,6 +8,22 @@ framework:
     profiler:
         collect: false
 
+security:
+    providers:
+        in_memory:
+            memory:
+                users:
+                    micha:
+                        password: secret
+                        roles: 'ROLE_ADMIN'
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
+
+    firewalls:
+        main:
+            provider:   in_memory
+            http_basic: ~
+
 web_profiler:
     toolbar: false
     intercept_redirects: false

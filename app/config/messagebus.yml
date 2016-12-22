@@ -1,8 +1,24 @@
 
 services:
-    lean.query.current_tips:
+    legacy.query.current_tips:
         class: AppBundle\MessageBus\QueryHandler\GetCurrentTipsHandler
         arguments:
             - '@doctrine.orm.legacy_entity_manager'
         tags:
             - { name: lean.querybus_handler, query: AppBundle\MessageBus\Query\GetCurrentTips }
+
+    dtp.query.current_tournament:
+        class: AppBundle\MessageBus\QueryHandler\GetCurrentTournamentHandler
+        arguments:
+            - '@doctrine.orm.dtp_entity_manager'
+            - '@session'
+        tags:
+            - { name: lean.querybus_handler, query: AppBundle\MessageBus\Query\GetCurrentTournament }
+
+    dtp.query.current_round:
+        class: AppBundle\MessageBus\QueryHandler\GetCurrentRoundHandler
+        arguments:
+            - '@doctrine.orm.dtp_entity_manager'
+            - '@session'
+        tags:
+            - { name: lean.querybus_handler, query: AppBundle\MessageBus\Query\GetCurrentRound }

@@ -25,7 +25,7 @@ var paths = {
     output:     './web/assets/build',
     baseHtmlPath:   './app/Resources/views/',
     styles:     './app/Resources/styles/**/*.scss',
-    appStyles:  './app/Resources/styles/app.scss',
+    appStyles:  './app/Resources/styles/*.scss',
     scripts:    './app/Resources/scripts/**/*.js'
 };
 
@@ -93,7 +93,7 @@ gulp.task('serve', tasks.serve);
 
 // TODO: integrate bootstrap in the toolchain above
 gulp.task('bower', function () {
-    gulp.src(paths.baseHtml)
+    gulp.src(paths.baseHtmlPath + '/base.html.twig')
         .pipe(wiredep({
             devDependencies: true,
             ignorePath: /.*web/,

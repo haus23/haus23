@@ -2,12 +2,12 @@
 
 namespace AppBundle\Controller\Dtp\Standings;
 
+use AppBundle\Entity\DTP\Tournament;
 use AppBundle\Entity\Legacy\Config;
 use AppBundle\Entity\Legacy\Turnier;
 use AppBundle\MessageBus\Query\GetCurrentTips;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
-use Dtp\ReadModel\Tournament;
 use Lean\ServiceBus\QueryBus;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -55,7 +55,10 @@ class RankingController extends Controller
             /** @var QueryBus $queryBus */
             $queryBus = $this->get('lean.querybus');
 
-            $query = new GetCurrentTips($currentChampionshipId);
+            // Transfer Turnier -> Tournament
+            $tournament = new Tournament();
+            $tournament->setId($currentChampionshipId);
+            $query = new GetCurrentTips($tournament);
             $tips = $queryBus->handle($query);
         }
 

@@ -7,13 +7,14 @@
         <title>{% block title %}haus23.net{% endblock %}</title>
         <!-- bower:css -->
         <link rel="stylesheet" href="/assets/bower_components/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="/assets/bower_components/toastr/toastr.css" />
         <!-- endbower -->
-        <link rel="stylesheet" href="{{ asset('assets/build/css/app.css?v1') }}" />
+        <link rel="stylesheet" href="{{ asset('assets/build/css/app.css?v2') }}" />
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-        {{ app.environment == 'prod' ? include('_piwik.html.twig') }}
+        {{ app.environment == 'prod' ? include('_shared/_piwik.html.twig') }}
     </head>
-    <body ng-app="app">
+    <body class="h23">
     <nav class="navbar navbar-default">
         <div class="container">
             <div class="navbar-header">
@@ -29,17 +30,11 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li class="{{ app.request.get('_route') == 'homepage' ? 'active' }}"><a href="{{ path('homepage') }}">Home</a></li>
                     <li><a href="http://haus23.de/">Forum</a></li>
+                    <li class="{{ app.request.pathinfo starts with '/tipprunde' ? 'active' }}"><a href="{{ path('ranking') }}">Tipprunde</a></li>
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <li class="dropdown {{ app.request.pathinfo starts with '/tipprunde' ? 'active' }}">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tipprunde <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ path('ranking') }}">Auswertung</a></li>
-                            <li><a href="{{ path('dtp.dashboard') }}#">Verwaltung</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="{{ path('dtp.dashboard') }}">Verwaltung</a></li>
                     <li><a href="{{ path('logout') }}">Logout</a></li>
                     {% else %}
-                    <li class="{{ app.request.pathinfo starts with '/tipprunde' ? 'active' }}"><a href="{{ path('ranking') }}">Tipprunde</a></li>
                     <li class="{{ app.request.get('_route') == 'login' ? 'active' }}"><a href="{{ path('login') }}">Login</a></li>
                     {% endif %}
                 </ul>
@@ -52,6 +47,7 @@
     <!-- bower:js -->
     <script src="/assets/bower_components/jquery/dist/jquery.js"></script>
     <script src="/assets/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/assets/bower_components/toastr/toastr.js"></script>
     <!-- endbower -->
     <!-- inject:js -->
     <!-- endinject -->
