@@ -122,4 +122,104 @@ class PlayersController extends Controller
             'lastMatchId' => $lastMatchId
         ]);
     }
+
+    /**
+     * @Route("/tipprunde/{championshipSlug}/stats", name="stats",
+     *     requirements={"championshipSlug": "\w{2}\d{4}"})
+     */
+    function statsAction($championshipSlug) {
+
+        $championshipRepository = $this->getDoctrine()->getRepository('Legacy:Turnier');
+
+        $championships = $championshipRepository->findBy([],['order' => 'ASC']);
+
+        /** @var Turnier $championship */
+        $championship = current(array_filter($championships,
+                function (Turnier $c) use($championshipSlug) {
+                    return $c->getSlug() === $championshipSlug;
+                })
+        );
+        if( $championship == false ) {
+            throw $this->createNotFoundException('Ein solches Turnier ' . $championshipSlug . ' gibt es nicht.');
+        }
+
+        /** @var QueryBuilder $playersQueryBuilder */
+        $playersQueryBuilder = $this->getDoctrine()->getManager()->createQueryBuilder();
+        $playersQueryBuilder->select('p')
+            ->from('Legacy:Spieler', 'p')
+            ->join('p.user', 'u')
+            ->where('p.turnierId = ?1')
+            ->orderBy('p.platz', 'ASC')
+            ->setParameter(1, $championship->getId());
+        $players = $playersQueryBuilder->getQuery()->execute();
+
+        /** @var QueryBuilder $roundsQueryBuilder */
+        $roundsQueryBuilder = $this->getDoctrine()->getManager()->createQueryBuilder();
+        $roundsQueryBuilder->select(['r', 'm'])
+            ->from('Legacy:Runde', 'r')
+            ->join('r.matches', 'm')
+            ->where('r.turnierId = ?1')
+            ->setParameter(1, $championship->getId());
+        $rounds = $roundsQueryBuilder->getQuery()->execute();
+
+        $roundStats = [];
+        foreach ($players as $player) {
+
+            $tips = [];
+            /** @var Tipp $t */
+            foreach ($player->getTips() as $t) {
+                $tips[$t->getSpielId()] = $t;
+            }
+
+
+            $stats = [];
+            $stats['total'] = [];
+            $stats['total']['totalMatches'] = 0;
+            $stats['total']['playedMatches'] = 0;
+            $stats['total']['points'] = 0;
+
+            /** @var Runde $round */
+            foreach ($rounds as $round) {
+                $stats[$round->getId()] = [];
+                // Anzahl Spiele gesamt
+                $stats[$round->getId()]['totalMatches'] = $round->getAnzahlSpiele();
+                $stats['total']['totalMatches'] += $round->getAnzahlSpiele();
+                // Anzahl Spiele gespielt, nebenbei letztes Spiel ermitteln
+                $lastMatchId = 0;
+                $playedMatches = array_reduce($round->getMatches()->toArray(),function($count, Spiel $match) use (&$lastMatchId) {
+                    if ( strlen($match->getErgebnis()) > 0 ) {
+                        $lastMatchId = $match->getId();
+                        $count += 1;
+                    }
+                    return $count;
+                }, 0);
+                $stats[$round->getId()]['playedMatches'] = $playedMatches;
+                $stats['total']['playedMatches'] += $playedMatches;
+                // Gesammelte Punkte
+                $points = array_reduce($round->getMatches()->toArray(),function($count, Spiel $match) use ($tips) {
+                    /** @var Tipp $tipp */
+                    $tipp = $tips[$match->getId()];
+                    $count += $tipp->getPunkte();
+                    return $count;
+                }, 0);
+                $stats[$round->getId()]['points'] = $points;
+                $stats['total']['points'] += $points;
+                // Durchscnittspunkte
+                $stats[$round->getId()]['average'] = $playedMatches > 0 ? $points / $playedMatches : '';
+            }
+            $stats['total']['average'] = $stats['total']['playedMatches'] > 0 ?
+                $stats['total']['points'] / $stats['total']['playedMatches'] : '';
+
+            $roundStats[$player->getId()] = $stats;
+        }
+
+        return $this->render('dtp/standings/stats.html.twig', [
+            'championships' => $championships,
+            'championship' => $championship,
+            'rounds' => $rounds,
+            'players' => $players,
+            'stats' => $roundStats
+        ]);
+
+    }
 }
