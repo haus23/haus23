@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping">
+    <entity name="AppBundle\Entity\DTP\Match" table="matches">
+        <id name="id" type="integer">
+            <generator strategy="IDENTITY" />
+        </id>
+        <field name="nr" type="integer" nullable="false" />
+        <field name="date" type="date" nullable="true" />
+        <field name="result" type="string" length="5" nullable="true" />
+        <field name="tournamentId" type="integer" column="tournament_id" nullable="false" />
+        <field name="roundId" type="integer" column="round_id" nullable="false" />
+        <field name="leagueId" type="integer" column="league_id" nullable="true" />
+        <field name="hometeamId" type="integer" column="hometeam_id" nullable="true" />
+        <field name="awayteamId" type="integer" column="awayteam_id" nullable="true" />
+        <many-to-one target-entity="Tournament" field="tournament" inversed-by="matches" />
+        <many-to-one target-entity="Round" field="round" inversed-by="matches" />
+        <many-to-one target-entity="League" field="league" inversed-by="matches" />
+        <many-to-one target-entity="Team" field="hometeam" inversed-by="home_matches" />
+        <many-to-one target-entity="Team" field="awayteam" inversed-by="away_matches" />
+    </entity>
+</doctrine-mapping>

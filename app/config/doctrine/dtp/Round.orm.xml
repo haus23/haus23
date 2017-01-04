@@ -8,8 +8,7 @@
         <field name="published" type="boolean" nullable="true" />
         <field name="completed" type="boolean" nullable="true" />
         <field name="tournamentId" type="integer" column="tournament_id" nullable="false" />
-        <many-to-one target-entity="Tournament" field="tournament" inversed-by="rounds">
-            <cascade><cascade-persist/></cascade>
-        </many-to-one>
+        <one-to-many target-entity="Match" mapped-by="round" field="matches" />
+        <many-to-one target-entity="Tournament" field="tournament" inversed-by="rounds" />
     </entity>
 </doctrine-mapping>

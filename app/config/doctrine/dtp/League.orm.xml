@@ -7,5 +7,6 @@
         <field name="name" type="string" length="64" nullable="false" />
         <field name="shortname" type="string" length="32" nullable="false" />
         <field name="slug" type="string" length="32" nullable="false" unique="true" />
+        <one-to-many target-entity="Match" mapped-by="league" field="matches" />
     </entity>
 </doctrine-mapping>

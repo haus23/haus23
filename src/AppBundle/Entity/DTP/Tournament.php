@@ -281,4 +281,43 @@ class Tournament
     {
         return $this->rounds;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $matches;
+
+
+    /**
+     * Add match
+     *
+     * @param \AppBundle\Entity\DTP\Match $match
+     *
+     * @return Tournament
+     */
+    public function addMatch(\AppBundle\Entity\DTP\Match $match)
+    {
+        $this->matches[] = $match;
+
+        return $this;
+    }
+
+    /**
+     * Remove match
+     *
+     * @param \AppBundle\Entity\DTP\Match $match
+     */
+    public function removeMatch(\AppBundle\Entity\DTP\Match $match)
+    {
+        $this->matches->removeElement($match);
+    }
+
+    /**
+     * Get matches
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMatches()
+    {
+        return $this->matches;
+    }
 }

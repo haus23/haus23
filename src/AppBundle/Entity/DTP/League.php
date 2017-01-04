@@ -109,4 +109,50 @@ class League
     {
         return $this->id;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $matches;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->matches = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add match
+     *
+     * @param \AppBundle\Entity\DTP\Match $match
+     *
+     * @return League
+     */
+    public function addMatch(\AppBundle\Entity\DTP\Match $match)
+    {
+        $this->matches[] = $match;
+
+        return $this;
+    }
+
+    /**
+     * Remove match
+     *
+     * @param \AppBundle\Entity\DTP\Match $match
+     */
+    public function removeMatch(\AppBundle\Entity\DTP\Match $match)
+    {
+        $this->matches->removeElement($match);
+    }
+
+    /**
+     * Get matches
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMatches()
+    {
+        return $this->matches;
+    }
 }
