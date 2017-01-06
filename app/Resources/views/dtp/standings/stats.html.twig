@@ -1,0 +1,31 @@
+{% extends 'dtp/standings/_layout.html.twig' %}
+
+{% block title %}Rundenergebnisse - {{ parent() }}{% endblock %}
+
+{% block content %}
+        <h3 class="hidden-xs">Rundenergebnisse</h3>
+        <table id="ranking" class="table clickable-rows">
+            <thead>
+            <tr>
+                <th>Name</th>
+                {% for r in rounds %}
+                    <th class="text-center">Runde {{ r.nr }}</th>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for p in players %}
+            <tr>
+                <td>
+                    <a href="{{ path('players', { 'championshipSlug': championship.slug, 'userSlug': p.user.slug}) }}">
+                        {{ p.user.name }}
+                    </a>
+                </td>
+                {% for r in rounds %}
+                    <th class="text-center">{{ stats[p.id][r.id]['points'] }}</th>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+{% endblock %}
