@@ -9,7 +9,7 @@
                 </div>
                 <div class="panel-body">
                     {% if error %}
-                    <div class="alert alert-danger" role="alert">{% dump error %}
+                    <div class="alert alert-danger" role="alert">
                         {{ error.messageKey|trans(error.messageData, 'security') }}
                         {{ last_username != 'micha' ? 'Geht auch noch nicht. Nur Micha kommt hier rein.' }}
                     </div>
