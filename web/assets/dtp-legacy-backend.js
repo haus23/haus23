@@ -1,5 +1,7 @@
 (function () {
 
+    $('.dtp-select select').select2({theme: 'bootstrap', allowClear: true, placeholder: 'Noch offen'});
+
     $('[data-dtp-dialog]').click(function () {
         var dialogUrl = $(this).data('url') || $(this).attr('href');
         $.get(dialogUrl).then(function (dialog) {

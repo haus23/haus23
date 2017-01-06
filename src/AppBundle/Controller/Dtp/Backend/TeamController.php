@@ -34,7 +34,7 @@ class TeamController extends Controller
 
             $msg = 'Mannschaft <b>' . $form->get('name')->getData() . '</b> wurde hinzugefügt.';
             if ($request->isXmlHttpRequest()) {
-                return $this->json(["msg"=>$msg]);
+                return $this->json(["msg"=>$msg, "data"=>["id"=>$team->getId(),"text"=>$team->getName()]]);
             } else {
                 $this->addFlash('success', $msg);
                 $nextAction = $form->get('saveAndAdd')->isClicked()

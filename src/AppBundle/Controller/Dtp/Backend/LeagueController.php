@@ -34,7 +34,7 @@ class LeagueController extends Controller
 
             $msg = 'Liga <b>' . $form->get('name')->getData() . '</b> wurde hinzugefügt.';
             if ($request->isXmlHttpRequest()) {
-                return $this->json(["msg"=>$msg]);
+                return $this->json(["msg"=>$msg, "data"=>["id"=>$league->getId(),"text"=>$league->getName()]]);
             } else {
                 $this->addFlash('success', $msg);
                 $nextAction = $form->get('saveAndAdd')->isClicked()

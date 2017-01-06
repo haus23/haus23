@@ -1,3 +1,11 @@
+form:
+  new: Neu ...
+
+dtp:
+  select:
+    team: Noch offen
+    league: Noch offen
+
 Name: Name
 Shortname: Kurzname
 Slug: Slug
@@ -8,3 +16,9 @@ Email: Email
 Start date: Startdatum
 Ruleset: Regelwerk
 Add ruleset: Neu ...
+Date: Datum
+League: Liga
+Add league: Neu ...
+Hometeam: Heimmannschaft
+Awayteam: Auswärtsmannschaft
+Add team: Neu ...

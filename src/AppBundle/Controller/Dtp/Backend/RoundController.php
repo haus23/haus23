@@ -2,8 +2,11 @@
 
 namespace AppBundle\Controller\Dtp\Backend;
 
+use AppBundle\Entity\DTP\Match;
 use AppBundle\Entity\DTP\Round;
+use AppBundle\Form\DTP\MatchType;
 use AppBundle\Service\DtpService;
+use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -59,12 +62,16 @@ class RoundController extends Controller
      */
     public function editAction(Request $request, int $id) {
 
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager('dtp');
 
+        /** @var Round $round */
         $round = $em->find("DTP:Round", $id);
+        $matches = $round->getMatches();
 
-        return $this->render('dtp/backend/round/edit.html.twig', array(
-            'round' => $round
-        ));
+        return $this->render('dtp/backend/round/edit.html.twig', [
+            'round' => $round,
+            'matches' => $matches,
+        ]);
     }
 }

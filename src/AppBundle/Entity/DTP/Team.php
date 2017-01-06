@@ -195,4 +195,11 @@ class Team
     {
         return $this->away_matches;
     }
+
+    function __toString()
+    {
+        return $this->getName();
+    }
+
+
 }
