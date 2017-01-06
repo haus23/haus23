@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}haus23.net{% endblock %}</title>
+        <!-- bower:css -->
+        <link rel="stylesheet" href="/assets/bower_components/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="/assets/bower_components/toastr/toastr.css" />
+        <!-- endbower -->
+        <link rel="stylesheet" href="{{ asset('assets/build/css/app.css?v2') }}" />
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        {{ app.environment == 'prod' ? include('_shared/_piwik.html.twig') }}
+    </head>
+    <body class="h23">
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand{{ app.request.get('_route') != 'homepage' ? ' tipprunde' }}" href="{{ path('homepage') }}">haus23.net</a>
+            </div>
+            <div class="collapse navbar-collapse" id="main-nav">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="{{ app.request.get('_route') == 'homepage' ? 'active' }}"><a href="{{ path('homepage') }}">Home</a></li>
+                    <li><a href="http://haus23.de/">Forum</a></li>
+                    <li class="{{ app.request.pathinfo starts with '/tipprunde' ? 'active' }}"><a href="{{ path('ranking') }}">Tipprunde</a></li>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li><a href="{{ path('dtp.dashboard') }}">Verwaltung</a></li>
+                    <li><a href="{{ path('logout') }}">Logout</a></li>
+                    {% else %}
+                    <li class="{{ app.request.get('_route') == 'login' ? 'active' }}"><a href="{{ path('login') }}">Login</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="container" class="container">
+        {% block body %}{% endblock %}
+    </div>
+    <!-- bower:js -->
+    <script src="/assets/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/assets/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/assets/bower_components/toastr/toastr.js"></script>
+    <!-- endbower -->
+    <!-- inject:js -->
+    <!-- endinject -->
+    {% block javascripts %}{% endblock %}
+    </body>
+</html>

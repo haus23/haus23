@@ -7,8 +7,6 @@ var plugins = require('gulp-load-plugins')();
 var argv        = require('yargs').argv;
 var del         = require('del');
 var browserSync = require('browser-sync').create();
-var source      = require('vinyl-source-stream');
-var watchify    = require('watchify');
 var wiredep     = require('wiredep').stream;
 
 // Determine run configuration
@@ -23,14 +21,38 @@ var production = !!argv['production'];
 // Project paths
 var paths = {
     output:     './web/assets/build',
-    baseHtmlPath:   './app/Resources/views/',
-    styles:     './app/Resources/styles/**/*.scss',
-    appStyles:  './app/Resources/styles/app.scss',
-    scripts:    './app/Resources/scripts/**/*.js'
+    views:      './app/Resources/views/',
+    legacyApp: {
+        layout:  './app/Resources/views/_shared',
+        styles:  './app/Resources/styles/legacy-app.scss',
+        scripts: './app/Resources/scripts/legacy-app.js'
+    }
 };
 
 // Task methods
 var tasks = {
+    // Wire bower dependencies
+    bower: function () {
+        return gulp.src(paths.views + '/base.html.twig')
+            .pipe(wiredep({
+                devDependencies: true,
+                ignorePath: /.*web/,
+                fileTypes: {
+                    twig: {
+                        block: /(([ \t]*)<!--\s*bower:*(\S*)\s*-->)(\n|\r|.)*?(<!--\s*endbower\s*-->)/gi,
+                        detect: {
+                            js: /<script.*src=['"]([^'"]+)/gi,
+                            css: /<link.*href=['"]([^'"]+)/gi
+                        },
+                        replace: {
+                            js: '<script src="{{filePath}}"></script>',
+                            css: '<link rel="stylesheet" href="{{filePath}}" />'
+                        }
+                    }
+                }
+            }))
+            .pipe(gulp.dest(paths.views));
+    },
     // Delete output folder
     clean: function(cb) {
         del([paths.output + '/']).then(function () {
@@ -39,20 +61,22 @@ var tasks = {
     },
     // Compile sass sources
     styles: function () {
-        return gulp.src(paths.appStyles)
+        return gulp.src(paths.legacyApp.styles)
             .pipe(plugins.sass())
             .pipe(gulp.dest(paths.output + '/css'))
             .pipe(browserSync.stream());
     },
     // Copy and inject app scripts
     scripts: function () {
-        return gulp.src(paths.baseHtmlPath + '/base.html.twig')
-            .pipe(plugins.inject(
-                gulp.src(paths.scripts)
-                    .pipe(gulp.dest(paths.output + '/js'))
-                    .pipe(plugins.angularFilesort()), { ignorePath: '/web/'})
-            )
-            .pipe(gulp.dest(paths.baseHtmlPath));
+        return gulp.src(paths.legacyApp.scripts)
+            .pipe(gulp.dest(paths.output + '/js'));
+    },
+    inject: function () {
+        var target = gulp.src(paths.legacyApp.layout + '/frontend.layout.html.twig');
+        var sources = gulp.src(paths.output + '/**/*', {read: false});
+
+        return target.pipe(plugins.inject(sources, {ignorePath: '/web'} ))
+            .pipe(gulp.dest(paths.legacyApp.layout));
     },
     // Initialize browser-sync
     serve: function () {
@@ -63,17 +87,17 @@ var tasks = {
     // Watch dependencies
     watchDeps: function () {
         // styles
-        gulp.watch(paths.styles, ['styles']);
+        gulp.watch(paths.legacyApp.styles, ['styles']);
         // scripts
-        gulp.watch(paths.scripts, ['scripts-watcher']);
+        gulp.watch(paths.legacyApp.scripts, ['scripts-watcher']);
     }
 };
 
 //
 // Main Tasks: build and watch (default)
 //
-gulp.task('build', ['clean','styles','scripts']);
-gulp.task('watch', ['styles','scripts','serve'], tasks.watchDeps );
+gulp.task('build', ['clean','inject']);
+gulp.task('watch', ['inject','serve'], tasks.watchDeps );
 gulp.task('default', ['watch']);
 
 //
@@ -81,35 +105,16 @@ gulp.task('default', ['watch']);
 //
 var deps = build ? ['clean'] : [];
 
+gulp.task('bower', tasks.bower);
 gulp.task('clean', tasks.clean);
 gulp.task('styles', deps, tasks.styles);
 gulp.task('scripts', deps, tasks.scripts);
+gulp.task('inject', ['styles','scripts'], tasks.inject);
+
 gulp.task('scripts-watcher',['scripts'],
     function (done) {
         browserSync.reload();
         done();
     });
-gulp.task('serve', tasks.serve);
 
-// TODO: integrate bootstrap in the toolchain above
-gulp.task('bower', function () {
-    gulp.src(paths.baseHtml)
-        .pipe(wiredep({
-            devDependencies: true,
-            ignorePath: /.*web/,
-            fileTypes: {
-                twig: {
-                    block: /(([ \t]*)<!--\s*bower:*(\S*)\s*-->)(\n|\r|.)*?(<!--\s*endbower\s*-->)/gi,
-                    detect: {
-                        js: /<script.*src=['"]([^'"]+)/gi,
-                        css: /<link.*href=['"]([^'"]+)/gi
-                    },
-                    replace: {
-                        js: '<script src="{{filePath}}"></script>',
-                        css: '<link rel="stylesheet" href="{{filePath}}" />'
-                    }
-                }
-            }
-        }))
-        .pipe(gulp.dest('./app/Resources/views'));
-});
+gulp.task('serve', tasks.serve);
