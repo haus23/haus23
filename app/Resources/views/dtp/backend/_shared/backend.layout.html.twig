@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}haus23.net{% endblock %}</title>
         <!-- bower:css -->
-        <link rel="stylesheet" href="/assets/bower_components/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="/assets/bower_components/toastr/toastr.css" />
+        <link rel="stylesheet" href="/assets/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/assets/bower_components/toastr/toastr.min.css" />
+        <link rel="stylesheet" href="/assets/bower_components/select2/dist/css/select2.min.css" />
+        <link rel="stylesheet" href="/assets/bower_components/select2-bootstrap-theme/dist/select2-bootstrap.min.css" />
         <!-- endbower -->
         <link rel="stylesheet" href="{{ asset('assets/build/css/backend.css?v1') }}" />
         {% block stylesheets %}{% endblock %}
@@ -89,9 +91,11 @@
     </div>
 
     <!-- bower:js -->
-    <script src="/assets/bower_components/jquery/dist/jquery.js"></script>
-    <script src="/assets/bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="/assets/bower_components/toastr/toastr.js"></script>
+    <script src="/assets/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/assets/bower_components/toastr/toastr.min.js"></script>
+    <script src="/assets/bower_components/select2/dist/js/select2.min.js"></script>
+    <script src="/assets/bower_components/select2/dist/js/i18n/de.js"></script>
     <!-- endbower -->
     <!-- inject:js -->
     <!-- endinject -->
