@@ -18,14 +18,4 @@ class DashboardController extends Controller
         return $this->render('dtp/backend/dashboard.html.twig', [
         ]);
     }
-
-    /**
-     * @Route("/add-match", name="dtp.dashboard.match")
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function addMatchAction()
-    {
-        return $this->render('dtp/backend/dashboard/add-match.html.twig');
-    }
 }

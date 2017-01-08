@@ -10,10 +10,19 @@
 
     <!-- bower:css -->
     <link rel="stylesheet" href="/assets/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/assets/bower_components/toastr/toastr.min.css" />
+    <link rel="stylesheet" href="/assets/bower_components/select2/dist/css/select2.min.css" />
+    <link rel="stylesheet" href="/assets/bower_components/select2-bootstrap-theme/dist/select2-bootstrap.min.css" />
     <!-- endbower -->
 
-    {% block head %}{% endblock %}
+    <!-- inject:css -->
+    <link rel="stylesheet" href="/assets/build/css/legacy-app.css">
+    <link rel="stylesheet" href="/assets/build/css/legacy-dtp-backend.css">
+    <!-- endinject -->
 
+    {% block stylesheets %}{% endblock %}
+
+    {% block head %}{% endblock %}
 
 </head>
 <body class="h23">
@@ -23,7 +32,15 @@
 <!-- bower:js -->
 <script src="/assets/bower_components/jquery/dist/jquery.min.js"></script>
 <script src="/assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/assets/bower_components/toastr/toastr.min.js"></script>
+<script src="/assets/bower_components/select2/dist/js/select2.min.js"></script>
+<script src="/assets/bower_components/select2/dist/js/i18n/de.js"></script>
 <!-- endbower -->
 
-{% block bottom %}{% endblock %}
+<!-- inject:js -->
+<script src="/assets/build/js/legacy-app.js"></script>
+<script src="/assets/build/js/legacy-dtp-backend.js"></script>
+<!-- endinject -->
+
+{% block javascripts %}{% endblock %}
 </body>

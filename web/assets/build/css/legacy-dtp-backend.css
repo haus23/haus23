@@ -9,6 +9,14 @@ html, body, #wrapper {
   flex: 1 1 auto;
   display: flex; }
 
+.dtp-inline .form-control {
+  display: inline;
+  width: 50%;
+  min-width: 240px; }
+
+.dtp-inline .select2-container--bootstrap {
+  display: inline-block; }
+
 .dtp-sidebar, .dtp-content {
   padding: 0; }
   .dtp-sidebar .navbar-brand, .dtp-content .navbar-brand {
@@ -52,33 +60,3 @@ html, body, #wrapper {
     padding: 0; }
     .dtp-content .navbar-header {
       display: none; } }
-
-/**
-
-.dtp-sidebar {
-
-
-  .navbar {
-    margin-bottom: 0;
-    border-color: transparent;
-  }
-  .dtp-nav {
-    .nav-text {
-      margin-top: 12px;
-    }
-    padding-left: 10px;
-    > .nav-stacked {
-      color: white;
-      padding: 12px 0;
-    }
-  }
-}
-.dtp-content {
-
-  .container-fluid > .navbar-header {
-    margin-left: 0;
-  }
-}
-
-
-*/

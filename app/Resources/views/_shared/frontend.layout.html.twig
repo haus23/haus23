@@ -1,22 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block head %}
-    <!-- inject:css -->
-    <link rel="stylesheet" href="/assets/build/css/legacy-app.css">
-    <!-- endinject -->
-    {% block stylesheets %}{% endblock %}
     {{ app.environment == 'prod' ? include('_shared/_piwik.html.twig') }}
 {% endblock %}
 
-{% block bottom %}
-    <!-- inject:js -->
-    <script src="/assets/build/js/legacy-app.js"></script>
-    <!-- endinject -->
-    {% block javascripts %}{% endblock %}
-{% endblock %}
-
 {% block root %}
-    <nav class="navbar navbar-default">
+    <nav class="frontend navbar navbar-default">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav" aria-expanded="false">

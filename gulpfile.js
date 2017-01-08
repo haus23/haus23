@@ -20,13 +20,10 @@ var production = !!argv['production'];
 //
 // Project paths
 var paths = {
-    output:     './web/assets/build',
-    views:      './app/Resources/views/',
-    legacyApp: {
-        layout:  './app/Resources/views/_shared',
-        styles:  './app/Resources/styles/legacy-app.scss',
-        scripts: './app/Resources/scripts/legacy-app.js'
-    }
+    output:  './web/assets/build',
+    views:   './app/Resources/views/',
+    styles:  './app/Resources/styles/*.scss',
+    scripts: './app/Resources/scripts/*.js'
 };
 
 // Task methods
@@ -61,22 +58,22 @@ var tasks = {
     },
     // Compile sass sources
     styles: function () {
-        return gulp.src(paths.legacyApp.styles)
+        return gulp.src(paths.styles)
             .pipe(plugins.sass())
             .pipe(gulp.dest(paths.output + '/css'))
             .pipe(browserSync.stream());
     },
     // Copy and inject app scripts
     scripts: function () {
-        return gulp.src(paths.legacyApp.scripts)
+        return gulp.src(paths.scripts)
             .pipe(gulp.dest(paths.output + '/js'));
     },
     inject: function () {
-        var target = gulp.src(paths.legacyApp.layout + '/frontend.layout.html.twig');
+        var target = gulp.src(paths.views + '/base.html.twig');
         var sources = gulp.src(paths.output + '/**/*', {read: false});
 
         return target.pipe(plugins.inject(sources, {ignorePath: '/web'} ))
-            .pipe(gulp.dest(paths.legacyApp.layout));
+            .pipe(gulp.dest(paths.views));
     },
     // Initialize browser-sync
     serve: function () {
@@ -87,9 +84,9 @@ var tasks = {
     // Watch dependencies
     watchDeps: function () {
         // styles
-        gulp.watch(paths.legacyApp.styles, ['styles']);
+        gulp.watch(paths.styles, ['styles']);
         // scripts
-        gulp.watch(paths.legacyApp.scripts, ['scripts-watcher']);
+        gulp.watch(paths.scripts, ['scripts-watcher']);
     }
 };
 

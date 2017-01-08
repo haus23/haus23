@@ -9,7 +9,10 @@
   "homepage": "https://github.com/haus23/haus23",
   "dependencies": {
     "jquery": "^3.1.1",
-    "bootstrap": "^3.3.7"
+    "bootstrap": "^3.3.7",
+    "toastr": "^2.1.3",
+    "select2": "^4.0.3",
+    "select2-bootstrap-theme": "^0.1.0-beta.9"
   },
   "overrides": {
     "jquery": {
@@ -17,10 +20,28 @@
         "dist/jquery.min.js"
       ]
     },
+    "toastr": {
+      "main": [
+        "toastr.min.js",
+        "toastr.min.css"
+      ]
+    },
     "bootstrap": {
       "main": [
         "dist/css/bootstrap.min.css",
         "dist/js/bootstrap.min.js"
+      ]
+    },
+    "select2": {
+      "main": [
+        "dist/js/select2.min.js",
+        "dist/js/i18n/de.js",
+        "dist/css/select2.min.css"
+      ]
+    },
+    "select2-bootstrap-theme": {
+      "main": [
+        "dist/select2-bootstrap.min.css"
       ]
     }
   }
