@@ -30,7 +30,7 @@
                         <ul class="nav nav-stacked">
                             <li><a href="{{ path('dtp.round.create') }}" data-dtp-dialog>Neu</a></li>
                     {% if dtp.round %}
-                            <li><a href="{{ path('dtp.round.edit', { id: dtp.round.id }) }}">Bearbeiten</a></li>
+                            <li><a href="{{ path('dtp.round.matches', { roundId: dtp.round.id }) }}">Spiele</a></li>
                         </ul>
                     </li>
                     <li>

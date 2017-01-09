@@ -1,0 +1,27 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>Nr</th>
+        <th>Datum</th>
+        <th>Liga</th>
+        <th>Paarung</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for m in matches %}
+        <tr>
+            <td>{{ m.nr }}</td>
+            <td>{{ m.date ? m.date | date('d.m.Y') }}</td>
+            <td>{{ m.league ? m.league.name : 'TBA' }}</td>
+            {% set fixture = (m.hometeam ?: 'TBA') ~ ' - ' ~ (m.awayteam ?: 'TBA') %}
+            <td>{{ fixture == 'TBA - TBA' ? 'TBA' : fixture }}</td>
+            <td>
+                <a href="{{ path('dtp.round.edit', { 'roundId': m.round.id, 'matchId': m.id }) }}" class="btn btn-default" aria-label="Bearbeiten">
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

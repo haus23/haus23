@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Dtp\Backend;
 
 use AppBundle\Entity\DTP\Match;
+use AppBundle\Entity\DTP\Round;
 use AppBundle\Form\DTP\MatchType;
 use AppBundle\Service\DtpService;
 use Doctrine\ORM\EntityManager;
@@ -13,82 +14,83 @@ use Symfony\Component\HttpFoundation\Response;
 
 class MatchController extends Controller
 {
+
     /**
-     * @Route("/match/create", name="dtp.match.create")
+     * @Route("/round/{roundId}/matches/{matchId}", name="dtp.round.matches")
      *
      * @param Request $request
-     * @return Response
+     * @param int $roundId
+     * @param null $matchId
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function createAction(Request $request)
-    {
-        $match = new Match();
-        $form = $this->createForm(MatchType::class, $match);
+    public function roundMatchesAction(Request $request, int $roundId, $matchId = null) {
 
-        $form->handleRequest($request);
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager('dtp');
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        /** @var Round $round */
+        $round = $em->find("DTP:Round", $roundId);
+        $matches = $round->getMatches();
 
-            /** @var DtpService $dtp */
-            $dtp = $this->get('dtp');
-
-            $round = $dtp->getRound();
-
-            /** @var EntityManager $em */
-            $em = $this->getDoctrine()->getManager('dtp');
-
-            // update foreign keys
-            $match->setTournament($em->getReference('DTP:Tournament', $round->getTournamentId()));
-            $match->setRound($em->getReference('DTP:Round', $round->getId()));
-
-            // update nr
-            $dql = 'SELECT MAX(m.id) FROM DTP:Match m WHERE m.tournamentId = ?1';
-            $nr = $em->createQuery($dql)
-                    ->setParameter(1, $round->getTournamentId())
-                    ->getSingleScalarResult() + 1;
-            $match->setNr($nr);
-
-            $em->persist($match);
-            $em->flush();
-
-            $msg = 'Spiel Nummer <b>' . $nr . '</b> wurde hinzugefügt.';
-            return $this->json(["msg"=>$msg, "data" => $match]);
-        }
-
-        return $this->render('dtp/backend/match/form.html.twig', array(
-            'form' => $form->createView(),
-        ));
+        return $this->render('dtp/backend/round/edit.html.twig', [
+            'round' => $round,
+            'matches' => $matches,
+            'matchId' => $matchId
+        ]);
     }
 
     /**
-     * @Route("/match/update/{id}", name="dtp.match.update")
+     * @Route("/match/edit/round/{roundId}/match/{matchId}", name="dtp.match.edit")
      *
      * @param Request $request
+     * @param int $roundId
+     * @param int|null $matchId
      * @return Response
      */
-    public function updateAction(Request $request, $id)
+    public function editAction(Request $request, int $roundId, $matchId = null)
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager('dtp');
-        /** @var Match $match */
-        $match = $em->find('DTP:Match',$id);
 
-        if (!$match) {
-            throw $this->createNotFoundException(
-                'No match found for id '.$id
-            );
+        if ($matchId === null) {
+            $match = new Match();
+        } else {
+            $match = $em->find('DTP:Match', $matchId);
         }
 
-        $form = $this->createForm(MatchType::class, $match);
+        $form = $this->createForm(MatchType::class, $match,['action' => $this->generateUrl('dtp.match.edit',
+            [
+                'roundId' => $roundId,
+                'matchId' => $matchId
+            ]
+        )]);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            // new match?
+            if ($match->getId() == null) {
+                // update foreign keys
+                $match->setRound($em->getReference('DTP:Round', $roundId));
+
+                // update nr
+                $dql = 'SELECT MAX(m.id) FROM DTP:Match m WHERE m.roundId = ?1';
+                $nr = $em->createQuery($dql)
+                        ->setParameter(1, $roundId)
+                        ->getSingleScalarResult() + 1;
+                $match->setNr($nr);
+
+                $msg = 'Spiel Nummer <b>' . $nr . '</b> wurde hinzugefügt.';
+            } else {
+                $msg = 'Spiel Nummer <b>' . $match->getNr() . '</b> wurde aktualisiert.';
+            }
+
             $em->persist($match);
             $em->flush();
 
-            $msg = 'Spiel Nummer <b>' . $match->getNr() . '</b> wurde aktualisiert.';
-            return $this->json(["msg"=>$msg, "data" => $match]);
+            $this->addFlash('success', $msg);
+            return $this->redirectToRoute('dtp.round.matches', ['roundId' => $roundId]);
         }
 
         return $this->render('dtp/backend/match/form.html.twig', array(

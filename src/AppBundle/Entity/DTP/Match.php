@@ -415,4 +415,3 @@ class Match implements \JsonSerializable
         ];
     }
 }
-

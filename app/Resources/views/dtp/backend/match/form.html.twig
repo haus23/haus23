@@ -1,30 +1,32 @@
-{% extends 'dtp/backend/_shared/dialog.modal.html.twig' %}
-
-{% set dialogtitle = 'Neues Spiel' %}
-{% block dialogbody %}
-    {{ form_start(form) }}
-    {{ form_row(form.date) }}
-    <div class="form-group dtp-select">
-        {{ form_label(form.league) }}
-        <div class="dtp-inline">
-            {{ form_widget(form.league) }}
-            {{ form_widget(form.addLeague, { 'attr': { 'data-url': path('dtp.league.create')}}) }}
-        </div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Neues Spiel</h3>
     </div>
-    <div class="form-group dtp-select">
-        {{ form_label(form.hometeam) }}
-        <div class="dtp-inline">
-            {{ form_widget(form.hometeam) }}
-            {{ form_widget(form.addHTeam, { 'attr': { 'data-url': path('dtp.team.create')}}) }}
+    <div class="panel-body">
+        {{ form_start(form) }}
+        {{ form_row(form.date) }}
+        <div class="form-group dtp-select">
+            {{ form_label(form.league) }}
+            <div class="dtp-inline">
+                {{ form_widget(form.league) }}
+                {{ form_widget(form.addLeague, { 'attr': { 'data-url': path('dtp.league.create')}}) }}
+            </div>
         </div>
-    </div>
-    <div class="form-group dtp-select">
-        {{ form_label(form.awayteam) }}
-        <div class="dtp-inline">
-            {{ form_widget(form.awayteam) }}
-            {{ form_widget(form.addATeam, { 'attr': { 'data-url': path('dtp.team.create')}}) }}
+        <div class="form-group dtp-select">
+            {{ form_label(form.hometeam) }}
+            <div class="dtp-inline">
+                {{ form_widget(form.hometeam) }}
+                {{ form_widget(form.addHTeam, { 'attr': { 'data-url': path('dtp.team.create')}}) }}
+            </div>
         </div>
+        <div class="form-group dtp-select">
+            {{ form_label(form.awayteam) }}
+            <div class="dtp-inline">
+                {{ form_widget(form.awayteam) }}
+                {{ form_widget(form.addATeam, { 'attr': { 'data-url': path('dtp.team.create')}}) }}
+            </div>
+        </div>
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
     </div>
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
-{% endblock %}
+</div>

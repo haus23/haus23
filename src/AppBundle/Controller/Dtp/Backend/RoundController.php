@@ -52,26 +52,4 @@ class RoundController extends Controller
             'nr' => $nr
         ));
     }
-
-    /**
-     * @Route("/round/edit/{id}", name="dtp.round.edit")
-     *
-     * @param Request $request
-     * @param int $id
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function editAction(Request $request, int $id) {
-
-        /** @var EntityManager $em */
-        $em = $this->getDoctrine()->getManager('dtp');
-
-        /** @var Round $round */
-        $round = $em->find("DTP:Round", $id);
-        $matches = $round->getMatches();
-
-        return $this->render('dtp/backend/round/edit.html.twig', [
-            'round' => $round,
-            'matches' => $matches,
-        ]);
-    }
 }
