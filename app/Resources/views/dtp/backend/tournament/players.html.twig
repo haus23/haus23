@@ -1,0 +1,60 @@
+{% extends 'dtp/backend/_shared/backend.layout.html.twig' %}
+
+{% block title %}Spieler - {{ dtp.tournament.name }} - haus23.net{% endblock %}
+{% block body %}
+    <h2>Mitspieler</h2>
+    <div class="row">
+        <div class="col-xs-6">
+            <form action="{{ path('dtp.tournament.add_player') }}" method="post">
+            <div class="form-group dtp-select">
+                <label class="control-label" for="lstPlayers">Alle Spieler</label>
+                <div class="dtp-inline">
+                    <select id="lstPlayers" name="playerId" class="form-control" data-placeholder="Bitte wählen">
+                        <option value="">Bitte wählen</option>
+                        {% for p in players %}
+                            <option value="{{ p.id }}">{{ p.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <button class="btn btn-default" data-url="{{ path('dtp.player.create') }}">Neu ...</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <button id="addAttendee" class="btn btn-primary" data-url="{{ path('dtp.tournament.add_player') }}">
+                    Hinzufügen
+                </button>
+            </div>
+            </form>
+        </div>
+        <div class="col-xs-6">
+            <label class="control-label" for="lstPlayers">Turnier</label>
+            <ul class="list-group">
+                {% for a in attendees %}
+                <li class="list-group-item">{{ a.player.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $('.dtp-select button').click(function () {
+            var $selectBox = $(this).prevAll('select');
+            var dialogUrl = $(this).data('url');
+            $.get(dialogUrl).then(function (dialog) {
+                var $dialog = $(dialog);
+                $('form', $dialog).submit(function () {
+                    $.post(dialogUrl, $(this).serialize()).then(function (response) {
+                        toastr.success(response.msg);
+                        var $option = $('<option></option>').val(response.data.id).html(response.data.text);
+                        $selectBox.append($option).val(response.data.id);
+                        $dialog.modal('hide');
+                    });
+                    return false;
+                });
+                $dialog.appendTo(document.body).modal('show');
+            });
+            return false;
+        });
+    </script>
+{% endblock %}

@@ -109,4 +109,50 @@ class Player
     {
         return $this->id;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $attendances;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->attendances = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add attendance
+     *
+     * @param \AppBundle\Entity\DTP\Attendee $attendance
+     *
+     * @return Player
+     */
+    public function addAttendance(\AppBundle\Entity\DTP\Attendee $attendance)
+    {
+        $this->attendances[] = $attendance;
+
+        return $this;
+    }
+
+    /**
+     * Remove attendance
+     *
+     * @param \AppBundle\Entity\DTP\Attendee $attendance
+     */
+    public function removeAttendance(\AppBundle\Entity\DTP\Attendee $attendance)
+    {
+        $this->attendances->removeElement($attendance);
+    }
+
+    /**
+     * Get attendances
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAttendances()
+    {
+        return $this->attendances;
+    }
 }

@@ -34,7 +34,7 @@ class PlayerController extends Controller
 
             $msg = 'Spieler <b>' . $form->get('name')->getData() . '</b> wurde hinzugefügt.';
             if ($request->isXmlHttpRequest()) {
-                return $this->json(["msg"=>$msg]);
+                return $this->json(["msg"=>$msg, "data"=>["id"=>$player->getId(),"text"=>$player->getName()]]);
             } else {
                 $this->addFlash('success', $msg);
                 $nextAction = $form->get('saveAndAdd')->isClicked()

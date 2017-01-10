@@ -7,5 +7,6 @@
         <field name="name" type="string" length="64" nullable="false" />
         <field name="slug" type="string" length="32" nullable="false" unique="true" />
         <field name="email" type="string" length="255" nullable="true" />
+        <one-to-many target-entity="Attendee" mapped-by="player" field="attendances" />
     </entity>
 </doctrine-mapping>

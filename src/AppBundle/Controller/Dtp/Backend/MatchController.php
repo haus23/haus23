@@ -75,7 +75,7 @@ class MatchController extends Controller
                 $match->setRound($em->getReference('DTP:Round', $roundId));
 
                 // update nr
-                $dql = 'SELECT MAX(m.id) FROM DTP:Match m WHERE m.roundId = ?1';
+                $dql = 'SELECT MAX(m.nr) FROM DTP:Match m WHERE m.roundId = ?1';
                 $nr = $em->createQuery($dql)
                         ->setParameter(1, $roundId)
                         ->getSingleScalarResult() + 1;

@@ -320,4 +320,43 @@ class Tournament
     {
         return $this->matches;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $attendees;
+
+
+    /**
+     * Add attendee
+     *
+     * @param \AppBundle\Entity\DTP\Attendee $attendee
+     *
+     * @return Tournament
+     */
+    public function addAttendee(\AppBundle\Entity\DTP\Attendee $attendee)
+    {
+        $this->attendees[] = $attendee;
+
+        return $this;
+    }
+
+    /**
+     * Remove attendee
+     *
+     * @param \AppBundle\Entity\DTP\Attendee $attendee
+     */
+    public function removeAttendee(\AppBundle\Entity\DTP\Attendee $attendee)
+    {
+        $this->attendees->removeElement($attendee);
+    }
+
+    /**
+     * Get attendees
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAttendees()
+    {
+        return $this->attendees;
+    }
 }
