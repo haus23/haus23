@@ -32,7 +32,7 @@ class RankingController extends Controller
         /** @var EntityRepository $championshipRepository */
         $championshipRepository = $this->getDoctrine()->getRepository('Legacy:Turnier');
 
-        $championships = $championshipRepository->findBy([], ['order' => 'ASC']);
+        $championships = $championshipRepository->findBy([], ['order' => 'DESC']);
 
         /** @var Turnier $championship */
 

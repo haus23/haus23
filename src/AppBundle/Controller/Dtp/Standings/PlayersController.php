@@ -22,7 +22,7 @@ class PlayersController extends Controller
     {
         $championshipRepository = $this->getDoctrine()->getRepository('Legacy:Turnier');
 
-        $championships = $championshipRepository->findBy([],['order' => 'ASC']);
+        $championships = $championshipRepository->findBy([],['order' => 'DESC']);
 
         /** @var Turnier $championship */
         $championship = current(array_filter($championships,

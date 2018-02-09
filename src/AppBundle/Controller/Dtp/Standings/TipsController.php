@@ -23,7 +23,7 @@ class TipsController extends Controller
         $roundRepository = $this->getDoctrine()->getRepository('Legacy:Runde');
         $matchRepository = $this->getDoctrine()->getRepository('Legacy:Spiel');
 
-        $championships = $championshipRepository->findBy([],['order' => 'ASC']);
+        $championships = $championshipRepository->findBy([],['order' => 'DESC']);
 
         /** @var Turnier $championship */
         $championship = current(array_filter($championships,
