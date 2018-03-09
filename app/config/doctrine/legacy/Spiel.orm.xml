@@ -49,6 +49,12 @@
         <option name="unsigned"/>
       </options>
     </field>
+    <field name="canceled" type="boolean" column="canceled">
+      <options>
+        <option name="default">0</option>
+        <option name="unsigned"/>
+      </options>
+    </field>
     <many-to-one target-entity="AppBundle\Entity\Legacy\Runde" field="round" inversed-by="matches">
       <join-column name="runde_id" referenced-column-name="id" />
     </many-to-one>
