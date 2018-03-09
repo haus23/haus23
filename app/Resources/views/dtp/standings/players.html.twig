@@ -82,7 +82,7 @@
                                 {% for m in r.matches %}
                                     {% set double = (tips[m.id] is defined) and tips[m.id] ? tips[m.id].joker or tips[m.id].zusatzjoker or tips[m.id].sonder : false %}
                                     {% set doubleClass = double ? ' success' : '' %}
-                                    <tr id="m{{ m.id }}" class="hidden-xs{{ doubleClass }}">
+                                    <tr id="m{{ m.id }}" class="hidden-xs{{ doubleClass }} {{ m.canceled ? 'canceled' }}">
                                         <td>{{ m.datum | date("d.m.Y") }}</td>
                                         <td>
                                             <a href="{{ path('tips', { 'championshipSlug': championship.slug, 'round': 'runde-' ~ r.nr, 'matchId': m.id, 'fixture': m.slug}) }}">
@@ -93,14 +93,14 @@
                                         <td width="32px" class="text-center">{{ m.ergebnis }}</td>
                                         <td class="text-center">{{ (tips[m.id] is defined) and tips[m.id] ? tips[m.id].punkte }}</td>
                                     </tr>
-                                    <tr class="visible-xs{{ doubleClass }}">
+                                    <tr class="visible-xs{{ doubleClass }} {{ m.canceled ? 'canceled' }}">
                                         <td colspan="2">
                                             <a href="{{ path('tips', { 'championshipSlug': championship.slug, 'round': 'runde-' ~ r.nr, 'matchId': m.id, 'fixture': m.slug}) }}">
                                                 {{ m.paarung }}
                                             </a></td>
                                         <td class="text-right">{{ m.ergebnis }}</td>
                                     </tr>
-                                    <tr class="visible-xs details{{ doubleClass }}">
+                                    <tr class="visible-xs details{{ doubleClass }} {{ m.canceled ? 'canceled' }}">
                                         <td>{{ m.datum | date("d.m.Y") }}</td>
                                         <td>Tipp: {{ (tips[m.id] is defined) and tips[m.id] ? tips[m.id].tipp }}</td>
                                         <td width="60px"
