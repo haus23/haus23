@@ -43,6 +43,11 @@
   }
 }
 
+// canceled matches
+.canceled {
+  text-decoration: line-through;
+}
+
 @media (max-width: 767px) {
   .xs-block {
     display: block;
