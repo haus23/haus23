@@ -57,6 +57,10 @@ class Spiel
      */
     private $id;
 
+    /**
+     * @var boolean
+     */
+    private $canceled = '0';
 
     /**
      * Set turnierId
@@ -272,6 +276,22 @@ class Spiel
     public function getPunkte()
     {
         return $this->punkte;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCanceled(): bool
+    {
+        return $this->canceled;
+    }
+
+    /**
+     * @param bool $canceled
+     */
+    public function setCanceled(bool $canceled)
+    {
+        $this->canceled = $canceled;
     }
 
     /**

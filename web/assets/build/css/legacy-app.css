@@ -27,6 +27,9 @@
 #players-view .panel-heading {
   border-bottom: none; }
 
+.canceled {
+  text-decoration: line-through; }
+
 @media (max-width: 767px) {
   .xs-block {
     display: block; }

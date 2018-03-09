@@ -28,7 +28,7 @@
                             </thead>
                             <tbody>
                             {% for m in r.matches %}
-                                <tr id="m{{ m.id }}" class="hidden-xs">
+                                <tr id="m{{ m.id }}" class="hidden-xs {{ m.canceled ? 'canceled' }}">
                                     <td>{{ m.datum | date("d.m.Y")}}</td>
                                     <td>{{ m.liga }}</td>
                                     <td>
@@ -39,7 +39,7 @@
                                     <td class="text-center">{{ m.ergebnis }}</td>
                                     <td class="text-center">{{ m.punkte }}</td>
                                 </tr>
-                                <tr class="visible-xs">
+                                <tr class="visible-xs {{ m.canceled ? 'canceled' }}">
                                     <td colspan="2">
                                         <a href="{{ path('tips', { 'championshipSlug': championship.slug, 'round': 'runde-' ~ r.nr, 'matchId': m.id, 'fixture': m.slug}) }}">
                                             {{ m.paarung }}
@@ -47,7 +47,7 @@
                                     </td>
                                     <td class="text-right">{{ m.ergebnis }}</td>
                                 </tr>
-                                <tr class="visible-xs details">
+                                <tr class="visible-xs details {{ m.canceled ? 'canceled' }}">
                                     <td>{{ m.datum | date("d.m.Y")}}</td>
                                     <td>{{ m.liga }}</td>
                                     <td class="text-right" width="60px">{{ m.ergebnis ? 'Pkt: ' ~ m.punkte }}</td>
